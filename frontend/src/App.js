@@ -13,28 +13,37 @@ function App() {
     console.log(`${location}: `, location);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log(location1);
-    try {
-      let response = await fetch("https://httpbin.org/post", {
-        method: "POST",
-        body: JSON.stringify({
-          location1: location1,
-          location2: location2,
-          location3: location3,
-        }),
-      });
+  const handleSubmit = e => {
+    e.preventDefault();
+    const requestOpt = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        location1: location1,
+        location2: location2,
+        location3: location3
+      }),
+  }
+  async function fetchFunc() {
+      return await fetch('http://127.0.0.1:5000/locations', requestOpt)
+          .then(response => response.json())
+          .catch(error => console.log(error));
+  }
+  (async () => {
+      let info = await fetchFunc();
+      alert(JSON.stringify(info));
+      
+  })()
 
-      if (response.status === 200) {
-        console.log("It worked");
-        console.log(response.json());
-      } else {
-        console.log("It didn't work");
-      }
-    } catch (error) {
-      console.log("Error with posting data");
-    }
+    // try {
+    //   let response = await fetch("http://localhost:5000/locations", {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       location1: location1,
+    //       location2: location2,
+    //       location3: location3,
+    //     }),
+    //   });
   };
 
   return (
