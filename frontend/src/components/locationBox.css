@@ -1,0 +1,35 @@
+.container {
+  background-color: #d3f8fd;
+  /* border: 1px black solid; */
+  margin: 15px;
+  border-radius: 7px;
+  padding: 10px;
+}
+
+.inputWrapper {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.inputWrapper input {
+  padding: 5px;
+  width: 40%;
+  border: none;
+  margin: 0px 10px;
+  border-radius: 7px;
+}
+
+.inputWrapper button {
+  padding: 5px;
+  background: #19e0ff;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bolder;
+  color: white;
+  margin: 0px 10px;
+  width: 150px;
+}
