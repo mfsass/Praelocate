@@ -13,37 +13,26 @@ function App() {
     console.log(`${location}: `, location);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const requestOpt = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         location1: location1,
         location2: location2,
-        location3: location3
+        location3: location3,
       }),
-  }
-  async function fetchFunc() {
-      return await fetch('http://127.0.0.1:5000/locations', requestOpt)
-          .then(response => response.json())
-          .catch(error => console.log(error));
-  }
-  (async () => {
+    };
+    async function fetchFunc() {
+      return await fetch("/locations", requestOpt)
+        .then((response) => response.json())
+        .catch((error) => console.log(error));
+    }
+    (async () => {
       let info = await fetchFunc();
       alert(JSON.stringify(info));
-      
-  })()
-
-    // try {
-    //   let response = await fetch("http://localhost:5000/locations", {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       location1: location1,
-    //       location2: location2,
-    //       location3: location3,
-    //     }),
-    //   });
+    })();
   };
 
   return (
