@@ -1,39 +1,46 @@
 import { React, useState } from "react";
 
-function LocationBox(props) {
-  // eslint-disable-next-line
-  const [location, setLocation] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+import "./locationBox.css";
 
-  const handleChange = (event, isLatitude) => {
-    if (isLatitude) {
-      setLatitude(event.target.value);
-    } else {
-      setLongitude(event.target.value);
-    }
-    setLocation({ latitude: latitude, longitude: longitude });
-    props.passChildData(location);
+function LocationBox(props) {
+  const [location, setLocation] = useState({
+    latitude: "",
+    longitude: "",
+  });
+
+  const handleChange = (event) => {
+    event.target.style["background-color"] = "green";
+    console.log("passing to parent");
+    props.passLocation(location);
   };
 
   return (
-    <div className="location container">
+    <div className="container">
       <label>{props.label}</label>
-      <div className="location input">
+      <div className="inputWrapper">
         <input
-          name="loc1lat"
           type="text"
-          onChange={(event) => handleChange(event, true)}
           placeholder="latitude"
           autoComplete="off"
+          onInput={(e) =>
+            setLocation((previousState) => {
+              return { ...previousState, latitude: e.target.value };
+            })
+          }
         />
         <input
-          name="loc1lon"
           type="text"
-          onChange={(event) => handleChange(event, false)}
           placeholder="longitude"
           autoComplete="off"
+          onInput={(e) =>
+            setLocation((previousState) => {
+              return { ...previousState, longitude: e.target.value };
+            })
+          }
         />
+        <button className="button" type="button" onClick={handleChange}>
+          Accept values
+        </button>
       </div>
     </div>
   );

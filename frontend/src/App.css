@@ -17,35 +17,12 @@ body {
   background-color: whitesmoke;
 }
 
-.location.container {
-  background-color: #d3f8fd;
-  /* border: 1px black solid; */
-  margin: 15px;
-  border-radius: 7px;
+h1 {
+  margin-bottom: 0px;
 }
 
-.location.input {
-  padding: 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+p {
+  font-size: 16pt;
 }
 
-.location.input input {
-  padding: 5px 5px;
-  width: 40%;
-  border: none;
-  margin: 5px 0px;
-  border-radius: 7px;
-}
-
-.location.button {
-  background: #53E9FF;
-  border: none;
-  padding: 10px;
-  border-radius: 7px;
-  cursor: pointer;
-  font-weight: bolder;
-}
-
-/* #53E9FF */
+/* #53E9FF -> main color */
