@@ -31,15 +31,17 @@ function Locations() {
     }
     (async () => {
       let info = await fetchFunc();
-      alert(JSON.stringify(info));
+      alert("Time:"+ info.time +" mins");
+      alert("Distance:"+ info.distance +" km's");
+      alert(info.coordinates);
     })();
   };
 
   return (
     <form className="locationForm" onSubmit={handleSubmit}>
-      <LocationBox label="First location" passLocation={setLocation1} />
-      <LocationBox label="Second location" passLocation={setLocation2} />
-      <LocationBox label="Third location" passLocation={setLocation3} />
+      <LocationBox label="Location 1 (in Decimal Degrees)" passLocation={setLocation1}/>
+      <LocationBox label="Location 2 (in Decimal Degrees)" passLocation={setLocation2} />
+      <LocationBox label="Location 3 (in Decimal Degrees)" passLocation={setLocation3} />
       <button className="location button" type="submit">
         Submit
       </button>

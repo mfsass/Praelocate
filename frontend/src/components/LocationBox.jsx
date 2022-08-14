@@ -20,7 +20,7 @@ function LocationBox(props) {
       <div className="inputWrapper">
         <input
           type="text"
-          placeholder="latitude (decimal degrees)"
+          placeholder="eg: -34.067 (latitude)"
           autoComplete="off"
           onInput={(e) =>
             setLocation((previousState) => {
@@ -30,7 +30,7 @@ function LocationBox(props) {
         />
         <input
           type="text"
-          placeholder="longitude (decimal degrees)"
+          placeholder="eg: 18.85 (longitude)"
           autoComplete="off"
           onInput={(e) =>
             setLocation((previousState) => {
