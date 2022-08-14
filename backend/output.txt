@@ -1,0 +1,146 @@
+[
+  {
+    "bounds": {
+      "northeast": {
+        "lat": -33.9306371,
+        "lng": 18.872936
+      },
+      "southwest": {
+        "lat": -33.9321846,
+        "lng": 18.8656279
+      }
+    },
+    "copyrights": "Map data \u00a92022 AfriGIS (Pty) Ltd",
+    "legs": [
+      {
+        "distance": {
+          "text": "0.9 km",
+          "value": 872
+        },
+        "duration": {
+          "text": "3 mins",
+          "value": 161
+        },
+        "duration_in_traffic": {
+          "text": "2 mins",
+          "value": 148
+        },
+        "end_address": "7 De Beer Rd, Stellenbosch, Cape Town, 7600, South Africa",
+        "end_location": {
+          "lat": -33.9321464,
+          "lng": 18.8656279
+        },
+        "start_address": "94 Merriman Ave, Stellenbosch Central, Stellenbosch, 7600, South Africa",
+        "start_location": {
+          "lat": -33.930973,
+          "lng": 18.8722529
+        },
+        "steps": [
+          {
+            "distance": {
+              "text": "88 m",
+              "value": 88
+            },
+            "duration": {
+              "text": "1 min",
+              "value": 21
+            },
+            "end_location": {
+              "lat": -33.9306371,
+              "lng": 18.872936
+            },
+            "html_instructions": "Head <b>east</b> toward <b>Merriman Ave</b>",
+            "polyline": {
+              "points": "pcbnEq~drBIqBQSe@C"
+            },
+            "start_location": {
+              "lat": -33.930973,
+              "lng": 18.8722529
+            },
+            "travel_mode": "DRIVING"
+          },
+          {
+            "distance": {
+              "text": "0.6 km",
+              "value": 595
+            },
+            "duration": {
+              "text": "1 min",
+              "value": 75
+            },
+            "end_location": {
+              "lat": -33.931325,
+              "lng": 18.8665439
+            },
+            "html_instructions": "Turn <b>left</b> onto <b>Merriman Ave</b>",
+            "maneuver": "turn-left",
+            "polyline": {
+              "points": "nabnE{berBPlDLvBB^P~BDt@F`BH|BDv@FtALpDBb@Fp@PlC"
+            },
+            "start_location": {
+              "lat": -33.9306371,
+              "lng": 18.872936
+            },
+            "travel_mode": "DRIVING"
+          },
+          {
+            "distance": {
+              "text": "91 m",
+              "value": 91
+            },
+            "duration": {
+              "text": "1 min",
+              "value": 23
+            },
+            "end_location": {
+              "lat": -33.9321327,
+              "lng": 18.8666767
+            },
+            "html_instructions": "Turn <b>left</b> onto <b>De Beer Rd</b>",
+            "maneuver": "turn-left",
+            "polyline": {
+              "points": "vebnE{zcrB`D["
+            },
+            "start_location": {
+              "lat": -33.931325,
+              "lng": 18.8665439
+            },
+            "travel_mode": "DRIVING"
+          },
+          {
+            "distance": {
+              "text": "0.1 km",
+              "value": 98
+            },
+            "duration": {
+              "text": "1 min",
+              "value": 42
+            },
+            "end_location": {
+              "lat": -33.9321464,
+              "lng": 18.8656279
+            },
+            "html_instructions": "Turn <b>right</b><div style=\"font-size:0.9em\">Destination will be on the left</div>",
+            "maneuver": "turn-right",
+            "polyline": {
+              "points": "xjbnEw{crBHlC@b@AF?@AHCJ"
+            },
+            "start_location": {
+              "lat": -33.9321327,
+              "lng": 18.8666767
+            },
+            "travel_mode": "DRIVING"
+          }
+        ],
+        "traffic_speed_entry": [],
+        "via_waypoint": []
+      }
+    ],
+    "overview_polyline": {
+      "points": "pcbnEq~drBIqBQSe@CPlDPvCVtD^lJPtEX~D`D[HlC?j@EV"
+    },
+    "summary": "Merriman Ave",
+    "warnings": [],
+    "waypoint_order": []
+  }
+]

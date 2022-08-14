@@ -13,6 +13,7 @@ function Locations() {
     // location1.longitude = 18.872240042486016;
     // location2.latitude = -33.93253245739606; -> neelsie
     // location2.longitude = 18.86538266947165;
+    // Location 3 = -33.940743, 18.854595 Gino's
     e.preventDefault();
     const requestOpt = {
       method: "POST",

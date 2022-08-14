@@ -1,6 +1,6 @@
 import "./App.css";
 import home from "./home-alt.svg";
-
+import React from 'react'
 import Locations from "./components/Locations";
 
 function App() {
