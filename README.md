@@ -53,6 +53,8 @@ A web-app that would find the best location to find a house given certain signif
 
    `$ npm install`
 
+   `$ npm install --save @react-google-maps/api`
+
 ## Execution
 
 ### Backend
