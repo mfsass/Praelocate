@@ -131,3 +131,9 @@ def locations():
         'allDistances': allDistance,
         'allTimes': allTime
     }
+
+
+@app.route("/getLocations", methods=["GET"])
+@cross_origin()
+def getLocations():
+    return jsonify(allCoordinates)

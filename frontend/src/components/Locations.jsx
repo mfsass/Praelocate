@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import LocationBox from "./LocationBox";
 
 import "./locations.css";
-
+export var coordinates = [];
 function Locations() {
   const [location1, setLocation1] = useState("");
   const [location2, setLocation2] = useState("");
@@ -38,6 +38,7 @@ function Locations() {
       // alert(info.coordinates);
       setMidpoint(info.coordinates);
       setData(info);
+      coordinates = info.allCoordinates;
     })();
   };
 
