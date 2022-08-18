@@ -22,11 +22,11 @@ function LocationBox(props) {
           type="text"
           placeholder="eg: -34.067 (latitude)"
           autoComplete="off"
-          onInput={(e) =>
-            setLocation((previousState) => {
+          onInput={(e) => {
+            setLocation1((previousState) => {
               return { ...previousState, latitude: e.target.value };
-            })
-          }
+            });
+          }}
         />
         <input
           type="text"

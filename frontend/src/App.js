@@ -1,29 +1,29 @@
 import React from "react";
-import Locations from "./components/Locations";
-import MapSection from './components/map'
+import Map from "./components/Map";
+import "./App.css";
 
 const location = {
-  address: '1600 Amphitheatre Parkway, Mountain View, california.',
+  address: "1600 Amphitheatre Parkway, Mountain View, california.",
   lat: 37.42216,
   lng: -122.08427,
-}
-
-import home from "./home-alt.svg";
-import "./App.css";
+};
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <div className="header">
         <h1>Home Location Tool</h1>
-        <p>
-          Enter your important locations and see where your dream home might be
-        </p>
-      </header>
-      <div className="body">
-        <img src={home} className="App-logo" alt="logo" />
-        <MapSection location={location}/>
-        <Locations></Locations>
+        <p>Your quest to find your dream home just became one step closer.</p>
+        <p>Enter your important locations below.</p>
+        <img
+          src={process.env.PUBLIC_URL + "home.png"}
+          className="App-logo"
+          alt="logo"
+        />
+        <a href="#body">Start</a>
+      </div>
+      <div id="body" className="body">
+        <Map location={location} />
       </div>
     </div>
   );
