@@ -31,9 +31,10 @@ def locations():
     print(f"Location2: {loc2}")
     print(f"Location3: {loc3}")
 
-    loc1_coordinates = (float(loc1["latitude"]), float(loc1["longitude"]))
-    loc2_coordinates = (float(loc2["latitude"]), float(loc2["longitude"]))
-    loc3_coordinates = (float(loc3["latitude"]), float(loc3["longitude"]))
+    loc1_coordinates = (float(loc1["lat"]), float(loc1["lng"]))
+    loc2_coordinates = (float(loc2["lat"]), float(loc2["lng"]))
+    loc3_coordinates = (float(loc3["lat"]), float(loc3["lng"]))
+    
 
     average_coordinates_latitude = (float(
         loc1_coordinates[0])+float(loc2_coordinates[0])+float(loc3_coordinates[0]))/3
