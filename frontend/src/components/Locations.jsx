@@ -1,18 +1,7 @@
 import { React, useState } from "react";
 import LocationBox from "./LocationBox";
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 import "./locations.css";
-
-const containerStyle = {
-  width: '400px',
-  height: '400px'
-};
-
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
 
 function Locations() {
   const [location1, setLocation1] = useState("");
@@ -50,14 +39,6 @@ function Locations() {
 
   return (
     <form className="locationForm" onSubmit={handleSubmit}>
-      <LoadScript googleMapsApiKey="AIzaSyAw71uaQ28Y-SABJAkLueUlhtdcN1JAPzI">
-          <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={10}
-          >
-          </GoogleMap>
-      </LoadScript>
       <LocationBox label="Location 1 (in Decimal Degrees)" passLocation={setLocation1}/>
       <LocationBox label="Location 2 (in Decimal Degrees)" passLocation={setLocation2} />
       <LocationBox label="Location 3 (in Decimal Degrees)" passLocation={setLocation3} />
