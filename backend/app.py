@@ -10,6 +10,10 @@ import numpy as np
 app = Flask(__name__)
 CORS(app)
 
+allDistance = []
+allTime = []
+allCoordinates = []
+midpoint = ''
 # top secret
 with open("api-key.txt") as api_file:
     key = api_file.readline()
@@ -30,6 +34,9 @@ def locations():
     print(f"Location1: {loc1}")
     print(f"Location2: {loc2}")
     print(f"Location3: {loc3}")
+    allDistance.clear()
+    allTime.clear()
+    allCoordinates.clear()
 
     loc1_coordinates = (float(loc1["lat"]), float(loc1["lng"]))
     loc2_coordinates = (float(loc2["lat"]), float(loc2["lng"]))
@@ -40,8 +47,10 @@ def locations():
         loc1_coordinates[0])+float(loc2_coordinates[0])+float(loc3_coordinates[0]))/3
     average_coordinates_longitude = (float(
         loc1_coordinates[1])+float(loc2_coordinates[1])+float(loc3_coordinates[1]))/3
-    print("Midpoint of coordinates = " + str(average_coordinates_latitude) +
-          ", "+str(average_coordinates_longitude))
+
+    midpoint = str(average_coordinates_latitude) + ", " + \
+        str(average_coordinates_longitude)
+    print("Midpoint of coordinates = " + midpoint)
     average_coordinates = (average_coordinates_latitude,
                            average_coordinates_longitude)
     # print(average_coordinates)
@@ -63,6 +72,8 @@ def locations():
         # print(json.dumps(directions_result, indent=2))
         distance = int(directions_result[0]["legs"][0]["distance"]["value"])
         duration = int(directions_result[0]["legs"][0]["duration"]["value"])
+        allDistance.append(round((distance/1000), 2))
+        allTime.append(round((duration/60), 2))
         average_distance += distance
         average_time += duration
         print(
@@ -76,6 +87,8 @@ def locations():
         # print(json.dumps(directions_result, indent=2))
         distance = int(directions_result[0]["legs"][0]["distance"]["value"])
         duration = int(directions_result[0]["legs"][0]["duration"]["value"])
+        allDistance.append(round((distance/1000), 2))
+        allTime.append(round((duration/60), 2))
         average_distance += distance
         average_time += duration
         print(
@@ -89,6 +102,8 @@ def locations():
         # print(json.dumps(directions_result, indent=2))
         distance = int(directions_result[0]["legs"][0]["distance"]["value"])
         duration = int(directions_result[0]["legs"][0]["duration"]["value"])
+        allDistance.append(round((distance/1000), 2))
+        allTime.append(round((duration/60), 2))
         average_distance += distance
         average_time += duration
         print(
@@ -96,6 +111,12 @@ def locations():
 
         average_distance = round((average_distance/1000)/3, 2)
         average_time = round((average_time/60)/3, 2)
+        allCoordinates.append(
+            ((loc1["latitude"])+" " + (loc1["longitude"])))
+        allCoordinates.append(
+            ((loc2["latitude"])+" " + (loc2["longitude"])))
+        allCoordinates.append(
+            ((loc3["latitude"])+" " + (loc3["longitude"])))
 
     except:
         return jsonify("Unsucessful request... maybe invalid coordinates")
@@ -106,11 +127,14 @@ def locations():
     return {
         'coordinates': average_coordinates,
         'distance': average_distance,
-        'time': average_time
-
+        'time': average_time,
+        'allCoordinates': allCoordinates,
+        'allDistances': allDistance,
+        'allTimes': allTime
     }
 
 
-@app.route("/")
-def home():
-    return "Checking home route"
+@app.route("/getLocations", methods=["GET"])
+@cross_origin()
+def getLocations():
+    return jsonify(allCoordinates)

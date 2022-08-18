@@ -4,10 +4,12 @@ import {
   GoogleMap,
   LoadScript,
   StandaloneSearchBox,
+  MarkerF,
 } from "@react-google-maps/api";
 import "./map.css";
 
 const libraries = ["places"];
+
 const containerStyle = {
   width: "100%",
   height: "100%",
@@ -39,16 +41,12 @@ function Map() {
   const location1Str = useRef("");
   const location2Str = useRef("");
   const location3Str = useRef("");
-  const [
-    location1 = {
-      lat: "",
-      lng: "",
-    },
-    setLocation1,
-  ] = useState();
-
+  const [location1, setLocation1] = useState("");
   const [location2, setLocation2] = useState("");
   const [location3, setLocation3] = useState("");
+  const [midPoint, setMidpoint] = useState("");
+
+  const allCoordinates = [];
 
   const handleChange = (event, locationStr, locationFunction) => {
     console.log(locationStr.current.value);
@@ -68,12 +66,6 @@ function Map() {
   const changeColor = (event) => {
     event.target.style["background-color"] = "#4cb98c";
   };
-
-  // useEffect(() => {
-  //   console.log(`Location 1: ${location1.lat}, ${location1.lng}`);
-  //   console.log(`Location 2: ${location2.lat}, ${location2.lng}`);
-  //   console.log(`Location 3: ${location3.lat}, ${location3.lng}`);
-  // }, [location1, location2, location3]);
 
   const handleSubmit = (e) => {
     console.log(location1);
@@ -97,9 +89,43 @@ function Map() {
     }
     (async () => {
       let info = await fetchFunc();
-      alert("Time:" + info.time + " mins");
-      alert("Distance:" + info.distance + " km's");
-      alert(info.coordinates);
+      console.log(info);
+    })();
+  };
+
+  const handle = (e, location, locationFunction) => {
+    e.preventDefault();
+    let temp_loc = location.split(" ");
+    locationFunction({
+      lat: temp_loc[0],
+      lng: temp_loc[1],
+    });
+  };
+
+  const getPoint = (e) => {
+    e.preventDefault();
+    const requestOpt = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
+    async function fetchFunc() {
+      return await fetch("/getLocations", requestOpt)
+        .then((response) => response.json())
+        .catch((error) => console.log(error));
+    }
+    (async () => {
+      let info = await fetchFunc();
+      console.log(info);
+      console.log("Changing location 1");
+      handle(e, info[0], setLocation1);
+      handle(e, info[0], setLocation2);
+      handle(e, info[0], setLocation3);
+      handle(e, info[0], setMidpoint);
+      console.log("Finished changing location 1");
+      allCoordinates.push(location1);
+      allCoordinates.push(location2);
+      allCoordinates.push(location3);
+      allCoordinates.push(midPoint);
     })();
   };
 
@@ -107,7 +133,7 @@ function Map() {
     <div className="map">
       <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
         <div className="locations">
-          <form onSubmit={handleSubmit}>
+          <form className="locations form" onSubmit={handleSubmit}>
             <div className="box">
               <label>First location</label>
               <StandaloneSearchBox>
@@ -176,13 +202,41 @@ function Map() {
               Submit
             </button>
           </form>
+          <form className="locations point" onSubmit={getPoint}>
+            <button className="locations button" type="submit">
+              Get point
+            </button>
+          </form>
         </div>
         <div className="googleMap">
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={16}
-          ></GoogleMap>
+            zoom={14}
+          >
+            {allCoordinates.length === 4 ? (
+              <div>
+                <MarkerF
+                  position={location1}
+                  icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
+                />
+                <MarkerF
+                  position={location2}
+                  icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
+                />
+                <MarkerF
+                  position={location3}
+                  icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
+                />
+                <MarkerF
+                  position={midPoint}
+                  icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
+                />
+              </div>
+            ) : (
+              <></>
+            )}
+          </GoogleMap>
         </div>
       </LoadScript>
     </div>

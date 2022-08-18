@@ -2,11 +2,13 @@ import { React, useState } from "react";
 import LocationBox from "./LocationBox";
 
 import "./locations.css";
-
+export var coordinates = [];
 function Locations() {
   const [location1, setLocation1] = useState("");
   const [location2, setLocation2] = useState("");
   const [location3, setLocation3] = useState("");
+  const [data, setData] = useState([]);
+  const [midpoint, setMidpoint] = useState("");
 
   const handleSubmit = (e) => {
     // location1.latitude = -33.93087933494542; -> eendrag
@@ -31,9 +33,12 @@ function Locations() {
     }
     (async () => {
       let info = await fetchFunc();
-      alert("Time:" + info.time + " mins");
-      alert("Distance:" + info.distance + " km's");
-      alert(info.coordinates);
+      // alert("Time:" + info.time + " mins");
+      // alert("Distance:" + info.distance + " km's");
+      // alert(info.coordinates);
+      setMidpoint(info.coordinates);
+      setData(info);
+      coordinates = info.allCoordinates;
     })();
   };
 
@@ -54,6 +59,32 @@ function Locations() {
       <button className="location button" type="submit">
         Submit
       </button>
+
+      <>
+        <h3>
+          Midpoint = {midpoint[0]}, {midpoint[1]}
+        </h3>
+        <table id="myTable" className="table table-available">
+          <thead>
+            <tr>
+              <th>Location:</th>
+              <th>Distances from Midpoint (kms)</th>
+              <th>Travel time from Midpoint (mins)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.keys(data).map((value, index) => {
+              return (
+                <tr>
+                  <td>{data.allCoordinates[index]} </td>
+                  <td>{data.allDistances[index]}</td>
+                  <td>{data.allTimes[index]}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </>
     </form>
   );
 }
