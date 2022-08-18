@@ -13,7 +13,7 @@ CORS(app)
 allDistance = []
 allTime = []
 allCoordinates = []
-midpoint = ''
+midpoint = ""
 # top secret
 with open("api-key.txt") as api_file:
     key = api_file.readline()
@@ -41,25 +41,27 @@ def locations():
     loc1_coordinates = (float(loc1["lat"]), float(loc1["lng"]))
     loc2_coordinates = (float(loc2["lat"]), float(loc2["lng"]))
     loc3_coordinates = (float(loc3["lat"]), float(loc3["lng"]))
-    
 
-    average_coordinates_latitude = (float(
-        loc1_coordinates[0])+float(loc2_coordinates[0])+float(loc3_coordinates[0]))/3
-    average_coordinates_longitude = (float(
-        loc1_coordinates[1])+float(loc2_coordinates[1])+float(loc3_coordinates[1]))/3
+    average_coordinates_latitude = (
+        float(loc1_coordinates[0])
+        + float(loc2_coordinates[0])
+        + float(loc3_coordinates[0])
+    ) / 3
+    average_coordinates_longitude = (
+        float(loc1_coordinates[1])
+        + float(loc2_coordinates[1])
+        + float(loc3_coordinates[1])
+    ) / 3
 
-    midpoint = str(average_coordinates_latitude) + ", " + \
-        str(average_coordinates_longitude)
-    print("Midpoint of coordinates = " + midpoint)
-    average_coordinates = (average_coordinates_latitude,
-                           average_coordinates_longitude)
+    midpoint = {
+        "lat": average_coordinates_latitude,
+        "lng": average_coordinates_longitude,
+    }
+    print(f"Midpoint of coordinates: {midpoint['lat']}, {midpoint['lng']}")
+    average_coordinates = (average_coordinates_latitude, average_coordinates_longitude)
     # print(average_coordinates)
 
     try:
-        geocode_result_eendrag = gmaps.reverse_geocode((loc1_coordinates))
-        geocode_result_neelsie = gmaps.reverse_geocode((loc1_coordinates))
-        # print(json.dumps(geocode_result_eendrag, indent=2))
-        # print(json.dumps(geocode_result_neelsie, indent=2))
         average_distance = 0
         average_time = 0
 
@@ -72,12 +74,13 @@ def locations():
         # print(json.dumps(directions_result, indent=2))
         distance = int(directions_result[0]["legs"][0]["distance"]["value"])
         duration = int(directions_result[0]["legs"][0]["duration"]["value"])
-        allDistance.append(round((distance/1000), 2))
-        allTime.append(round((duration/60), 2))
+        allDistance.append(round((distance / 1000), 2))
+        allTime.append(round((duration / 60), 2))
         average_distance += distance
         average_time += duration
         print(
-            f"Distance from midpoint to loc1: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes")
+            f"Distance from midpoint to loc1: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
+        )
 
         directions_result = gmaps.directions(
             origin=average_coordinates, destination=loc2_coordinates, departure_time=now
@@ -87,12 +90,13 @@ def locations():
         # print(json.dumps(directions_result, indent=2))
         distance = int(directions_result[0]["legs"][0]["distance"]["value"])
         duration = int(directions_result[0]["legs"][0]["duration"]["value"])
-        allDistance.append(round((distance/1000), 2))
-        allTime.append(round((duration/60), 2))
+        allDistance.append(round((distance / 1000), 2))
+        allTime.append(round((duration / 60), 2))
         average_distance += distance
         average_time += duration
         print(
-            f"Distance from midpoint to loc2: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes")
+            f"Distance from midpoint to loc2: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
+        )
 
         directions_result = gmaps.directions(
             origin=average_coordinates, destination=loc3_coordinates, departure_time=now
@@ -102,36 +106,39 @@ def locations():
         # print(json.dumps(directions_result, indent=2))
         distance = int(directions_result[0]["legs"][0]["distance"]["value"])
         duration = int(directions_result[0]["legs"][0]["duration"]["value"])
-        allDistance.append(round((distance/1000), 2))
-        allTime.append(round((duration/60), 2))
+        allDistance.append(round((distance / 1000), 2))
+        allTime.append(round((duration / 60), 2))
         average_distance += distance
         average_time += duration
         print(
-            f"Distance from midpoint to loc3: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes")
+            f"Distance from midpoint to loc3: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
+        )
 
-        average_distance = round((average_distance/1000)/3, 2)
-        average_time = round((average_time/60)/3, 2)
-        allCoordinates.append(
-            ((loc1["latitude"])+" " + (loc1["longitude"])))
-        allCoordinates.append(
-            ((loc2["latitude"])+" " + (loc2["longitude"])))
-        allCoordinates.append(
-            ((loc3["latitude"])+" " + (loc3["longitude"])))
+        average_distance = round((average_distance / 1000) / 3, 2)
+        average_time = round((average_time / 60) / 3, 2)
+
+        allCoordinates.append((f'{loc1["lat"]} {loc1["lng"]}'))
+        allCoordinates.append((f'{loc2["lat"]} {loc2["lng"]}'))
+        allCoordinates.append((f'{loc3["lat"]} {loc3["lng"]}'))
+        allCoordinates.append((f'{midpoint["lat"]} {midpoint["lng"]}'))
 
     except:
         return jsonify("Unsucessful request... maybe invalid coordinates")
 
     # return jsonify(str(average_coordinates_latitude) +
-        #    ","+str(average_coordinates_longitude))
+    #    ","+str(average_coordinates_longitude))
 
-    return {
-        'coordinates': average_coordinates,
-        'distance': average_distance,
-        'time': average_time,
-        'allCoordinates': allCoordinates,
-        'allDistances': allDistance,
-        'allTimes': allTime
-    }
+    return jsonify("Success")
+
+
+# return {
+#     'coordinates': average_coordinates,
+#     'distance': average_distance,
+#     'time': average_time,
+#     'allCoordinates': allCoordinates,
+#     'allDistances': allDistance,
+#     'allTimes': allTime
+# }
 
 
 @app.route("/getLocations", methods=["GET"])
