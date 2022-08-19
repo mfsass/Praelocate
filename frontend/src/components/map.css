@@ -24,12 +24,15 @@
   justify-content: space-around;
 }
 
-.locations.point {
+.locations.showPoint,
+.locations.getPoint {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+
 
 .box {
   margin: 15px;

@@ -6,6 +6,7 @@ import {
   StandaloneSearchBox,
   MarkerF,
 } from "@react-google-maps/api";
+import { useEffect } from "react";
 import "./map.css";
 
 const libraries = ["places"];
@@ -44,12 +45,28 @@ function Map() {
   const [location1, setLocation1] = useState("");
   const [location2, setLocation2] = useState("");
   const [location3, setLocation3] = useState("");
-  const [midPoint, setMidpoint] = useState("");
+  const [midPoint, setMidPoint] = useState("");
+  const [shouldShowLocations, setShouldShowLocations] = useState(false);
+  const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
+  const [allCoordinates, setAllCoordinates] = useState([]);
 
-  const allCoordinates = [];
+  const toggleShow = (event) => {
+    if (allCoordinates.length === 3) {
+      setAllCoordinates((allCoordinates) => [...allCoordinates, midPoint]);
+      setShouldShowLocations(true);
+      event.target.style["background-color"] = "#944040";
+    }
+    if (allCoordinates.length === 4) {
+      setShouldShowMidPoint(true);
+      event.target.style["background-color"] = "#2b65b1";
+    }
+  };
+
+  useEffect(() => {
+    console.log(shouldShowLocations, shouldShowMidPoint);
+  }, [shouldShowLocations, shouldShowMidPoint]);
 
   const handleChange = (event, locationStr, locationFunction) => {
-    console.log(locationStr.current.value);
     Geocode.fromAddress(locationStr.current.value).then(
       (response) => {
         const responseCoords = response.results[0].geometry.location;
@@ -68,10 +85,6 @@ function Map() {
   };
 
   const handleSubmit = (e) => {
-    console.log(location1);
-    console.log(location2);
-    console.log(location3);
-
     e.preventDefault();
     const requestOpt = {
       method: "POST",
@@ -89,16 +102,18 @@ function Map() {
     }
     (async () => {
       let info = await fetchFunc();
-      console.log(info);
     })();
   };
 
   const handle = (e, location, locationFunction) => {
-    e.preventDefault();
     let temp_loc = location.split(" ");
+    let result = {
+      lat: parseFloat(temp_loc[0]),
+      lng: parseFloat(temp_loc[1]),
+    };
     locationFunction({
-      lat: temp_loc[0],
-      lng: temp_loc[1],
+      lat: result.lat,
+      lng: result.lng,
     });
   };
 
@@ -115,18 +130,11 @@ function Map() {
     }
     (async () => {
       let info = await fetchFunc();
-      console.log(info);
-      console.log("Changing location 1");
-      handle(e, info[0], setLocation1);
-      handle(e, info[0], setLocation2);
-      handle(e, info[0], setLocation3);
-      handle(e, info[0], setMidpoint);
-      console.log("Finished changing location 1");
-      allCoordinates.push(location1);
-      allCoordinates.push(location2);
-      allCoordinates.push(location3);
-      allCoordinates.push(midPoint);
-    })();
+      handle(e, info[3], setMidPoint);
+      setAllCoordinates((allCoordinates) => [...allCoordinates, location1]);
+      setAllCoordinates((allCoordinates) => [...allCoordinates, location2]);
+      setAllCoordinates((allCoordinates) => [...allCoordinates, location3]);
+    })(setMidPoint(""));
   };
 
   return (
@@ -202,11 +210,24 @@ function Map() {
               Submit
             </button>
           </form>
-          <form className="locations point" onSubmit={getPoint}>
-            <button className="locations button" type="submit">
+          <form className="locations getPoint" onSubmit={getPoint}>
+            <button
+              className="locations button"
+              type="submit"
+              onClick={changeColor}
+            >
               Get point
             </button>
           </form>
+          <div className="locations showPoint">
+            <button
+              className="locations button"
+              type="button"
+              onClick={toggleShow}
+            >
+              Show point
+            </button>
+          </div>
         </div>
         <div className="googleMap">
           <GoogleMap
@@ -214,7 +235,7 @@ function Map() {
             center={center}
             zoom={14}
           >
-            {allCoordinates.length === 4 ? (
+            {shouldShowLocations && (
               <div>
                 <MarkerF
                   position={location1}
@@ -228,13 +249,13 @@ function Map() {
                   position={location3}
                   icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
                 />
-                <MarkerF
-                  position={midPoint}
-                  icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                />
               </div>
-            ) : (
-              <></>
+            )}
+            {shouldShowMidPoint && (
+              <MarkerF
+                position={midPoint}
+                icon={"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
+              />
             )}
           </GoogleMap>
         </div>
