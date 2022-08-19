@@ -1,4 +1,6 @@
-# Home Location Tool
+# Praelocate
+
+### _A home relocation tool_
 
 A web-app that would find the best location to find a house given certain significant locations as input.
 

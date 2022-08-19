@@ -12,7 +12,10 @@ function App() {
   return (
     <div className="App">
       <div className="header">
-        <h1>Home Location Tool</h1>
+        <h1>Praelocate</h1>
+        <i>
+          <h3>A home location tool</h3>
+        </i>
         <p>Your quest to find your dream home just became one step closer.</p>
         <p>Enter your important locations below.</p>
         <img

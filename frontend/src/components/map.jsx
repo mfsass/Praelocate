@@ -102,6 +102,7 @@ function Map() {
     }
     (async () => {
       let info = await fetchFunc();
+      console.log(info);
     })();
   };
 
