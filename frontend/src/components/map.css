@@ -1,0 +1,80 @@
+/* parent */
+.map {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+
+/* child 1 */
+.locations {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  margin: 10px;
+}
+
+.locations.form {
+  flex: 8;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.locations.showPoint,
+.locations.getPoint {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.box {
+  margin: 15px;
+  border-radius: 7px;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  padding: 30px 30px 20px 30px;
+  width: 40%;
+}
+
+.box.button {
+  padding: 10px;
+  background: #182425;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bolder;
+  color: white;
+  font-size: 11pt;
+}
+
+.locations.button:hover,
+.box.button:hover {
+  background: #33686e;
+}
+
+.locations.button {
+  padding: 10px;
+  background: #182425;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bolder;
+  color: white;
+  width: 300px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  align-items: center;
+  font-size: 11pt;
+}
+
+/* child 2 */
+.googleMap {
+  width: 50vw;
+}

@@ -3,7 +3,7 @@ import { React, useState } from "react";
 import "./locationBox.css";
 
 function LocationBox(props) {
-  const [location, setLocation] = useState({
+  const [location1, setLocation1] = useState({
     latitude: "",
     longitude: "",
   });
@@ -11,7 +11,7 @@ function LocationBox(props) {
   const handleChange = (event) => {
     event.target.style["background-color"] = "green";
     console.log("passing to parent");
-    props.passLocation(location);
+    props.passLocation(location1);
   };
 
   return (
@@ -22,18 +22,18 @@ function LocationBox(props) {
           type="text"
           placeholder="eg: -34.067 (latitude)"
           autoComplete="off"
-          onInput={(e) =>
-            setLocation((previousState) => {
+          onInput={(e) => {
+            setLocation1((previousState) => {
               return { ...previousState, latitude: e.target.value };
-            })
-          }
+            });
+          }}
         />
         <input
           type="text"
           placeholder="eg: 18.85 (longitude)"
           autoComplete="off"
           onInput={(e) =>
-            setLocation((previousState) => {
+            setLocation1((previousState) => {
               return { ...previousState, longitude: e.target.value };
             })
           }

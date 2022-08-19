@@ -1,39 +1,14 @@
-import React, { useState, useRef, useCallback } from "react";
-import {
-  useJsApiLoader,
-  Autocomplete,
-  GoogleMap,
-  LoadScript,
-  Marker,
-  StandaloneSearchBox,
-} from "@react-google-maps/api";
+import { React, useState } from "react";
 import LocationBox from "./LocationBox";
 
 import "./locations.css";
-
+export var coordinates = [];
 function Locations() {
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyAw71uaQ28Y-SABJAkLueUlhtdcN1JAPzI",
-  });
-
-  const [map, setMap] = useState(/** @type google.maps.map */ null);
-
   const [location1, setLocation1] = useState("");
   const [location2, setLocation2] = useState("");
   const [location3, setLocation3] = useState("");
-
-  const originRef = useRef();
-  const destinationRef = useRef();
-
-  const center = {
-    lat: -33.93087933494542,
-    lng: 18.872240042486016,
-  };
-
-  const containerStyle = {
-    width: "600px",
-    height: "400px",
-  };
+  const [data, setData] = useState([]);
+  const [midpoint, setMidpoint] = useState("");
 
   const handleSubmit = (e) => {
     // location1.latitude = -33.93087933494542; -> eendrag
@@ -58,72 +33,59 @@ function Locations() {
     }
     (async () => {
       let info = await fetchFunc();
-      alert("Time:" + info.time + " mins");
-      alert("Distance:" + info.distance + " km's");
-      alert(info.coordinates);
+      // alert("Time:" + info.time + " mins");
+      // alert("Distance:" + info.distance + " km's");
+      // alert(info.coordinates);
+      setMidpoint(info.coordinates);
+      setData(info);
+      coordinates = info.allCoordinates;
     })();
   };
 
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    setMap(map);
-  }, []);
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null);
-  }, []);
-
-  return isLoaded ? (
+  return (
     <form className="locationForm" onSubmit={handleSubmit}>
-      <LoadScript
-        googleMapsApiKey="AIzaSyAw71uaQ28Y-SABJAkLueUlhtdcN1JAPzI"
-        libraries={["places"]}
-      >
-        <Autocomplete>
-          <input type="text" placeholder="hi"></input>
-        </Autocomplete>
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={15}
-          options={{
-            zoomControl: true,
-            streetViewControl: false,
-            mapTypeControl: false,
-            fullscreenControl: true,
-          }}
-          onLoad={onLoad}
-          onUnmount={onUnmount}
-        >
-          {/* Child components, such as markers, info windows, etc. */}
-          <Marker position={center} />
-          <StandaloneSearchBox>
-            <input type="text" placeholder="Hi"></input>
-          </StandaloneSearchBox>
-        </GoogleMap>
-        {/* <Autocomplete>
-          <input type="text" placeholder="Location1" ref={originRef}></input>
-        </Autocomplete> */}
-        <LocationBox
-          label="Location 1 (in Decimal Degrees)"
-          passLocation={setLocation1}
-        />
-        <LocationBox
-          label="Location 2 (in Decimal Degrees)"
-          passLocation={setLocation2}
-        />
-        <LocationBox
-          label="Location 3 (in Decimal Degrees)"
-          passLocation={setLocation3}
-        />
-        <button className="location button" type="submit">
-          Submit
-        </button>
-      </LoadScript>
+      <LocationBox
+        label="Location 1 (in Decimal Degrees)"
+        passLocation={setLocation1}
+      />
+      <LocationBox
+        label="Location 2 (in Decimal Degrees)"
+        passLocation={setLocation2}
+      />
+      <LocationBox
+        label="Location 3 (in Decimal Degrees)"
+        passLocation={setLocation3}
+      />
+      <button className="location button" type="submit">
+        Submit
+      </button>
+
+      <>
+        <h3>
+          Midpoint = {midpoint[0]}, {midpoint[1]}
+        </h3>
+        <table id="myTable" className="table table-available">
+          <thead>
+            <tr>
+              <th>Location:</th>
+              <th>Distances from Midpoint (kms)</th>
+              <th>Travel time from Midpoint (mins)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.keys(data).map((value, index) => {
+              return (
+                <tr>
+                  <td>{data.allCoordinates[index]} </td>
+                  <td>{data.allDistances[index]}</td>
+                  <td>{data.allTimes[index]}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </>
     </form>
-  ) : (
-    <></>
   );
 }
 
