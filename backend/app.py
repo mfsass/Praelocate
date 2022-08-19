@@ -54,8 +54,8 @@ def locations():
     ) / 3
 
     midpoint = {
-        "lat": average_coordinates_latitude,
-        "lng": average_coordinates_longitude,
+        "lat": round(average_coordinates_latitude, ndigits=7),
+        "lng": round(average_coordinates_longitude, ndigits=7),
     }
     print(f"Midpoint of coordinates: {midpoint['lat']}, {midpoint['lng']}")
     average_coordinates = (average_coordinates_latitude, average_coordinates_longitude)
@@ -121,6 +121,8 @@ def locations():
         allCoordinates.append((f'{loc2["lat"]} {loc2["lng"]}'))
         allCoordinates.append((f'{loc3["lat"]} {loc3["lng"]}'))
         allCoordinates.append((f'{midpoint["lat"]} {midpoint["lng"]}'))
+
+        print(allCoordinates)
 
     except:
         return jsonify("Unsucessful request... maybe invalid coordinates")
