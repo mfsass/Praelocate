@@ -12,7 +12,7 @@ A web-app that would find the best location to find a house given certain signif
 
 ## Stack:
 
-- Backend: simple Flask api
+- Backend: simple Flask API
 - Frontend: React app
 
 ## Requirements:
@@ -53,6 +53,8 @@ A web-app that would find the best location to find a house given certain signif
 
    `$ npm install`
 
+   `$ npm install --save @react-google-maps/api`
+
 ## Execution
 
 ### Backend
@@ -69,3 +71,21 @@ A web-app that would find the best location to find a house given certain signif
 2. Start the react app:
 
    `$ npm start`
+
+## Workflow:
+
+tldr: <b>pull from</b> development, <b>merge into</b> development
+
+1. Make sure you are on your own branch with `$ git status`
+1. Pull from development:
+
+   `$ git pull origin development`
+
+1. Commit to your own branch (no `$ git add *`) with sensible commit messages
+1. When you are finished working, merge into development (not pull from your branch)
+
+   `$ git switch development`
+
+   `$ git merge <your banch>` (fix merge issues)
+
+   `$ git push origin development`

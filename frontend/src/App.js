@@ -1,7 +1,13 @@
-import "./App.css";
-import home from "./home-alt.svg";
-import React from 'react'
+import React from "react";
 import Locations from "./components/Locations";
+import MapSection from "./components/map";
+import home from "./home-alt.svg";
+import "./App.css";
+const location = {
+  address: "1600 Amphitheatre Parkway, Mountain View, california.",
+  lat: 37.42216,
+  lng: -122.08427,
+};
 
 function App() {
   return (
@@ -12,10 +18,12 @@ function App() {
           Enter your important locations and see where your dream home might be
         </p>
       </header>
-      <body>
+      <div className="body">
         <img src={home} className="App-logo" alt="logo" />
+
         <Locations></Locations>
-      </body>
+        <MapSection location={location} />
+      </div>
     </div>
   );
 }
