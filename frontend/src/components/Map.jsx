@@ -8,6 +8,7 @@ import {
 } from "@react-google-maps/api";
 import { useEffect } from "react";
 import "./map.css";
+import LocationBox from "./LocationBox";
 
 const libraries = ["places"];
 
@@ -143,6 +144,16 @@ function Map() {
       <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
         <div className="locations">
           <form className="locations form" onSubmit={handleSubmit}>
+            <LocationBox
+              label={"Second location"}
+              inputStyle={inputStyle}
+              locationStr={location1Str}
+              placeholder={"e.g. 'Neelsie'"}
+              handleChange={(e) => {
+                handleChange(e, location1Str, setLocation1, location1);
+              }}
+            />
+
             <div className="box">
               <label>First location</label>
               <StandaloneSearchBox>
