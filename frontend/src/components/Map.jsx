@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useReducer } from "react";
 import Geocode from "react-geocode";
 import {
   GoogleMap,
@@ -39,14 +39,28 @@ const API_KEY = "AIzaSyAw71uaQ28Y-SABJAkLueUlhtdcN1JAPzI";
 Geocode.setApiKey(API_KEY);
 Geocode.setRegion("za");
 
+// const formReducer = (state, event) => {
+//   return {
+//     ...state,
+//     [event.name]: event.value,
+//   };
+// };
+
+let coordinates = [];
+
 function Map() {
-  const location1Str = useRef("");
-  const location2Str = useRef("");
-  const location3Str = useRef("");
+  // const [formData, setFormData] = useReducer(formReducer, {});
+  const location1Str = useRef();
+  const location2Str = useRef();
+  const location3Str = useRef();
+
+  const [data, setData] = useState([]);
+
   const [location1, setLocation1] = useState("");
   const [location2, setLocation2] = useState("");
   const [location3, setLocation3] = useState("");
   const [midPoint, setMidPoint] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [shouldShowLocations, setShouldShowLocations] = useState(false);
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
@@ -67,56 +81,93 @@ function Map() {
     console.log(shouldShowLocations, shouldShowMidPoint);
   }, [shouldShowLocations, shouldShowMidPoint]);
 
-  const handleChange = (event, locationStr, locationFunction) => {
-    Geocode.fromAddress(locationStr.current.value).then(
+  const changeColor = (event) => {
+    event.target.style["background-color"] = "#4cb98c";
+  };
+
+  const handleSave = (e) => {
+    e.preventDefault();
+    if (
+      !location1Str.current.value ||
+      !location2Str.current.value ||
+      !location3Str.current.value
+    ) {
+      e.target.style["background-color"] = "red";
+      return;
+    }
+    setSubmitting(true);
+
+    if (location1Str.current.value === "") return;
+    Geocode.fromAddress(location1Str.current.value).then(
       (response) => {
         const responseCoords = response.results[0].geometry.location;
         console.log(responseCoords);
-        locationFunction(responseCoords);
+        setLocation1(() => responseCoords);
+        console.log(location2);
       },
       (error) => {
         console.error(error);
       }
     );
-    changeColor(event);
-  };
 
-  const changeColor = (event) => {
-    event.target.style["background-color"] = "#4cb98c";
+    if (location2Str === "") return;
+    Geocode.fromAddress(location2Str.current.value).then(
+      (response) => {
+        const responseCoords = response.results[0].geometry.location;
+        console.log(responseCoords);
+        setLocation2(() => responseCoords);
+        console.log(location2);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+    if (location3Str === "") return;
+    Geocode.fromAddress(location3Str.current.value).then(
+      (response) => {
+        const responseCoords = response.results[0].geometry.location;
+        console.log(responseCoords);
+        setLocation3(() => responseCoords);
+        console.log(location3);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    changeColor(e);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const requestOpt = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        location1: location1,
-        location2: location2,
-        location3: location3,
-      }),
-    };
-    async function fetchFunc() {
-      return await fetch("/locations", requestOpt)
-        .then((response) => response.json())
-        .catch((error) => console.log(error));
-    }
-    (async () => {
-      let info = await fetchFunc();
-      console.log(info);
-    })();
-  };
-
-  const handle = (e, location, locationFunction) => {
-    let temp_loc = location.split(" ");
-    let result = {
-      lat: parseFloat(temp_loc[0]),
-      lng: parseFloat(temp_loc[1]),
-    };
-    locationFunction({
-      lat: result.lat,
-      lng: result.lng,
-    });
+    let timeOut = !location1 || !location2 || !location3 ? 3000 : 0;
+    timeOut > 0
+      ? console.log("Timing out")
+      : console.log("No need for timeout");
+    setTimeout(() => {
+      console.log(`loc1: ${location1}`);
+      console.log(`loc2: ${location2}`);
+      console.log(`loc3: ${location3}`);
+      const requestOpt = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          location1: location1,
+          location2: location2,
+          location3: location3,
+        }),
+      };
+      async function fetchFunc() {
+        return await fetch("/locations", requestOpt)
+          .then((response) => response.json())
+          .catch((error) => console.log(error));
+      }
+      (async () => {
+        let info = await fetchFunc();
+        console.log(info);
+      })();
+      setSubmitting(false);
+    }, timeOut);
   };
 
   const getPoint = (e) => {
@@ -132,7 +183,11 @@ function Map() {
     }
     (async () => {
       let info = await fetchFunc();
-      handle(e, info[3], setMidPoint);
+      // handle(e, info[3], setMidPoint);
+      setMidPoint(info.coordinates);
+      setData(info);
+      coordinates = info.allCoordinates;
+
       setAllCoordinates((allCoordinates) => [...allCoordinates, location1]);
       setAllCoordinates((allCoordinates) => [...allCoordinates, location2]);
       setAllCoordinates((allCoordinates) => [...allCoordinates, location3]);
@@ -144,7 +199,7 @@ function Map() {
       <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
         <div className="locations">
           <form className="locations form" onSubmit={handleSubmit}>
-            <LocationBox
+            {/* <LocationBox
               label={"Second location"}
               inputStyle={inputStyle}
               locationStr={location1Str}
@@ -152,68 +207,77 @@ function Map() {
               handleChange={(e) => {
                 handleChange(e, location1Str, setLocation1, location1);
               }}
-            />
+            /> */}
+
+            {submitting && (
+              <div>
+                Submitting:
+                <ul>
+                  <li>
+                    Location1:
+                    <br /> lat: {location1.lat} | lon: {location1.lon}
+                  </li>
+                  <li>
+                    Location2:
+                    <br /> lat: {location2.lat} | lon: {location2.lon}
+                  </li>
+                  <li>
+                    Location3:
+                    <br /> lat: {location3.lat} | lon: {location3.lon}
+                  </li>
+                </ul>
+              </div>
+            )}
 
             <div className="box">
               <label>First location</label>
               <StandaloneSearchBox>
                 <input
-                  ref={location1Str}
+                  // ref={location1Str}
+                  // name="location1Str"
                   type="text"
                   placeholder="eg. 'Neelsie'"
                   style={inputStyle}
+                  ref={location1Str}
+                  // onChange={handleChange}
                 ></input>
               </StandaloneSearchBox>
-              <button
-                className="box button"
-                type="button"
-                onClick={(e) => {
-                  handleChange(e, location1Str, setLocation1, location1);
-                }}
-              >
-                Apply
-              </button>
             </div>
             <div className="box">
               <label>Second location</label>
               <StandaloneSearchBox>
                 <input
                   ref={location2Str}
+                  // name="location2Str"
                   type="text"
                   placeholder="eg. 'Endler'"
                   style={inputStyle}
+                  // onChange={handleChange}
                 ></input>
               </StandaloneSearchBox>
-              <button
-                className="box button"
-                type="button"
-                onClick={(e) => {
-                  handleChange(e, location2Str, setLocation2);
-                }}
-              >
-                Apply
-              </button>
             </div>
             <div className="box">
               <label>Third location</label>
               <StandaloneSearchBox>
                 <input
                   ref={location3Str}
+                  // name="location3Str"
                   type="text"
                   placeholder="eg. 'Praelexis'"
                   style={inputStyle}
+                  // onChange={handleChange}
                 ></input>
               </StandaloneSearchBox>
-              <button
-                className="box button"
-                type="button"
-                onClick={(e) => {
-                  handleChange(e, location3Str, setLocation3);
-                }}
-              >
-                Apply
-              </button>
             </div>
+            <button
+              className="locations button"
+              type="submit"
+              onClick={(event) => {
+                handleSave(event);
+              }}
+            >
+              Save
+            </button>
             <button
               className="locations button"
               type="submit"
@@ -222,6 +286,7 @@ function Map() {
               Submit
             </button>
           </form>
+
           <form className="locations getPoint" onSubmit={getPoint}>
             <button
               className="locations button"
@@ -241,6 +306,33 @@ function Map() {
             </button>
           </div>
         </div>
+
+        {shouldShowLocations && (
+          <>
+            <h3>Midpoint = {midPoint}</h3>
+            <table id="myTable" className="table table-available">
+              <thead>
+                <tr>
+                  <th>Location:</th>
+                  <th>Distances from Midpoint (kms)</th>
+                  <th>Travel time from Midpoint (mins)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(data).map((value, index) => {
+                  return (
+                    <tr>
+                      <td>{data.allCoordinates[index]} </td>
+                      <td>{data.allDistances[index]}</td>
+                      <td>{data.allTimes[index]}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </>
+        )}
+
         <div className="googleMap">
           <GoogleMap
             mapContainerStyle={containerStyle}
@@ -265,7 +357,10 @@ function Map() {
             )}
             {shouldShowMidPoint && (
               <MarkerF
-                position={midPoint}
+                position={{
+                  lat: midPoint[0],
+                  lon: midPoint[1],
+                }}
                 icon={"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
               />
             )}

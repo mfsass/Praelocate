@@ -28,9 +28,14 @@ except:
 @app.route("/locations", methods=["POST"])
 @cross_origin()
 def locations():
-    loc1 = request.json["location1"]
-    loc2 = request.json["location2"]
-    loc3 = request.json["location3"]
+    try:
+        loc1 = request.json["location1"]
+        loc2 = request.json["location2"]
+        loc3 = request.json["location3"]
+    except:
+        print("Yeah didn't work")
+        return jsonify("Error")
+        
     print(f"Location1: {loc1}")
     print(f"Location2: {loc2}")
     print(f"Location3: {loc3}")
@@ -38,9 +43,13 @@ def locations():
     allTime.clear()
     allCoordinates.clear()
 
-    loc1_coordinates = (float(loc1["lat"]), float(loc1["lng"]))
-    loc2_coordinates = (float(loc2["lat"]), float(loc2["lng"]))
-    loc3_coordinates = (float(loc3["lat"]), float(loc3["lng"]))
+    try:
+        loc1_coordinates = (float(loc1["lat"]), float(loc1["lng"]))
+        loc2_coordinates = (float(loc2["lat"]), float(loc2["lng"]))
+        loc3_coordinates = (float(loc3["lat"]), float(loc3["lng"]))
+    except:
+        print("Yeah didn't work")
+        return jsonify("Error")
 
     average_coordinates_latitude = (
         float(loc1_coordinates[0])
@@ -130,17 +139,14 @@ def locations():
     # return jsonify(str(average_coordinates_latitude) +
     #    ","+str(average_coordinates_longitude))
 
-    return jsonify("Success")
-
-
-# return {
-#     'coordinates': average_coordinates,
-#     'distance': average_distance,
-#     'time': average_time,
-#     'allCoordinates': allCoordinates,
-#     'allDistances': allDistance,
-#     'allTimes': allTime
-# }
+    return {
+        'coordinates': average_coordinates,
+        'distance': average_distance,
+        'time': average_time,
+        'allCoordinates': allCoordinates,
+        'allDistances': allDistance,
+        'allTimes': allTime
+    }
 
 
 @app.route("/getLocations", methods=["GET"])
