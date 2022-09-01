@@ -1,6 +1,5 @@
 from datetime import datetime
 import json
-from textwrap import indent
 import googlemaps
 from flask import Flask, jsonify, request
 from flask_cors import cross_origin, CORS
@@ -14,10 +13,8 @@ all_time = []
 all_coordinates = {}
 midpoint = {}
 # top secret
-# with open("api-key.txt") as api_file:
-#     key = api_file.readline()
-
-key = "AIzaSyAw71uaQ28Y-SABJAkLueUlhtdcN1JAPzI"
+with open("api-key.txt") as api_file:
+    key = api_file.readline()
 
 try:
     gmaps = googlemaps.Client(key=key)

@@ -30,7 +30,8 @@ const inputStyle = {
   textOverflow: `ellipses`,
 };
 
-const API_KEY = "AIzaSyAw71uaQ28Y-SABJAkLueUlhtdcN1JAPzI";
+const API_KEY = process.env.REACT_APP_API_KEY;
+
 Geocode.setApiKey(API_KEY);
 Geocode.setRegion("za");
 

@@ -10,3 +10,4 @@ __pycache__
 backend/output.txt
 .gitsecret/keys/random_seed/
 backend/api-key.txt
+frontend/.env
