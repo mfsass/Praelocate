@@ -13,6 +13,7 @@
   flex-direction: column;
   width: 50vw;
   margin: 10px;
+  align-items: center;
 }
 
 .locations.form {

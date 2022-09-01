@@ -4,6 +4,7 @@ import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
 
 import LocationBox from "./LocationBox";
 import "./map.css";
+import TestComponent from "./TestComponent";
 
 const libraries = ["places"];
 
@@ -143,6 +144,7 @@ function Map() {
     <div className="map">
       <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
         <div className="locations">
+          <TestComponent />
           <form className="locations form" onSubmit={handleSubmit}>
             <LocationBox
               label={"First location"}

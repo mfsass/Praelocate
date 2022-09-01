@@ -6,7 +6,7 @@ import { forwardRef } from "react";
 
 const LocationBox = forwardRef((props, ref) => {
   return (
-    <div className="box">
+    <div className="box" onClick={() => console.log("clicked")}>
       <label>{props.label}</label>
       <StandaloneSearchBox>
         <input
