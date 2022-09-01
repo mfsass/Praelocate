@@ -14,8 +14,10 @@ all_time = []
 all_coordinates = {}
 midpoint = {}
 # top secret
-with open("api-key.txt") as api_file:
-    key = api_file.readline()
+# with open("api-key.txt") as api_file:
+#     key = api_file.readline()
+
+key = "AIzaSyAw71uaQ28Y-SABJAkLueUlhtdcN1JAPzI"
 
 try:
     gmaps = googlemaps.Client(key=key)

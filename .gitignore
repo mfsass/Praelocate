@@ -8,3 +8,5 @@ __pycache__
 */.venv/
 */venv
 backend/output.txt
+.gitsecret/keys/random_seed/
+backend/api-key.txt
