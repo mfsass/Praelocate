@@ -1,49 +1,23 @@
-import { React, useState } from "react";
+import { React } from "react";
+import { StandaloneSearchBox } from "@react-google-maps/api";
 
 import "./locationBox.css";
+import { forwardRef } from "react";
 
-function LocationBox(props) {
-  const [location, setLocation] = useState({
-    latitude: "",
-    longitude: "",
-  });
-
-  const handleChange = (event) => {
-    event.target.style["background-color"] = "green";
-    console.log("passing to parent");
-    props.passLocation(location);
-  };
-
+const LocationBox = forwardRef((props, ref) => {
   return (
-    <div className="container">
+    <div className="box" onClick={() => console.log("clicked")}>
       <label>{props.label}</label>
-      <div className="inputWrapper">
+      <StandaloneSearchBox>
         <input
+          ref={ref}
           type="text"
-          placeholder="eg: -34.067 (latitude)"
-          autoComplete="off"
-          onInput={(e) =>
-            setLocation((previousState) => {
-              return { ...previousState, latitude: e.target.value };
-            })
-          }
-        />
-        <input
-          type="text"
-          placeholder="eg: 18.85 (longitude)"
-          autoComplete="off"
-          onInput={(e) =>
-            setLocation((previousState) => {
-              return { ...previousState, longitude: e.target.value };
-            })
-          }
-        />
-        <button className="button" type="button" onClick={handleChange}>
-          Accept values
-        </button>
-      </div>
+          placeholder={props.placeholder}
+          style={props.inputStyle}
+        ></input>
+      </StandaloneSearchBox>
     </div>
   );
-}
+});
 
 export default LocationBox;

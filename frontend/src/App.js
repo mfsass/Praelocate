@@ -1,29 +1,42 @@
+import React, { useRef } from "react";
+import Map from "./components/Map";
 import "./App.css";
-import home from "./home-alt.svg";
-import React from 'react'
-import Locations from "./components/Locations";
-import MapSection from './components/map'
 
 const location = {
-  address: '1600 Amphitheatre Parkway, Mountain View, california.',
+  address: "1600 Amphitheatre Parkway, Mountain View, california.",
   lat: 37.42216,
   lng: -122.08427,
-}
+};
 
 function App() {
+  const ref = useRef();
+
+  const handleClick = () => {
+    ref.current.style.opacity = 1;
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Home Location Tool</h1>
-        <p>
-          Enter your important locations and see where your dream home might be
-        </p>
-      </header>
-      <body>
-        <img src={home} className="App-logo" alt="logo" />
-        <MapSection location={location}/>
-        <Locations></Locations>
-      </body>
+      <div className="header" onClick={handleClick}>
+        <div className="header wrapper" ref={ref}>
+          <div className="logo">
+            <img
+              src={process.env.PUBLIC_URL + "home.png"}
+              className="App-logo"
+              alt="logo"
+            />
+            <h1>PRAELOCATE</h1>
+          </div>
+          <h2>A home location tool</h2>
+          <p>Your quest to find your dream home just became one step closer.</p>
+          <a className="fakeButton" href="#body">
+            Start
+          </a>
+        </div>
+      </div>
+      <div id="body" className="body">
+        <Map location={location} />
+      </div>
     </div>
   );
 }

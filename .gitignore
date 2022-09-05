@@ -2,7 +2,11 @@ node_modules/
 coverage/
 build/
 .vscode
-backend/.venv
 __pycache__
-backend/.env/
-.env/
+*/.env/
+*/env/
+*/.venv/
+*/venv
+backend/output.txt
+.gitsecret/keys/random_seed/
+backend/api-key.txt
