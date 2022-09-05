@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import Geocode from "react-geocode";
-import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, MarkerF, CircleF } from "@react-google-maps/api";
 
 import LocationBox from "./LocationBox";
 import "./map.css";
@@ -30,6 +30,14 @@ const inputStyle = {
   outline: `none`,
   textOverflow: `ellipses`,
 };
+
+const options = {
+    strokeColor: '#5982E2',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#5982E2',
+    fillOpacity: 0.35,
+  }
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -226,9 +234,11 @@ function Map() {
               </div>
             )}
             {shouldShowMidPoint && (
-              <MarkerF
-                position={allCoordinates.midpoint}
-                icon={"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
+              <CircleF
+                center={allCoordinates.midpoint}
+                radius={2000}
+                options={options}
+                //icon={"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
               />
             )}
           </GoogleMap>
