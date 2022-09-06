@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import Geocode from "react-geocode";
-import { GoogleMap, LoadScript, MarkerF, CircleF } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, MarkerF, CircleF, InfoWindowF } from "@react-google-maps/api";
 
 import LocationBox from "./LocationBox";
 import "./map.css";
@@ -53,6 +53,9 @@ function Map() {
   const [location2, setLocation2] = useState(null);
   const [location3, setLocation3] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [infoWindowOpen1, setInfoWindowOpen1] = useState(false);
+  const [infoWindowOpen2, setInfoWindowOpen2] = useState(false);
+  const [infoWindowOpen3, setInfoWindowOpen3] = useState(false);
   const [shouldShowLocations, setShouldShowLocations] = useState(false);
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
@@ -67,6 +70,18 @@ function Map() {
   const changeColor = (event, color) => {
     let tempColor = color ? color : "#4cb98c";
     event.target.style["background-color"] = tempColor;
+  };
+
+  const showInfoWindow1 = () => {
+    setInfoWindowOpen1(true);
+  };
+
+  const showInfoWindow2 = () => {
+    setInfoWindowOpen2(true);
+  };
+
+  const showInfoWindow3 = () => {
+    setInfoWindowOpen3(true);
   };
 
   const handleSave = (event) => {
@@ -220,17 +235,41 @@ function Map() {
             {shouldShowLocations && (
               <div>
                 <MarkerF
+                  title={"location1"}
                   position={location1}
                   icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                />
+                  onClick={showInfoWindow1}
+                >
+                  {infoWindowOpen1 && (
+                    <InfoWindowF onCloseClick={() => setInfoWindowOpen1(false)}>
+                      <div>location 1</div>
+                    </InfoWindowF>
+                  )}
+                </MarkerF> 
                 <MarkerF
+                  title={"location2"}
                   position={location2}
                   icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                />
+                  onClick={showInfoWindow2}
+                >
+                  {infoWindowOpen2 && (
+                    <InfoWindowF onCloseClick={() => setInfoWindowOpen2(false)}>
+                      <div>location 2</div>
+                    </InfoWindowF>
+                  )}
+                </MarkerF>
                 <MarkerF
+                  title={"location3"}
                   position={location3}
                   icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                />
+                  onClick={showInfoWindow3}
+                >
+                {infoWindowOpen3 && (
+                  <InfoWindowF onCloseClick={() => setInfoWindowOpen3(false)}>
+                    <div>location 3</div>
+                  </InfoWindowF>
+                )}
+              </MarkerF>
               </div>
             )}
             {shouldShowMidPoint && (
@@ -238,7 +277,6 @@ function Map() {
                 center={allCoordinates.midpoint}
                 radius={2000}
                 options={options}
-                //icon={"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
               />
             )}
           </GoogleMap>
