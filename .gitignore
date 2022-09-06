@@ -1,0 +1,10 @@
+node_modules/
+coverage/
+build/
+.vscode
+__pycache__
+*/.env/
+*/env/
+*/.venv/
+*/venv
+backend/output.txt
