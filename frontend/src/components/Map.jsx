@@ -13,6 +13,10 @@ const containerStyle = {
   height: "100%",
 };
 
+var location1StrSpan;
+var location2StrSpan;
+var location3StrSpan;
+
 const center = {
   lat: -33.9328,
   lng: 18.8644,
@@ -59,7 +63,6 @@ function Map() {
   const [shouldShowLocations, setShouldShowLocations] = useState(false);
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
-  
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -74,14 +77,17 @@ function Map() {
   };
 
   const showInfoWindow1 = () => {
+    location1StrSpan = <span>{`${location1Str.current.value}`}</span>
     setInfoWindowOpen1(true);
   };
 
   const showInfoWindow2 = () => {
+    location2StrSpan = <span>{`${location2Str.current.value}`}</span>
     setInfoWindowOpen2(true);
   };
 
   const showInfoWindow3 = () => {
+    location3StrSpan = <span>{`${location3Str.current.value}`}</span>
     setInfoWindowOpen3(true);
   };
 
@@ -243,7 +249,7 @@ function Map() {
                 >
                   {infoWindowOpen1 && (
                     <InfoWindowF onCloseClick={() => setInfoWindowOpen1(false)}>
-                      <div> location 1 </div> 
+                      <div> {location1StrSpan} </div> 
                     </InfoWindowF>
                   )}
                 </MarkerF> 
@@ -255,7 +261,7 @@ function Map() {
                 >
                   {infoWindowOpen2 && (
                     <InfoWindowF onCloseClick={() => setInfoWindowOpen2(false)}>
-                      <div>location 2</div>
+                      <div>{location2StrSpan}</div>
                     </InfoWindowF>
                   )}
                 </MarkerF>
@@ -267,7 +273,7 @@ function Map() {
                 >
                 {infoWindowOpen3 && (
                   <InfoWindowF onCloseClick={() => setInfoWindowOpen3(false)}>
-                    <div>location 3</div>
+                    <div>{location3StrSpan}</div>
                   </InfoWindowF>
                 )}
               </MarkerF>
