@@ -1,0 +1,5 @@
+-34.067290, 18.858110 //somerset hockey
+-33.931151, 18.871074 //helshoogte
+-33.945824, 18.858989 //rhenish
+
+midpoint 
