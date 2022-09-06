@@ -77,17 +77,23 @@ function Map() {
   };
 
   const showInfoWindow1 = () => {
-    location1StrSpan = <span>{`${location1Str.current.value}`}</span>
+    const temp = location1Str.current.value;
+    const indexOf = temp.indexOf(",");
+    location1StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>
     setInfoWindowOpen1(true);
   };
 
   const showInfoWindow2 = () => {
-    location2StrSpan = <span>{`${location2Str.current.value}`}</span>
+    const temp = location2Str.current.value;
+    const indexOf = temp.indexOf(",");
+    location2StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>
     setInfoWindowOpen2(true);
   };
 
   const showInfoWindow3 = () => {
-    location3StrSpan = <span>{`${location3Str.current.value}`}</span>
+    const temp = location3Str.current.value;
+    const indexOf = temp.indexOf(",");
+    location3StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>
     setInfoWindowOpen3(true);
   };
 
