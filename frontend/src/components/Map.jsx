@@ -59,6 +59,7 @@ function Map() {
   const [shouldShowLocations, setShouldShowLocations] = useState(false);
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
+  
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -242,7 +243,7 @@ function Map() {
                 >
                   {infoWindowOpen1 && (
                     <InfoWindowF onCloseClick={() => setInfoWindowOpen1(false)}>
-                      <div>location 1</div>
+                      <div> location 1 </div> 
                     </InfoWindowF>
                   )}
                 </MarkerF> 
