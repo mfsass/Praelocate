@@ -13,6 +13,10 @@ const containerStyle = {
   height: "100%",
 };
 
+var location1StrSpan;
+var location2StrSpan;
+var location3StrSpan;
+
 const center = {
   lat: -33.9328,
   lng: 18.8644,
@@ -59,7 +63,6 @@ function Map() {
   const [shouldShowLocations, setShouldShowLocations] = useState(false);
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
-  
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -74,14 +77,23 @@ function Map() {
   };
 
   const showInfoWindow1 = () => {
+    const temp = location1Str.current.value;
+    const indexOf = temp.indexOf(",");
+    location1StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>
     setInfoWindowOpen1(true);
   };
 
   const showInfoWindow2 = () => {
+    const temp = location2Str.current.value;
+    const indexOf = temp.indexOf(",");
+    location2StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>
     setInfoWindowOpen2(true);
   };
 
   const showInfoWindow3 = () => {
+    const temp = location3Str.current.value;
+    const indexOf = temp.indexOf(",");
+    location3StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>
     setInfoWindowOpen3(true);
   };
 
@@ -243,7 +255,7 @@ function Map() {
                 >
                   {infoWindowOpen1 && (
                     <InfoWindowF onCloseClick={() => setInfoWindowOpen1(false)}>
-                      <div> location 1 </div> 
+                      <div> {location1StrSpan} </div> 
                     </InfoWindowF>
                   )}
                 </MarkerF> 
@@ -255,7 +267,7 @@ function Map() {
                 >
                   {infoWindowOpen2 && (
                     <InfoWindowF onCloseClick={() => setInfoWindowOpen2(false)}>
-                      <div>location 2</div>
+                      <div>{location2StrSpan}</div>
                     </InfoWindowF>
                   )}
                 </MarkerF>
@@ -267,7 +279,7 @@ function Map() {
                 >
                 {infoWindowOpen3 && (
                   <InfoWindowF onCloseClick={() => setInfoWindowOpen3(false)}>
-                    <div>location 3</div>
+                    <div>{location3StrSpan}</div>
                   </InfoWindowF>
                 )}
               </MarkerF>
