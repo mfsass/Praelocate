@@ -1,6 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Geocode from "react-geocode";
-import { GoogleMap, LoadScript, MarkerF, CircleF, InfoWindowF } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  LoadScript,
+  MarkerF,
+  CircleF,
+  InfoWindowF,
+} from "@react-google-maps/api";
 
 import LocationBox from "./LocationBox";
 import "./map.css";
@@ -25,8 +31,8 @@ const center = {
 const inputStyle = {
   boxSizing: `border-box`,
   border: `1px solid transparent`,
-  width: `240px`,
-  height: `32px`,
+  width: `100%`,
+  // height: `32px`,
   padding: `0 12px`,
   borderRadius: `7px`,
   boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
@@ -36,12 +42,12 @@ const inputStyle = {
 };
 
 const options = {
-    strokeColor: '#5982E2',
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: '#5982E2',
-    fillOpacity: 0.35,
-  }
+  strokeColor: "#5982E2",
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: "#5982E2",
+  fillOpacity: 0.35,
+};
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -52,6 +58,10 @@ function Map() {
   const location1Str = useRef();
   const location2Str = useRef();
   const location3Str = useRef();
+
+  const [rank1, setRank1] = useState(0);
+  const [rank2, setRank2] = useState(0);
+  const [rank3, setRank3] = useState(0);
 
   const [location1, setLocation1] = useState(null);
   const [location2, setLocation2] = useState(null);
@@ -79,21 +89,21 @@ function Map() {
   const showInfoWindow1 = () => {
     const temp = location1Str.current.value;
     const indexOf = temp.indexOf(",");
-    location1StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>
+    location1StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>;
     setInfoWindowOpen1(true);
   };
 
   const showInfoWindow2 = () => {
     const temp = location2Str.current.value;
     const indexOf = temp.indexOf(",");
-    location2StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>
+    location2StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>;
     setInfoWindowOpen2(true);
   };
 
   const showInfoWindow3 = () => {
     const temp = location3Str.current.value;
     const indexOf = temp.indexOf(",");
-    location3StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>
+    location3StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>;
     setInfoWindowOpen3(true);
   };
 
@@ -176,13 +186,58 @@ function Map() {
     }, timeOut);
   };
 
+  const getRank = (value, name) => {
+    switch (name) {
+      case "loc1":
+        setRank1(value);
+        break;
+      case "loc2":
+        setRank2(value);
+        break;
+      case "loc3":
+        setRank3(value);
+        break;
+      default:
+        console.log("Unhandled");
+    }
+  };
+
+  useEffect(() => {
+    console.log(`Rank 1: ${rank1}, Rank 2: ${rank2}, Rank 3: ${rank3}`);
+  }, [rank1, rank2, rank3]);
+
   return (
     <div className="map">
       <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
         <div className="locations">
-          <TestComponent />
           <form className="locations form" onSubmit={handleSubmit}>
-            <LocationBox
+            <TestComponent
+              label="Location 1"
+              name="loc1"
+              inputStyle={inputStyle}
+              ref={location1Str}
+              placeholder={"e.g. Praelexis"}
+              getRank={getRank}
+            />
+
+            <TestComponent
+              label="Location 2"
+              name="loc2"
+              inputStyle={inputStyle}
+              ref={location2Str}
+              placeholder={"e.g. Endler"}
+              getRank={getRank}
+            />
+
+            <TestComponent
+              label="Location 3"
+              name="loc3"
+              inputStyle={inputStyle}
+              ref={location3Str}
+              placeholder={"e.g. Neelsie"}
+              getRank={getRank}
+            />
+            {/* <LocationBox
               label={"First location"}
               inputStyle={inputStyle}
               ref={location1Str}
@@ -201,7 +256,7 @@ function Map() {
               inputStyle={inputStyle}
               ref={location3Str}
               placeholder={"e.g. 'Praelexis'"}
-            />
+            /> */}
 
             <div className="box button">
               <button
@@ -255,10 +310,10 @@ function Map() {
                 >
                   {infoWindowOpen1 && (
                     <InfoWindowF onCloseClick={() => setInfoWindowOpen1(false)}>
-                      <div> {location1StrSpan} </div> 
+                      <div> {location1StrSpan} </div>
                     </InfoWindowF>
                   )}
-                </MarkerF> 
+                </MarkerF>
                 <MarkerF
                   title={"location2"}
                   position={location2}
@@ -277,12 +332,12 @@ function Map() {
                   icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
                   onClick={showInfoWindow3}
                 >
-                {infoWindowOpen3 && (
-                  <InfoWindowF onCloseClick={() => setInfoWindowOpen3(false)}>
-                    <div>{location3StrSpan}</div>
-                  </InfoWindowF>
-                )}
-              </MarkerF>
+                  {infoWindowOpen3 && (
+                    <InfoWindowF onCloseClick={() => setInfoWindowOpen3(false)}>
+                      <div>{location3StrSpan}</div>
+                    </InfoWindowF>
+                  )}
+                </MarkerF>
               </div>
             )}
             {shouldShowMidPoint && (
