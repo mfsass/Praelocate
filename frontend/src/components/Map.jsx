@@ -158,6 +158,24 @@ function Map() {
     e.preventDefault();
     setSubmitting(true);
     let timeOut = !location1 || !location2 || !location3 ? 3000 : 0;
+    let data = {
+      location1: {
+        lat: location1.lat,
+        lng: location1.lng,
+        rank: rank1,
+      },
+      location2: {
+        lat: location2.lat,
+        lng: location2.lng,
+        rank: rank2,
+      },
+      location3: {
+        lat: location3.lat,
+        lng: location3.lng,
+        rank: rank3,
+      },
+    };
+    console.log(JSON.stringify(data));
     timeOut > 0
       ? console.log("Timing out")
       : console.log("No need for timeout");
@@ -165,11 +183,7 @@ function Map() {
       const requestOpt = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          location1: location1,
-          location2: location2,
-          location3: location3,
-        }),
+        body: JSON.stringify(data),
       };
       async function fetchFunc() {
         return await fetch("/locations", requestOpt)

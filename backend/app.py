@@ -12,6 +12,7 @@ all_distance = []
 all_time = []
 all_coordinates = {}
 midpoint = {}
+all_ranks = []
 # top secret
 with open("api-key.txt") as api_file:
     key = api_file.readline()
@@ -25,10 +26,15 @@ except:
 @app.route("/locations", methods=["POST"])
 @cross_origin()
 def locations():
+    print(request);
+    print(request.json)
     try:
         loc1 = request.json["location1"]
+        # loc1 = request["location1"]
         loc2 = request.json["location2"]
+        # loc2 = request["location2"]
         loc3 = request.json["location3"]
+        # loc3 = request["location3"]
     except:
         print("Yeah didn't work")
         return jsonify("Error")
@@ -42,6 +48,10 @@ def locations():
 def calculate_midpoint(loc1, loc2, loc3):
     if (len(all_distance) > 0): all_distance.clear()
     if (len(all_time) > 0): all_time.clear()
+    
+    all_ranks.append(loc1["rank"])
+    all_ranks.append(loc2["rank"])
+    all_ranks.append(loc3["rank"])
     
     try:
         coordinates = [
@@ -99,6 +109,8 @@ def calculate_midpoint(loc1, loc2, loc3):
             "midpoint": { "lat": midpoint["lat"], "lng": midpoint["lng"] }
         }
         print(json.dumps(all_coordinates, indent=2))
+        print(f'Ranks: {all_ranks}')
+        
 
     except:
         return jsonify("Unsucessful request... maybe invalid coordinates")
