@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import ReactSlider from "react-slider";
 import Geocode from "react-geocode";
 import {
   GoogleMap,
@@ -8,7 +9,6 @@ import {
   InfoWindowF,
 } from "@react-google-maps/api";
 
-import LocationBox from "./LocationBox";
 import "./map.css";
 import TestComponent from "./TestComponent";
 
@@ -62,6 +62,7 @@ function Map() {
   const [rank1, setRank1] = useState(0);
   const [rank2, setRank2] = useState(0);
   const [rank3, setRank3] = useState(0);
+  const [sliderValue, setSliderValue] = useState(1);
 
   const [location1, setLocation1] = useState(null);
   const [location2, setLocation2] = useState(null);
@@ -109,6 +110,7 @@ function Map() {
 
   const handleSave = (event) => {
     event.preventDefault();
+    alert(sliderValue);
     if (
       !location1Str.current.value ||
       !location2Str.current.value ||
@@ -251,6 +253,21 @@ function Map() {
               placeholder={"e.g. Neelsie"}
               getRank={getRank}
             />
+
+            <ReactSlider 
+              className="customSlider"
+              trackClassName="customSlider-track"
+              thumbClassName="customSlider-thumb"
+              markClassName="customSlider-mark"
+              marks={1}
+              min={1}
+              max={10}
+              defaultValue={1}
+              value={sliderValue}
+              onChange={(value) => setSliderValue(value)}
+            />
+
+            <div> {sliderValue}km </div>
             {/* <LocationBox
               label={"First location"}
               inputStyle={inputStyle}
@@ -357,7 +374,7 @@ function Map() {
             {shouldShowMidPoint && (
               <CircleF
                 center={allCoordinates.midpoint}
-                radius={2000}
+                radius={sliderValue * 1000}
                 options={options}
               />
             )}
