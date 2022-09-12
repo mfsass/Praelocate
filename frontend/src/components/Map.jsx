@@ -110,7 +110,6 @@ function Map() {
 
   const handleSave = (event) => {
     event.preventDefault();
-    alert(sliderValue);
     if (
       !location1Str.current.value ||
       !location2Str.current.value ||
