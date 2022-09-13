@@ -3,6 +3,7 @@
 ### _A home relocation tool_
 
 A web-app that would find the best location to find a house given certain significant locations as input.
+If you have read this, comment to reject my merge request
 
 ## Authors:
 
