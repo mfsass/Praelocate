@@ -41,7 +41,7 @@
   background-color: whitesmoke;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   padding: 30px 30px 20px 30px;
-  width: 40%;
+  width: 60%;
 }
 
 .box.button {
@@ -72,4 +72,40 @@
 /* child 2 */
 .googleMap {
   width: 50vw;
+}
+
+:root {
+  --main-color: #182425;
+  --main-color-hover: rgb(104, 117, 217, 0.2);
+  --track-color: #ddd;
+  --mark-color: #aaaaaa;
+}
+
+.customSlider {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 300px;
+}
+
+.customSlider-track {
+  top: 8px;
+  height: 4px;
+  background: var(--track-color);
+}
+
+.customSlider-track.customSlider-track-0 {
+  background: var(--main-color);
+}
+
+.customSlider-thumb {
+  cursor: pointer;
+  background: var(--main-color);
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  outline: none;
+}
+
+.customSlider-thumb:hover {
+  box-shadow: 0 0 0 8px var(--main-color-hover);
 }

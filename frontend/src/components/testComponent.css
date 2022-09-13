@@ -16,14 +16,6 @@ input[type="checkbox"] {
   background: black;
 }
 
-.work input[type="checkbox"]:not(:checked)~.inputWrapper {
-  display: none;
-}
-
-.work input[type="checkbox"]:checked~.inputWrapper {
-  display: flex;
-}
-
 .inputWrapper {
   width: 90%;
   margin: 0px;
@@ -36,6 +28,14 @@ input[type="checkbox"] {
   flex: 10;
   background-color: white;
   height: 25px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  outline: none;
+  text-overflow: ellipsis;
+  padding: 15px;
 }
 
 .bars {
@@ -56,6 +56,10 @@ input[type="checkbox"] {
   width: 20px;
   margin: 0 5px;
   appearance: none;
+}
+
+.bars input[type="radio"]:hover {
+  background: black;
 }
 
 .bars input[type="radio"]:checked {

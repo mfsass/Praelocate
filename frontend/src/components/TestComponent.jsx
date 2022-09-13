@@ -1,27 +1,61 @@
-import React from "react";
+import React, { useState, forwardRef } from "react";
+import { StandaloneSearchBox } from "@react-google-maps/api";
 
 import "./testComponent.css";
 
-const test_props = {
-  label: "Work (WIP)",
-};
+const TestComponent = forwardRef((props, ref) => {
+  const [shouldShow, setShouldShow] = useState(false);
 
-function TestComponent() {
   return (
     <div className="box work">
-      <label className="mainLabel">{test_props.label}</label>
-      <input name="check" type="checkbox" readOnly />
-      <div className="inputWrapper">
-        <input type="text" placeholder="enter your search here" />
-        <div className="bars">
-          <input type="radio" name="bars" value="4" />
-          <input type="radio" name="bars" value="3" />
-          <input type="radio" name="bars" value="2" />
-          <input type="radio" name="bars" value="1" />
-        </div>
+      <div className="input label">
+        <label className="mainLabel">{props.label}</label>
+        <input
+          name="check"
+          type="checkbox"
+          readOnly
+          onClick={() => setShouldShow(!shouldShow)}
+        />
       </div>
+      {shouldShow && (
+        <div className="inputWrapper">
+          <StandaloneSearchBox>
+            <input
+              ref={ref}
+              type="text"
+              placeholder={props.placeholder}
+            ></input>
+          </StandaloneSearchBox>
+          <div className="bars">
+            <input
+              type="radio"
+              name={"bars " + props.name}
+              value="4"
+              onClick={() => props.getRank(4, props.name)}
+            />
+            <input
+              type="radio"
+              name={"bars " + props.name}
+              value="3"
+              onClick={() => props.getRank(3, props.name)}
+            />
+            <input
+              type="radio"
+              name={"bars " + props.name}
+              value="2"
+              onClick={() => props.getRank(2, props.name)}
+            />
+            <input
+              type="radio"
+              name={"bars " + props.name}
+              value="1"
+              onClick={() => props.getRank(1, props.name)}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+});
 
 export default TestComponent;

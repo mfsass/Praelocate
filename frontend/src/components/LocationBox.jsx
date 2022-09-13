@@ -1,8 +1,7 @@
-import { React } from "react";
+import { React, forwardRef } from "react";
 import { StandaloneSearchBox } from "@react-google-maps/api";
 
 import "./locationBox.css";
-import { forwardRef } from "react";
 
 const LocationBox = forwardRef((props, ref) => {
   return (
