@@ -9,8 +9,8 @@ import {
   InfoWindowF,
 } from "@react-google-maps/api";
 
-import "./map.css";
 import TestComponent from "./TestComponent";
+import "./map.css";
 import "./testComponent.css";
 
 const libraries = ["places"];
@@ -18,11 +18,6 @@ const libraries = ["places"];
 const containerStyle = {
   width: "100%",
   height: "100%",
-};
-
-const center = {
-  lat: -33.9328,
-  lng: 18.8644,
 };
 
 const inputStyle = {
@@ -112,6 +107,10 @@ function Map() {
   const [location6Label, setLocation6Label] = useState("");
 
   const [sliderValue, setSliderValue] = useState(1);
+  const [center, setCenter] = useState({
+    lat: -33.9328,
+    lng: 18.8644,
+  });
 
   const [submitting, setSubmitting] = useState(false);
   const [infoWindowOpen1, setInfoWindowOpen1] = useState(false);
@@ -278,6 +277,11 @@ function Map() {
       let info = await fetchFunc();
       console.log(info);
       setAllCoordinates(info.allCoordinates);
+      setAllCoordinates((previousState) => ({
+        ...previousState,
+        midpoint: info.midpoint,
+      }));
+      setCenter(info.midpoint);
       setSubmitting(false);
     })();
     setShouldShowLocations(true);
