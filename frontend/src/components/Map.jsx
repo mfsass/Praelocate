@@ -214,7 +214,7 @@ function Map() {
         lat: location1.lat,
         lng: location1.lng,
         rank: rank1,
-        // time: location1Time,
+        time: location1Time.current.value,
       };
     }
 
@@ -223,7 +223,7 @@ function Map() {
         lat: location2.lat,
         lng: location2.lng,
         rank: rank2,
-        // time: location2Time,
+        time: location2Time.current.value,
       };
     }
 
@@ -232,7 +232,7 @@ function Map() {
         lat: location3.lat,
         lng: location3.lng,
         rank: rank3,
-        // time: location3Time,
+        time: location3Time.current.value,
       };
     }
 
@@ -241,7 +241,7 @@ function Map() {
         lat: location4.lat,
         lng: location4.lng,
         rank: rank4,
-        // time: location4Time,
+        time: location4Time.current.value,
       };
     }
 
@@ -250,7 +250,7 @@ function Map() {
         lat: location5.lat,
         lng: location5.lng,
         rank: rank5,
-        // time: location5Time,
+        time: location5Time.current.value,
       };
     }
 
@@ -259,7 +259,7 @@ function Map() {
         lat: location6.lat,
         lng: location6.lng,
         rank: rank6,
-        // time: location6Time,
+        time: location6Time.current.value,
       };
     }
 
