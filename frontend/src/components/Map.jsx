@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import ReactSlider from "react-slider";
 import Geocode from "react-geocode";
 import {
@@ -11,6 +11,7 @@ import {
 
 import "./map.css";
 import TestComponent from "./TestComponent";
+import "./testComponent.css";
 
 const libraries = ["places"];
 
@@ -18,13 +19,6 @@ const containerStyle = {
   width: "100%",
   height: "100%",
 };
-
-var location1StrSpan;
-var location2StrSpan;
-var location3StrSpan;
-var location4StrSpan;
-var location5StrSpan;
-var location6StrSpan;
 
 const center = {
   lat: -33.9328,
@@ -58,6 +52,13 @@ Geocode.setApiKey(API_KEY);
 Geocode.setRegion("za");
 
 function Map() {
+  const [location1, setLocation1] = useState(null);
+  const [location2, setLocation2] = useState(null);
+  const [location3, setLocation3] = useState(null);
+  const [location4, setLocation4] = useState(null);
+  const [location5, setLocation5] = useState(null);
+  const [location6, setLocation6] = useState(null);
+
   const location1Str = useRef();
   const location2Str = useRef();
   const location3Str = useRef();
@@ -65,20 +66,53 @@ function Map() {
   const location5Str = useRef();
   const location6Str = useRef();
 
+  const location1Time = useRef();
+  const location2Time = useRef();
+  const location3Time = useRef();
+  const location4Time = useRef();
+  const location5Time = useRef();
+  const location6Time = useRef();
+
+  const location1Ref = useRef({
+    locationStr: location1Str,
+    locationTime: location1Time,
+  });
+  const location2Ref = useRef({
+    locationStr: location2Str,
+    locationTime: location2Time,
+  });
+  const location3Ref = useRef({
+    locationStr: location3Str,
+    locationTime: location3Time,
+  });
+  const location4Ref = useRef({
+    locationStr: location4Str,
+    locationTime: location4Time,
+  });
+  const location5Ref = useRef({
+    locationStr: location5Str,
+    locationTime: location5Time,
+  });
+  const location6Ref = useRef({
+    locationStr: location6Str,
+    locationTime: location6Time,
+  });
+
   const [rank1, setRank1] = useState(0);
   const [rank2, setRank2] = useState(0);
   const [rank3, setRank3] = useState(0);
   const [rank4, setRank4] = useState(0);
   const [rank5, setRank5] = useState(0);
   const [rank6, setRank6] = useState(0);
+  const [location1Label, setLocation1Label] = useState("");
+  const [location2Label, setLocation2Label] = useState("");
+  const [location3Label, setLocation3Label] = useState("");
+  const [location4Label, setLocation4Label] = useState("");
+  const [location5Label, setLocation5Label] = useState("");
+  const [location6Label, setLocation6Label] = useState("");
+
   const [sliderValue, setSliderValue] = useState(1);
 
-  const [location1, setLocation1] = useState(null);
-  const [location2, setLocation2] = useState(null);
-  const [location3, setLocation3] = useState(null);
-  const [location4, setLocation4] = useState(null);
-  const [location5, setLocation5] = useState(null);
-  const [location6, setLocation6] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [infoWindowOpen1, setInfoWindowOpen1] = useState(false);
   const [infoWindowOpen2, setInfoWindowOpen2] = useState(false);
@@ -102,89 +136,50 @@ function Map() {
     event.target.style["background-color"] = tempColor;
   };
 
-  const showInfoWindow1 = () => {
-    const temp = location1Str.current.value;
-    const indexOf = temp.indexOf(",");
-    location1StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>;
-    setInfoWindowOpen1(true);
-  };
-
-  const showInfoWindow2 = () => {
-    const temp = location2Str.current.value;
-    const indexOf = temp.indexOf(",");
-    location2StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>;
-    setInfoWindowOpen2(true);
-  };
-
-  const showInfoWindow3 = () => {
-    const temp = location3Str.current.value;
-    const indexOf = temp.indexOf(",");
-    location3StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>;
-    setInfoWindowOpen3(true);
-  };
-
-  const showInfoWindow4 = () => {
-    const temp = location4Str.current.value;
-    const indexOf = temp.indexOf(",");
-    location4StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>;
-    setInfoWindowOpen4(true);
-  };
-
-  const showInfoWindow5 = () => {
-    const temp = location5Str.current.value;
-    const indexOf = temp.indexOf(",");
-    location5StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>;
-    setInfoWindowOpen5(true);
-  };
-
-  const showInfoWindow6 = () => {
-    const temp = location6Str.current.value;
-    const indexOf = temp.indexOf(",");
-    location6StrSpan = <span>{`${temp.substring(0, indexOf)}`}</span>;
-    setInfoWindowOpen6(true);
-  };
-
   const handleSave = (event) => {
     event.preventDefault();
-    if (
-      !location1Str.current.value ||
-      !location2Str.current.value ||
-      !location3Str.current.value ||
-      !location4Str.current.value ||
-      !location5Str.current.value ||
-      !location6Str.current.value
-    ) {
-      changeColor("red");
-      return;
-    }
 
     const locations = [
       {
         string: location1Str,
         function: setLocation1,
+        labelFunction: setLocation1Label,
       },
       {
         string: location2Str,
         function: setLocation2,
+        labelFunction: setLocation2Label,
       },
       {
         string: location3Str,
         function: setLocation3,
+        labelFunction: setLocation3Label,
       },
       {
         string: location4Str,
         function: setLocation4,
+        labelFunction: setLocation4Label,
       },
       {
         string: location5Str,
         function: setLocation5,
+        labelFunction: setLocation5Label,
       },
       {
         string: location6Str,
         function: setLocation6,
+        labelFunction: setLocation6Label,
       },
     ];
     locations.map((entry) => {
+      try {
+        console.log(`Trying: ${entry.string.current.value}`);
+      } catch (error) {
+        console.log(`aborting: ${entry}`);
+        return undefined;
+      }
+      const temp = entry.string.current.value;
+      entry.labelFunction(temp.substring(0, temp.indexOf(",")));
       return getGeoFromText(entry.string.current.value, entry.function);
     });
 
@@ -192,82 +187,100 @@ function Map() {
   };
 
   const getGeoFromText = (text, changeLocation) => {
-    if (!text) {
-      changeColor("red");
+    if (text) {
+      Geocode.fromAddress(text).then(
+        (response) => {
+          changeLocation(() => response.results[0].geometry.location);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
     }
-
-    Geocode.fromAddress(text).then(
-      (response) => {
-        changeLocation(() => response.results[0].geometry.location);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitting(true);
-    let timeOut = !location1 || !location2 || !location3 || !location4 || !location5 || !location6 ? 3000 : 0;
+
     let data = {
-      location1: {
+      radius: {
+        size: sliderValue,
+      },
+    };
+
+    if (location1) {
+      data.loc1 = {
         lat: location1.lat,
         lng: location1.lng,
         rank: rank1,
-      },
-      location2: {
+        // time: location1Time,
+      };
+    }
+
+    if (location2) {
+      data.loc2 = {
         lat: location2.lat,
         lng: location2.lng,
         rank: rank2,
-      },
-      location3: {
+        // time: location2Time,
+      };
+    }
+
+    if (location3) {
+      data.loc3 = {
         lat: location3.lat,
         lng: location3.lng,
         rank: rank3,
-      },
-      location4: {
+        // time: location3Time,
+      };
+    }
+
+    if (location4) {
+      data.loc4 = {
         lat: location4.lat,
         lng: location4.lng,
         rank: rank4,
-      },
-      location5: {
+        // time: location4Time,
+      };
+    }
+
+    if (location5) {
+      data.loc5 = {
         lat: location5.lat,
         lng: location5.lng,
         rank: rank5,
-      },
-      location6: {
+        // time: location5Time,
+      };
+    }
+
+    if (location6) {
+      data.loc6 = {
         lat: location6.lat,
         lng: location6.lng,
         rank: rank6,
-      },
-      radius: {
-        size: sliderValue,
-      }
-    };
-    console.log(JSON.stringify(data));
-    timeOut > 0
-      ? console.log("Timing out")
-      : console.log("No need for timeout");
-    setTimeout(() => {
-      const requestOpt = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        // time: location6Time,
       };
-      async function fetchFunc() {
-        return await fetch("/locations", requestOpt)
-          .then((response) => response.json())
-          .catch((error) => console.log(error));
-      }
-      (async () => {
-        let info = await fetchFunc();
-        console.log(info);
-        setAllCoordinates(info.allCoordinates);
-        setSubmitting(false);
-      })();
-      setShouldShowLocations(true);
-    }, timeOut);
+    }
+
+    console.log(JSON.stringify(data));
+    const requestOpt = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+    async function fetchFunc() {
+      return await fetch("/locations", requestOpt)
+        .then((response) => response.json())
+        .catch((error) => console.log(error));
+    }
+    (async () => {
+      let info = await fetchFunc();
+      console.log(info);
+      setAllCoordinates(info.allCoordinates);
+      setSubmitting(false);
+    })();
+    setShouldShowLocations(true);
   };
 
   const getRank = (value, name) => {
@@ -294,11 +307,6 @@ function Map() {
         console.log("Unhandled");
     }
   };
-
-  useEffect(() => {
-    console.log(`Rank 1: ${rank1}, Rank 2: ${rank2}, Rank 3: ${rank3}, Rank 4: ${rank4}, Rank 5: ${rank5}, Rank 6: ${rank6}`);
-  }, [rank1, rank2, rank3, rank4, rank5, rank6]);
-
   return (
     <div className="map">
       <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
@@ -308,16 +316,17 @@ function Map() {
               label="Location 1"
               name="loc1"
               inputStyle={inputStyle}
-              ref={location1Str}
+              ref={location1Ref}
               placeholder={"e.g. Praelexis"}
               getRank={getRank}
+              rank={rank1}
             />
 
             <TestComponent
               label="Location 2"
               name="loc2"
               inputStyle={inputStyle}
-              ref={location2Str}
+              ref={location2Ref}
               placeholder={"e.g. Endler"}
               getRank={getRank}
             />
@@ -326,7 +335,7 @@ function Map() {
               label="Location 3"
               name="loc3"
               inputStyle={inputStyle}
-              ref={location3Str}
+              ref={location3Ref}
               placeholder={"e.g. Neelsie"}
               getRank={getRank}
             />
@@ -335,7 +344,7 @@ function Map() {
               label="Location 4"
               name="loc4"
               inputStyle={inputStyle}
-              ref={location4Str}
+              ref={location4Ref}
               placeholder={"e.g. Eikestad Mall"}
               getRank={getRank}
             />
@@ -344,7 +353,7 @@ function Map() {
               label="Location 5"
               name="loc5"
               inputStyle={inputStyle}
-              ref={location5Str}
+              ref={location5Ref}
               placeholder={"e.g. Paul Roos"}
               getRank={getRank}
             />
@@ -353,12 +362,12 @@ function Map() {
               label="Location 6"
               name="loc6"
               inputStyle={inputStyle}
-              ref={location6Str}
+              ref={location6Ref}
               placeholder={"e.g. Danie Craven"}
               getRank={getRank}
             />
 
-            <ReactSlider 
+            <ReactSlider
               className="customSlider"
               trackClassName="customSlider-track"
               thumbClassName="customSlider-thumb"
@@ -372,26 +381,6 @@ function Map() {
             />
 
             <div> {sliderValue}km </div>
-            {/* <LocationBox
-              label={"First location"}
-              inputStyle={inputStyle}
-              ref={location1Str}
-              placeholder={"e.g. 'Neelsie'"}
-            />
-
-            <LocationBox
-              label={"Second location"}
-              inputStyle={inputStyle}
-              ref={location2Str}
-              placeholder={"e.g. 'Endler'"}
-            />
-
-            <LocationBox
-              label={"Third location"}
-              inputStyle={inputStyle}
-              ref={location3Str}
-              placeholder={"e.g. 'Praelexis'"}
-            /> */}
 
             <div className="box button">
               <button
@@ -441,11 +430,11 @@ function Map() {
                   title={"location1"}
                   position={location1}
                   icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                  onClick={showInfoWindow1}
+                  onClick={() => setInfoWindowOpen1(true)}
                 >
                   {infoWindowOpen1 && (
                     <InfoWindowF onCloseClick={() => setInfoWindowOpen1(false)}>
-                      <div> {location1StrSpan} </div>
+                      <div>{location1Label}</div>
                     </InfoWindowF>
                   )}
                 </MarkerF>
@@ -453,11 +442,11 @@ function Map() {
                   title={"location2"}
                   position={location2}
                   icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                  onClick={showInfoWindow2}
+                  onClick={() => setInfoWindowOpen2(true)}
                 >
                   {infoWindowOpen2 && (
                     <InfoWindowF onCloseClick={() => setInfoWindowOpen2(false)}>
-                      <div>{location2StrSpan}</div>
+                      <div>{location2Label}</div>
                     </InfoWindowF>
                   )}
                 </MarkerF>
@@ -465,11 +454,11 @@ function Map() {
                   title={"location3"}
                   position={location3}
                   icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                  onClick={showInfoWindow3}
+                  onClick={() => setInfoWindowOpen3(true)}
                 >
                   {infoWindowOpen3 && (
                     <InfoWindowF onCloseClick={() => setInfoWindowOpen3(false)}>
-                      <div>{location3StrSpan}</div>
+                      <div>{location3Label}</div>
                     </InfoWindowF>
                   )}
                 </MarkerF>
@@ -477,11 +466,11 @@ function Map() {
                   title={"location4"}
                   position={location4}
                   icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                  onClick={showInfoWindow4}
+                  onClick={() => setInfoWindowOpen4(true)}
                 >
                   {infoWindowOpen4 && (
                     <InfoWindowF onCloseClick={() => setInfoWindowOpen4(false)}>
-                      <div>{location4StrSpan}</div>
+                      <div>{location4Label}</div>
                     </InfoWindowF>
                   )}
                 </MarkerF>
@@ -489,11 +478,11 @@ function Map() {
                   title={"location5"}
                   position={location5}
                   icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                  onClick={showInfoWindow5}
+                  onClick={() => setInfoWindowOpen5(true)}
                 >
                   {infoWindowOpen5 && (
                     <InfoWindowF onCloseClick={() => setInfoWindowOpen5(false)}>
-                      <div>{location5StrSpan}</div>
+                      <div>{location5Label}</div>
                     </InfoWindowF>
                   )}
                 </MarkerF>
@@ -501,11 +490,11 @@ function Map() {
                   title={"location6"}
                   position={location6}
                   icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                  onClick={showInfoWindow6}
+                  onClick={() => setInfoWindowOpen6(true)}
                 >
                   {infoWindowOpen6 && (
                     <InfoWindowF onCloseClick={() => setInfoWindowOpen6(false)}>
-                      <div>{location6StrSpan}</div>
+                      <div>{location6Label}</div>
                     </InfoWindowF>
                   )}
                 </MarkerF>
