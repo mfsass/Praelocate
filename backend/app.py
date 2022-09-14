@@ -3,6 +3,7 @@ import json
 import googlemaps
 from flask import Flask, jsonify, request
 from flask_cors import cross_origin, CORS
+import math
 
 app = Flask(__name__)
 CORS(app)
@@ -13,6 +14,7 @@ all_time = []
 all_coordinates = {}
 midpoint = {}
 all_ranks = []
+location_average_time = []
 
 # top secret
 with open("api-key.txt") as api_file:
@@ -70,53 +72,68 @@ def calculate_midpoint(list_json):
     midpoint_lng = midpoint_lng / len(list_json)  # average of coordinates lng
     midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
 
-    try:
-        average_distance = 0
-        average_time = 0
+    earth_radius = 3960.0
+    degrees_to_radians = math.pi/180.0
+    radians_to_degrees = 180.0/math.pi
+    location_from_midpoint = [0, 0]
+    new_coordinate = 0
 
-        now = datetime.now()
+    radius_in_metres = 1000
+    radius_in_kilometres = radius_in_metres/1000
+    latitude_degrees = (radius_in_kilometres/earth_radius)*radians_to_degrees
+    latitude = midpoint['lat']
+    r = earth_radius*math.cos(latitude*degrees_to_radians)
+    longitude_degrees = (radius_in_kilometres/r)*radians_to_degrees
 
-        # calculates distance and time
-        for i in range(0, len(list_json)):
+    for i in range(0, 5):
 
-            directions_result = gmaps.directions(
-                origin=(midpoint["lat"], midpoint["lng"]),
-                destination=(coordinates[i][0], coordinates[i][1]),
-                departure_time=now,
-            )
-            distance = int(directions_result[0]["legs"][0]["distance"]["value"])
-            duration = int(directions_result[0]["legs"][0]["duration"]["value"])
+        try:
+            average_distance = 0
+            average_time = 0
 
-            all_distance.append(round((distance / 1000), 2))
-            all_time.append(round((duration / 60), 2))
-            average_distance += distance
-            average_time += duration
+            now = datetime.now()
+
+            # calculates distance and time
+            for i in range(0, len(list_json)):
+
+                directions_result = gmaps.directions(
+                    origin=(midpoint["lat"], midpoint["lng"]),
+                    destination=(coordinates[i][0], coordinates[i][1]),
+                    departure_time=now,
+                )
+                distance = int(directions_result[0]["legs"][0]["distance"]["value"])
+                duration = int(directions_result[0]["legs"][0]["duration"]["value"])
+
+                all_distance.append(round((distance / 1000), 2))
+                all_time.append(round((duration / 60), 2))
+                average_distance += distance
+                average_time += duration
+
+                print(
+                    f"Distance from midpoint to loc{i+1}: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
+                )
+
+            average_distance = round(average_distance / (1000 * len(list_json)), 2)
+            average_time = round(average_time / (len(list_json) * 60), 2)
 
             print(
-                f"Distance from midpoint to loc{i+1}: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
+                f"Average distance: {average_distance}km, Average time: {average_time} minutes"
             )
 
-        average_distance = round(average_distance / (1000 * len(list_json)), 2)
-        average_time = round(average_time / (len(list_json) * 60), 2)
+            print(f"Midpoint: {midpoint['lat']}, {midpoint['lng']}")
+            print(f"Total time: {sum(all_time)} minutes")
 
-        print(
-            f"Average distance: {average_distance}km, Average time: {average_time} minutes"
-        )
+        except:
+            return jsonify("Unsucessful request... maybe invalid coordinates")
 
-        print(f"Midpoint: {midpoint['lat']}, {midpoint['lng']}")
-        print(f"Total time: {sum(all_time)} minutes")
-
-    except:
-        return jsonify("Unsucessful request... maybe invalid coordinates")
-
-    return {
-        "avgDistance": average_distance,
-        "avgTime": average_time,
-        "allCoordinates": coordinates,
-        "allDistances": all_distance,
-        "allTimes": all_time,
-        "totalTime": sum(all_time),
-    }
+        return {
+            "avgDistance": average_distance,
+            "avgTime": average_time,
+            "allCoordinates": coordinates,
+            "allDistances": all_distance,
+            "allTimes": all_time,
+            "totalTime": sum(all_time),
+        }
 
 
 # TODO: create test suite
