@@ -117,6 +117,7 @@ def calculate_midpoint(list_json):
         "allDistances": all_distance,
         "allTimes": all_time,
         "totalTime": sum(all_time),
+        "midpoint": midpoint,
     }
 
 
