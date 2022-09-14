@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import googlemaps
 from flask import Flask, jsonify, request
@@ -13,6 +13,7 @@ all_time = []
 all_coordinates = {}
 midpoint = {}
 all_ranks = []
+times = []
 
 # top secret
 with open("api-key.txt") as api_file:
@@ -34,12 +35,17 @@ def locations():
 
     list_json = []
     for i in range(1, no_locations):
-        stra = "location" + str(i)
-        loc = request.json[stra]
-        item = (float(loc["lat"]), float(loc["lng"]), float(loc["rank"]))
+        loc_str = "location" + str(i)
+        loc = request.json[loc_str]
+        item = (
+            float(loc["lat"]),
+            float(loc["lng"]),
+            float(loc["rank"]),
+            str(loc["time"]),
+        )
         list_json.append(item)
 
-    # print(list_json)
+    print(list_json)
 
     return calculate_midpoint(list_json)
 
@@ -50,13 +56,12 @@ def calculate_midpoint(list_json):
     if len(all_time) > 0:
         all_time.clear()
 
-    # ranks
     for i in range(0, len(list_json)):
-        all_ranks.append(list_json[i][2])
+        all_ranks.append(list_json[i][2])  # ranks
+        coordinates.append((list_json[i][0], list_json[i][1]))  # coordinates
+        times.append((list_json[i][3]))  # time
 
-    # coordinates
-    for i in range(0, len(list_json)):
-        coordinates.append((list_json[i][0], list_json[i][1]))
+    # print(times)
 
     # midpoint average of coordinates
     midpoint_lat = 0.0
@@ -79,6 +84,12 @@ def calculate_midpoint(list_json):
         # calculates distance and time
         for i in range(0, len(list_json)):
 
+            # time specified for tomorrows date (future date can be given)
+            time_str = times[i]
+            time_object = datetime.strptime(time_str, "%H:%M").time()
+            time_object = datetime.combine(
+                datetime.today() + timedelta(days=1), time_object
+            )
             directions_result = gmaps.directions(
                 origin=(midpoint["lat"], midpoint["lng"]),
                 destination=(coordinates[i][0], coordinates[i][1]),
@@ -116,7 +127,5 @@ def calculate_midpoint(list_json):
         "allDistances": all_distance,
         "allTimes": all_time,
         "totalTime": sum(all_time),
+        "midpoint": midpoint,
     }
-
-
-# TODO: create test suite
