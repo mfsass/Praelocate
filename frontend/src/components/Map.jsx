@@ -329,6 +329,7 @@ function Map() {
               ref={location2Ref}
               placeholder={"e.g. Endler"}
               getRank={getRank}
+              rank={rank2}
             />
 
             <TestComponent
@@ -338,6 +339,7 @@ function Map() {
               ref={location3Ref}
               placeholder={"e.g. Neelsie"}
               getRank={getRank}
+              rank={rank3}
             />
 
             <TestComponent
@@ -347,6 +349,7 @@ function Map() {
               ref={location4Ref}
               placeholder={"e.g. Eikestad Mall"}
               getRank={getRank}
+              rank={rank4}
             />
 
             <TestComponent
@@ -356,6 +359,7 @@ function Map() {
               ref={location5Ref}
               placeholder={"e.g. Paul Roos"}
               getRank={getRank}
+              rank={rank5}
             />
 
             <TestComponent
@@ -365,6 +369,7 @@ function Map() {
               ref={location6Ref}
               placeholder={"e.g. Danie Craven"}
               getRank={getRank}
+              rank={rank6}
             />
 
             <ReactSlider
