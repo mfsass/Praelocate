@@ -36,8 +36,7 @@ def locations():
     for i in range(1, no_locations):
         stra = f"loc{str(i)}"
         loc = request.json[stra]
-        # item = (float(loc["lat"]), float(loc["lng"]), float(loc["rank"]), loc["time"])
-        item = (float(loc["lat"]), float(loc["lng"]), float(loc["rank"]))
+        item = (float(loc["lat"]), float(loc["lng"]), float(loc["rank"]), loc["time"])
         
         list_json.append(item)
 
