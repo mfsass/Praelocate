@@ -34,12 +34,13 @@ def locations():
 
     list_json = []
     for i in range(1, no_locations):
-        stra = "location" + str(i)
+        stra = f"loc{str(i)}"
         loc = request.json[stra]
-        item = (float(loc["lat"]), float(loc["lng"]), float(loc["rank"]))
+        item = (float(loc["lat"]), float(loc["lng"]), float(loc["rank"]), loc["time"])
+        
         list_json.append(item)
 
-    # print(list_json)
+    print(list_json)
 
     return calculate_midpoint(list_json)
 
@@ -116,6 +117,7 @@ def calculate_midpoint(list_json):
         "allDistances": all_distance,
         "allTimes": all_time,
         "totalTime": sum(all_time),
+        "midpoint": midpoint,
     }
 
 
