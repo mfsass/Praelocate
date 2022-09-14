@@ -12,13 +12,13 @@ const TestComponent = forwardRef((props, ref) => {
   useEffect(() => {
     switch (props.rank) {
       case 0:
-        setRankText("");
+        setRankText("Importance");
         break;
       case 1:
         setRankText("Not important");
         break;
       case 2:
-        setRankText("Somewhat important");
+        setRankText("Important");
         break;
       case 3:
         setRankText("Very important");
@@ -33,7 +33,7 @@ const TestComponent = forwardRef((props, ref) => {
   }, [rankText, props.rank]);
 
   return (
-    <div className="box work">
+    <div className="box">
       <div className="input label">
         <label className="mainLabel">{props.label}</label>
         <input
@@ -52,36 +52,38 @@ const TestComponent = forwardRef((props, ref) => {
               placeholder={props.placeholder}
             ></input>
           </StandaloneSearchBox>
-          <div className="bars">
-            <input
-              type="radio"
-              name={"bars " + props.name}
-              value="4"
-              onClick={() => props.getRank(4, props.name)}
-            />
-            <input
-              type="radio"
-              name={"bars " + props.name}
-              value="3"
-              onClick={() => props.getRank(3, props.name)}
-            />
-            <input
-              type="radio"
-              name={"bars " + props.name}
-              value="2"
-              onClick={() => props.getRank(2, props.name)}
-            />
-            <input
-              type="radio"
-              name={"bars " + props.name}
-              value="1"
-              onClick={() => props.getRank(1, props.name)}
-            />
-            <span>{rankText}</span>
-          </div>
-          <div className="timeInput">
-            <label>Departure time:</label>
-            <input type="time" ref={locationTime} />
+          <div className="extraInput">
+            <div className="bars">
+              <input
+                type="radio"
+                name={"bars " + props.name}
+                value="4"
+                onClick={() => props.getRank(4, props.name)}
+              />
+              <input
+                type="radio"
+                name={"bars " + props.name}
+                value="3"
+                onClick={() => props.getRank(3, props.name)}
+              />
+              <input
+                type="radio"
+                name={"bars " + props.name}
+                value="2"
+                onClick={() => props.getRank(2, props.name)}
+              />
+              <input
+                type="radio"
+                name={"bars " + props.name}
+                value="1"
+                onClick={() => props.getRank(1, props.name)}
+              />
+              <span>{rankText}</span>
+            </div>
+            <div className="timeInput">
+              <label>Departure:</label>
+              <input type="time" ref={locationTime} />
+            </div>
           </div>
         </div>
       )}

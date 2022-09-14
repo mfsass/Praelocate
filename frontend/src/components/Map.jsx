@@ -11,7 +11,7 @@ import {
 
 import TestComponent from "./TestComponent";
 import "./map.css";
-import "./testComponent.css";
+// import "./testComponent.css";
 
 const libraries = ["places"];
 
@@ -24,7 +24,6 @@ const inputStyle = {
   boxSizing: `border-box`,
   border: `1px solid transparent`,
   width: `100%`,
-  // height: `32px`,
   padding: `0 12px`,
   borderRadius: `7px`,
   boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
@@ -209,56 +208,62 @@ function Map() {
     };
 
     if (location1) {
+      const tempTime = location1Time ? location1Time.current.value : "12:00";
       data.loc1 = {
         lat: location1.lat,
         lng: location1.lng,
         rank: rank1,
-        time: location1Time.current.value,
+        time: tempTime,
       };
     }
 
     if (location2) {
+      const tempTime = location2Time ? location2Time.current.value : "12:00";
       data.loc2 = {
         lat: location2.lat,
         lng: location2.lng,
         rank: rank2,
-        time: location2Time.current.value,
+        time: tempTime,
       };
     }
 
     if (location3) {
+      const tempTime = location3Time ? location3Time.current.value : "12:00";
       data.loc3 = {
         lat: location3.lat,
         lng: location3.lng,
         rank: rank3,
-        time: location3Time.current.value,
+        time: tempTime,
       };
     }
 
     if (location4) {
+      const tempTime = location4Time ? location4Time.current.value : "12:00";
       data.loc4 = {
         lat: location4.lat,
         lng: location4.lng,
         rank: rank4,
-        time: location4Time.current.value,
+        time: tempTime,
       };
     }
 
     if (location5) {
+      const tempTime = location5Time ? location5Time.current.value : "12:00";
       data.loc5 = {
         lat: location5.lat,
         lng: location5.lng,
         rank: rank5,
-        time: location5Time.current.value,
+        time: tempTime,
       };
     }
 
     if (location6) {
+      const tempTime = location6Time ? location6Time.current.value : "12:00";
       data.loc6 = {
         lat: location6.lat,
         lng: location6.lng,
         rank: rank6,
-        time: location6Time.current.value,
+        time: tempTime,
       };
     }
 
@@ -317,7 +322,7 @@ function Map() {
         <div className="locations">
           <form className="locations form" onSubmit={handleSubmit}>
             <TestComponent
-              label="Location 1"
+              label="Work"
               name="loc1"
               inputStyle={inputStyle}
               ref={location1Ref}
@@ -327,27 +332,27 @@ function Map() {
             />
 
             <TestComponent
-              label="Location 2"
+              label="Work 2"
               name="loc2"
               inputStyle={inputStyle}
               ref={location2Ref}
-              placeholder={"e.g. Endler"}
+              placeholder={"e.g. Stellenbosch University"}
               getRank={getRank}
               rank={rank2}
             />
 
             <TestComponent
-              label="Location 3"
+              label="School"
               name="loc3"
               inputStyle={inputStyle}
               ref={location3Ref}
-              placeholder={"e.g. Neelsie"}
+              placeholder={"e.g. Paul Roos"}
               getRank={getRank}
               rank={rank3}
             />
 
             <TestComponent
-              label="Location 4"
+              label="Mall"
               name="loc4"
               inputStyle={inputStyle}
               ref={location4Ref}
@@ -357,39 +362,43 @@ function Map() {
             />
 
             <TestComponent
-              label="Location 5"
+              label="Gym"
               name="loc5"
               inputStyle={inputStyle}
               ref={location5Ref}
-              placeholder={"e.g. Paul Roos"}
+              placeholder={"e.g. Virgin Active Stellenbosch"}
               getRank={getRank}
               rank={rank5}
             />
 
             <TestComponent
-              label="Location 6"
+              label="Park"
               name="loc6"
               inputStyle={inputStyle}
               ref={location6Ref}
-              placeholder={"e.g. Danie Craven"}
+              placeholder={"e.g. Uniepark"}
               getRank={getRank}
               rank={rank6}
             />
 
-            <ReactSlider
-              className="customSlider"
-              trackClassName="customSlider-track"
-              thumbClassName="customSlider-thumb"
-              markClassName="customSlider-mark"
-              marks={1}
-              min={1}
-              max={10}
-              defaultValue={1}
-              value={sliderValue}
-              onChange={(value) => setSliderValue(value)}
-            />
+            <div className="locations slider">
+              <div>Output radius:</div>
 
-            <div> {sliderValue}km </div>
+              <ReactSlider
+                className="customSlider"
+                trackClassName="customSlider-track"
+                thumbClassName="customSlider-thumb"
+                markClassName="customSlider-mark"
+                marks={1}
+                min={1}
+                max={10}
+                defaultValue={1}
+                value={sliderValue}
+                onChange={(value) => setSliderValue(value)}
+              />
+
+              <div> {sliderValue} km </div>
+            </div>
 
             <div className="box button">
               <button
