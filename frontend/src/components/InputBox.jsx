@@ -1,9 +1,9 @@
 import React, { useState, forwardRef, useEffect } from "react";
 import { StandaloneSearchBox } from "@react-google-maps/api";
 
-import "./testComponent.css";
+import "./inputBox.css";
 
-const TestComponent = forwardRef((props, ref) => {
+const InputBox = forwardRef((props, ref) => {
   const [shouldShow, setShouldShow] = useState(false);
   const [rankText, setRankText] = useState("");
 
@@ -91,4 +91,4 @@ const TestComponent = forwardRef((props, ref) => {
   );
 });
 
-export default TestComponent;
+export default InputBox;

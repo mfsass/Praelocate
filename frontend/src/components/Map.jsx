@@ -9,9 +9,8 @@ import {
   InfoWindowF,
 } from "@react-google-maps/api";
 
-import TestComponent from "./TestComponent";
+import InputBox from "./InputBox";
 import "./map.css";
-// import "./testComponent.css";
 
 const libraries = ["places"];
 
@@ -321,7 +320,7 @@ function Map() {
       <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
         <div className="locations">
           <form className="locations form" onSubmit={handleSubmit}>
-            <TestComponent
+            <InputBox
               label="Work"
               name="loc1"
               inputStyle={inputStyle}
@@ -331,7 +330,7 @@ function Map() {
               rank={rank1}
             />
 
-            <TestComponent
+            <InputBox
               label="Work 2"
               name="loc2"
               inputStyle={inputStyle}
@@ -341,7 +340,7 @@ function Map() {
               rank={rank2}
             />
 
-            <TestComponent
+            <InputBox
               label="School"
               name="loc3"
               inputStyle={inputStyle}
@@ -351,7 +350,7 @@ function Map() {
               rank={rank3}
             />
 
-            <TestComponent
+            <InputBox
               label="Mall"
               name="loc4"
               inputStyle={inputStyle}
@@ -361,7 +360,7 @@ function Map() {
               rank={rank4}
             />
 
-            <TestComponent
+            <InputBox
               label="Gym"
               name="loc5"
               inputStyle={inputStyle}
@@ -371,7 +370,7 @@ function Map() {
               rank={rank5}
             />
 
-            <TestComponent
+            <InputBox
               label="Park"
               name="loc6"
               inputStyle={inputStyle}
