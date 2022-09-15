@@ -138,9 +138,9 @@ function Map() {
 
     const locations = [
       {
-        string: location1Str,
+        string: location1Str, // Praelexis, ... ... ...
         function: setLocation1,
-        labelFunction: setLocation1Label,
+        labelFunction: setLocation1Label, // -> Praelexis
       },
       {
         string: location2Str,
@@ -207,7 +207,9 @@ function Map() {
     };
 
     if (location1) {
-      const tempTime = location1Time ? location1Time.current.value : "12:00";
+      const tempTime = location1Time.current.value
+        ? location1Time.current.value
+        : "12:00";
       data.loc1 = {
         lat: location1.lat,
         lng: location1.lng,
@@ -217,7 +219,9 @@ function Map() {
     }
 
     if (location2) {
-      const tempTime = location2Time ? location2Time.current.value : "12:00";
+      const tempTime = location2Time.current.value
+        ? location2Time.current.value
+        : "12:00";
       data.loc2 = {
         lat: location2.lat,
         lng: location2.lng,
@@ -227,7 +231,9 @@ function Map() {
     }
 
     if (location3) {
-      const tempTime = location3Time ? location3Time.current.value : "12:00";
+      const tempTime = location3Time.current.value
+        ? location3Time.current.value
+        : "12:00";
       data.loc3 = {
         lat: location3.lat,
         lng: location3.lng,
@@ -237,7 +243,9 @@ function Map() {
     }
 
     if (location4) {
-      const tempTime = location4Time ? location4Time.current.value : "12:00";
+      const tempTime = location4Time.current.value
+        ? location4Time.current.value
+        : "12:00";
       data.loc4 = {
         lat: location4.lat,
         lng: location4.lng,
@@ -247,7 +255,9 @@ function Map() {
     }
 
     if (location5) {
-      const tempTime = location5Time ? location5Time.current.value : "12:00";
+      const tempTime = location5Time.current.value
+        ? location5Time.current.value
+        : "12:00";
       data.loc5 = {
         lat: location5.lat,
         lng: location5.lng,
@@ -257,7 +267,9 @@ function Map() {
     }
 
     if (location6) {
-      const tempTime = location6Time ? location6Time.current.value : "12:00";
+      const tempTime = location6Time.current.value
+        ? location6Time.current.value
+        : "12:00";
       data.loc6 = {
         lat: location6.lat,
         lng: location6.lng,
@@ -280,6 +292,9 @@ function Map() {
     (async () => {
       let info = await fetchFunc();
       console.log(info);
+      // info.allDistances.map((location) => {
+      //   location
+      // })
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
@@ -399,6 +414,11 @@ function Map() {
               <div> {sliderValue} km </div>
             </div>
 
+            <div className="locations preference">
+              <label>Calculation preference: </label>
+              <input type="radio" />
+            </div>
+
             <div className="box button">
               <button
                 className="locations button"
@@ -427,12 +447,12 @@ function Map() {
           </form>
           {submitting && <span>Submitting ... </span>}
 
-          {allCoordinates.midpoint && (
+          {/* {allCoordinates.midpoint && (
             <span>
               Midpoint:
               {allCoordinates.midpoint.lat},{allCoordinates.midpoint.lng}
             </span>
-          )}
+          )} */}
         </div>
 
         <div className="googleMap">
