@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from distutils.debug import DEBUG
 import json
 from tkinter import TRUE
 import googlemaps
@@ -58,7 +59,9 @@ def locations():
         list_json.append(item)
 
     radius = request.json["radius"]["size"]
-    optimize_preference = request.json["optimize"]["preference"]
+    optimize_preference = (
+        request.json["optimize"]["preference"] if "optimize" in request.json else "time"
+    )
     # print(list_json)
 
     return calculate_midpoint(list_json)
