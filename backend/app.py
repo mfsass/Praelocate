@@ -1,7 +1,5 @@
 from datetime import datetime, timedelta
-from distutils.debug import DEBUG
 import json
-from tkinter import TRUE
 import googlemaps
 from flask import Flask, jsonify, request
 from flask_cors import cross_origin, CORS
@@ -265,5 +263,8 @@ def calculate_midpoint(list_json):
         "allTimes": optimized_location[3],
         "totalTime": sum(optimized_location[3]),
         "totalDistance": sum(optimized_location[2]),
-        "midpoint": optimized_location[5],
+        "midpoint": {
+            "lat": optimized_location[5][0],
+            "lng": optimized_location[5][1]
+        }
     }
