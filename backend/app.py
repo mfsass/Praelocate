@@ -79,7 +79,7 @@ def calculate_midpoint(list_json):
     average_distance = 0
     average_time = 0
 
-    now = datetime.now()
+    # now = datetime.now()
 
     # calculates distance and time
     for i in range(0, len(list_json)):
@@ -90,7 +90,7 @@ def calculate_midpoint(list_json):
         time_object = datetime.combine(
             datetime.today() + timedelta(days=1), time_object
         )
-        print(time_object)
+        # print(time_object)
         directions_result = gmaps.directions(
             origin=(midpoint["lat"], midpoint["lng"]),
             destination=(coordinates[i][0], coordinates[i][1]),
