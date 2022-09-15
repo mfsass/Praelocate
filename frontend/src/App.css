@@ -1,3 +1,11 @@
+:root {
+  --background-light: #F0F8F9;
+  --button: #6B8F92;
+  --button-hover: #4a797e;
+  --input-fill: #E1E1E1;
+  --active: #236F74;
+}
+
 .App {
   text-align: center;
   height: 100%;
@@ -49,7 +57,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: rgb(29, 13, 0);
-  background-color: rgb(241, 246, 247);
+  background-color: #F0F8F9;
 }
 
 .imageButton {
