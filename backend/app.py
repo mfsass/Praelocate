@@ -108,7 +108,7 @@ def calculate_midpoint(list_json):
     midpoint_lat = midpoint_lat / weights  # average of coordinates lat
     midpoint_lng = midpoint_lng / weights  # average of coordinates lng
     midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
-    print(midpoint)
+    print(f"Weighted midpoint: {midpoint}\n")
 
     earth_radius = 6378.0
     degrees_to_radians = math.pi / 180.0
@@ -227,10 +227,12 @@ def calculate_midpoint(list_json):
             print(f"Total time: {round(sum(all_time),2)} minutes \n")
 
         except:
-            return jsonify("Unsucessful request... maybe invalid coordinates")
+            return jsonify("Unsuccessful request...")
 
     # NOTE: optimize through distance/time ifs
     min = 0.0
+    global index
+    index = 0
     optimized_location = average_distance_time_array[0]
     if optimize_preference == "time":
         min = sum(average_distance_time_array[0][3])
@@ -239,14 +241,21 @@ def calculate_midpoint(list_json):
             if sum(average_distance_time_array[k][3]) < min:
                 min = sum(average_distance_time_array[k][3])
                 optimized_location = average_distance_time_array[k]
+                index = k
     elif optimize_preference == "distance":
         min = sum(average_distance_time_array[0][2])
         for k in range(1, 5):
             if sum(average_distance_time_array[k][2]) < min:
                 min = sum(average_distance_time_array[k][2])
                 optimized_location = average_distance_time_array[k]
+                index = k
 
+    print("-------------------")
+    print(
+        f"Optimized location{index} [based on {optimize_preference}] \nDetails: Avg distance, Avg time, All distances, All times, Avg time weighted, Origin"
+    )
     print(optimized_location)
+    print("-------------------")
 
     return {
         "avgDistance": optimized_location[0],
