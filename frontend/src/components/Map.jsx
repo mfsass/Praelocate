@@ -138,9 +138,9 @@ function Map() {
 
     const locations = [
       {
-        string: location1Str,
+        string: location1Str, // Praelexis, ... ... ...
         function: setLocation1,
-        labelFunction: setLocation1Label,
+        labelFunction: setLocation1Label, // -> Praelexis
       },
       {
         string: location2Str,
@@ -292,6 +292,9 @@ function Map() {
     (async () => {
       let info = await fetchFunc();
       console.log(info);
+      // info.allDistances.map((location) => {
+      //   location
+      // })
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
@@ -409,6 +412,11 @@ function Map() {
               />
 
               <div> {sliderValue} km </div>
+            </div>
+
+            <div className="locations preference">
+              <label>Calculation preference: </label>
+              <input type="radio" />
             </div>
 
             <div className="box button">
