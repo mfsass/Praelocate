@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 from tkinter import TRUE
 import googlemaps
@@ -16,6 +16,8 @@ all_coordinates = {}
 midpoint = {}
 all_ranks = []
 location_average_time = []
+times = []
+
 
 # top secret
 with open("api-key.txt") as api_file:
@@ -37,15 +39,19 @@ def locations():
 
     list_json = []
     for i in range(1, no_locations):
-        stra = "location" + str(i)
-        loc = request.json[stra]
-        item = (float(loc["lat"]), float(loc["lng"]), float(loc["rank"]))
+        loc_str = "location" + str(i)
+        loc = request.json[loc_str]
+        item = (
+            float(loc["lat"]),
+            float(loc["lng"]),
+            float(loc["rank"]),
+            str(loc["time"]),
+        )
         list_json.append(item)
 
     # print(list_json)
 
     return calculate_midpoint(list_json)
-
 
 
 def calculate_midpoint(list_json):
@@ -54,52 +60,67 @@ def calculate_midpoint(list_json):
     if len(all_time) > 0:
         all_time.clear()
 
-    # ranks
     for i in range(0, len(list_json)):
-        all_ranks.append(list_json[i][2])
+        all_ranks.append(list_json[i][2])  # ranks
+        coordinates.append((list_json[i][0], list_json[i][1]))  # coordinates
+        times.append((list_json[i][3]))  # time
 
-    # coordinates
-    for i in range(0, len(list_json)):
-        coordinates.append((list_json[i][0], list_json[i][1]))
+    # print(times)
 
     # midpoint average of coordinates
     midpoint_lat = 0.0
     midpoint_lng = 0.0
     weights = 0.0
     for i in range(0, len(list_json)):
-        midpoint_lat += coordinates[i][0]*(all_ranks[i]*0.2+0.8)
-        midpoint_lng += coordinates[i][1]*(all_ranks[i]*0.2+0.8)
-        weights = weights + all_ranks[i]*0.2+0.8
+        midpoint_lat += coordinates[i][0] * (all_ranks[i] * 0.2 + 0.8)
+        midpoint_lng += coordinates[i][1] * (all_ranks[i] * 0.2 + 0.8)
+        weights = weights + all_ranks[i] * 0.2 + 0.8
         # TODO: rank multiplier calculation here
 
-    midpoint_lat = midpoint_lat / weights # average of coordinates lat
+    midpoint_lat = midpoint_lat / weights  # average of coordinates lat
     midpoint_lng = midpoint_lng / weights  # average of coordinates lng
     midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
 
-
     earth_radius = 6378.0
-    degrees_to_radians = math.pi/180.0
-    radians_to_degrees = 180.0/math.pi
+    degrees_to_radians = math.pi / 180.0
+    radians_to_degrees = 180.0 / math.pi
 
     radius_in_metres = 1000
-    radius_in_kilometres = radius_in_metres/1000
-    latitude_degrees = (radius_in_kilometres/earth_radius)*radians_to_degrees
-    latitude = midpoint['lat']
-    r = earth_radius*math.cos(latitude*degrees_to_radians)
-    longitude_degrees = (radius_in_kilometres/r)*radians_to_degrees
+    radius_in_kilometres = radius_in_metres / 1000
+    latitude_degrees = (radius_in_kilometres / earth_radius) * radians_to_degrees
+    latitude = midpoint["lat"]
+    r = earth_radius * math.cos(latitude * degrees_to_radians)
+    longitude_degrees = (radius_in_kilometres / r) * radians_to_degrees
 
-    #Creating the four other dictionaries
-    average_coordinates_1 = {"lat": midpoint_lat, "lng": midpoint_lng + longitude_degrees}
-    average_coordinates_2 = {"lat": midpoint_lat, "lng": midpoint_lng - longitude_degrees}
-    average_coordinates_3 = {"lat": midpoint_lat + latitude_degrees, "lng": midpoint_lng}
-    average_coordinates_4 = {"lat": midpoint_lat - latitude_degrees, "lng": midpoint_lng}
+    # Creating the four other dictionaries
+    average_coordinates_1 = {
+        "lat": midpoint_lat,
+        "lng": midpoint_lng + longitude_degrees,
+    }
+    average_coordinates_2 = {
+        "lat": midpoint_lat,
+        "lng": midpoint_lng - longitude_degrees,
+    }
+    average_coordinates_3 = {
+        "lat": midpoint_lat + latitude_degrees,
+        "lng": midpoint_lng,
+    }
+    average_coordinates_4 = {
+        "lat": midpoint_lat - latitude_degrees,
+        "lng": midpoint_lng,
+    }
 
-    #Storing all of the dictionaries in a list
-    average_coordinates_array = [midpoint, average_coordinates_1, average_coordinates_2, 
-    average_coordinates_3, average_coordinates_4]
+    # Storing all of the dictionaries in a list
+    average_coordinates_array = [
+        midpoint,
+        average_coordinates_1,
+        average_coordinates_2,
+        average_coordinates_3,
+        average_coordinates_4,
+    ]
     average_distance_time_array = []
 
-    #Now, instead of sending the average coordinates you send the tuples at the iteration in the loop
+    # Now, instead of sending the average coordinates you send the tuples at the iteration in the loop
     for j in range(0, 5):
 
         # try:
@@ -110,11 +131,14 @@ def calculate_midpoint(list_json):
         average_time_weighted = 0
 
         now = datetime.now()
-        origin_tuple = (average_coordinates_array[j]["lat"], average_coordinates_array[j]["lng"])
+        origin_tuple = (
+            average_coordinates_array[j]["lat"],
+            average_coordinates_array[j]["lng"],
+        )
 
         # calculates distance and time
         for i in range(0, len(list_json)):
-            
+
             directions_result = gmaps.directions(
                 origin=origin_tuple,
                 destination=(coordinates[i][0], coordinates[i][1]),
@@ -127,10 +151,10 @@ def calculate_midpoint(list_json):
             all_time.append(round((duration / 60), 2))
             average_distance += distance
             average_time += duration
-            
-            multiplyer = (all_ranks[i]*-0.2) + 1.5
+
+            multiplyer = (all_ranks[i] * -0.2) + 1.5
             multiplyers_added = multiplyers_added + multiplyer
-            average_time_weighted = average_time_weighted + multiplyer*duration
+            average_time_weighted = average_time_weighted + multiplyer * duration
 
             print(
                 f"Distance from midpoint to loc{i+1}: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
@@ -138,9 +162,20 @@ def calculate_midpoint(list_json):
 
         average_distance = round(average_distance / (1000 * len(list_json)), 2)
         average_time = round(average_time / (len(list_json) * 60), 2)
-        average_time_weighted = round(average_time_weighted/(multiplyers_added * 60), 2)
+        average_time_weighted = round(
+            average_time_weighted / (multiplyers_added * 60), 2
+        )
         location_string = "location_from_mid" + str(j)
-        average_distance_time_array.append([average_distance, average_time, all_distance, all_time, average_time_weighted, origin_tuple])
+        average_distance_time_array.append(
+            [
+                average_distance,
+                average_time,
+                all_distance,
+                all_time,
+                average_time_weighted,
+                origin_tuple,
+            ]
+        )
         all_distance.clear()
         all_time.clear()
 
@@ -151,14 +186,14 @@ def calculate_midpoint(list_json):
         # except:
         #     return jsonify("Unsucessful request... maybe invalid coordinates")
 
-    #TODO optimise through distance/time ifs
+    # TODO optimise through distance/time ifs
     optimisation = "t"
     min = 0.0
     optimised_location = average_distance_time_array[0]
     if optimisation == "t":
         min = average_distance_time_array[0][1]
         for k in range(1, 5):
-        # key_string = "location_from_mid" + str(k)
+            # key_string = "location_from_mid" + str(k)
             if average_distance_time_array[k][1] < min:
                 min = average_distance_time_array[k][1]
                 optimised_location = average_distance_time_array[k]
@@ -176,8 +211,8 @@ def calculate_midpoint(list_json):
         "allDistances": optimised_location[2],
         "allTimes": optimised_location[3],
         "totalTime": sum(optimised_location[3]),
-        "midpoint": optimised_location[5]
-        } 
+        "midpoint": optimised_location[5],
+    }
 
 
 # TODO: create test suite
