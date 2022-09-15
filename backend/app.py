@@ -75,52 +75,54 @@ def calculate_midpoint(list_json):
     midpoint_lng = midpoint_lng / len(list_json)  # average of coordinates lng
     midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
 
-    # try:
-    average_distance = 0
-    average_time = 0
+    try:
+        average_distance = 0
+        average_time = 0
 
-    # now = datetime.now()
+        # now = datetime.now()
 
-    # calculates distance and time
-    for i in range(0, len(list_json)):
+        # calculates distance and time
+        for i in range(0, len(list_json)):
 
-        # time specified for tomorrows date (future date can be given)
-        time_str = times[i]
-        time_object = datetime.strptime(time_str, "%H:%M").time()
-        time_object = datetime.combine(
-            datetime.today() + timedelta(days=1), time_object
-        )
-        # print(time_object)
-        directions_result = gmaps.directions(
-            origin=(midpoint["lat"], midpoint["lng"]),
-            destination=(coordinates[i][0], coordinates[i][1]),
-            mode="driving",
-            departure_time=time_object,
-        )
-        distance = int(directions_result[0]["legs"][0]["distance"]["value"])
-        duration = int(directions_result[0]["legs"][0]["duration_in_traffic"]["value"])
+            # time specified for tomorrows date (future date can be given)
+            time_str = times[i]
+            time_object = datetime.strptime(time_str, "%H:%M").time()
+            time_object = datetime.combine(
+                datetime.today() + timedelta(days=1), time_object
+            )
+            # print(time_object)
+            directions_result = gmaps.directions(
+                origin=(midpoint["lat"], midpoint["lng"]),
+                destination=(coordinates[i][0], coordinates[i][1]),
+                mode="driving",
+                departure_time=time_object,
+            )
+            distance = int(directions_result[0]["legs"][0]["distance"]["value"])
+            duration = int(
+                directions_result[0]["legs"][0]["duration_in_traffic"]["value"]
+            )
 
-        all_distance.append(round((distance / 1000), 2))
-        all_time.append(round((duration / 60), 2))
-        average_distance += distance
-        average_time += duration
+            all_distance.append(round((distance / 1000), 2))
+            all_time.append(round((duration / 60), 2))
+            average_distance += distance
+            average_time += duration
+
+            print(
+                f"Distance from midpoint to loc{i+1}: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
+            )
+
+        average_distance = round(average_distance / (1000 * len(list_json)), 2)
+        average_time = round(average_time / (len(list_json) * 60), 2)
 
         print(
-            f"Distance from midpoint to loc{i+1}: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
+            f"Average distance: {average_distance}km, Average time: {average_time} minutes"
         )
 
-    average_distance = round(average_distance / (1000 * len(list_json)), 2)
-    average_time = round(average_time / (len(list_json) * 60), 2)
+        print(f"Midpoint: {midpoint['lat']}, {midpoint['lng']}")
+        print(f"Total time: {sum(all_time)} minutes")
 
-    print(
-        f"Average distance: {average_distance}km, Average time: {average_time} minutes"
-    )
-
-    print(f"Midpoint: {midpoint['lat']}, {midpoint['lng']}")
-    print(f"Total time: {sum(all_time)} minutes")
-
-    # except:
-    #     return jsonify("Unsuccessful request... maybe invalid coordinates")
+    except:
+        return jsonify("Unsuccessful request... maybe invalid coordinates")
 
     return {
         "avgDistance": average_distance,
