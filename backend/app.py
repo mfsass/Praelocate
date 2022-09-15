@@ -71,11 +71,13 @@ def calculate_midpoint(list_json):
     midpoint_lat = 0.0
     midpoint_lng = 0.0
     weights = 0.0
+    # calculates weighted center mean
     for i in range(0, len(list_json)):
-        midpoint_lat += coordinates[i][0] * (all_ranks[i] * 0.2 + 0.8)
+        midpoint_lat += coordinates[i][0] * (
+            all_ranks[i] * 0.2 + 0.8
+        )  # NOTE: 0.2 and 0.8?
         midpoint_lng += coordinates[i][1] * (all_ranks[i] * 0.2 + 0.8)
         weights = weights + all_ranks[i] * 0.2 + 0.8
-        # TODO: rank multiplier calculation here
 
     midpoint_lat = midpoint_lat / weights  # average of coordinates lat
     midpoint_lng = midpoint_lng / weights  # average of coordinates lng
@@ -86,11 +88,11 @@ def calculate_midpoint(list_json):
     radians_to_degrees = 180.0 / math.pi
 
     radius_in_metres = 1000
-    radius_in_kilometres = radius_in_metres / 1000
-    latitude_degrees = (radius_in_kilometres / earth_radius) * radians_to_degrees
+    radius_in_kilometers = radius_in_metres / 1000
+    latitude_degrees = (radius_in_kilometers / earth_radius) * radians_to_degrees
     latitude = midpoint["lat"]
     r = earth_radius * math.cos(latitude * degrees_to_radians)
-    longitude_degrees = (radius_in_kilometres / r) * radians_to_degrees
+    longitude_degrees = (radius_in_kilometers / r) * radians_to_degrees
 
     # Creating the four other dictionaries
     average_coordinates_1 = {
@@ -126,8 +128,8 @@ def calculate_midpoint(list_json):
         # try:
         average_distance = 0
         average_time = 0
-        multiplyer = 0
-        multiplyers_added = 0
+        multiplier = 0
+        multipliers_added = 0
         average_time_weighted = 0
 
         now = datetime.now()
@@ -152,9 +154,9 @@ def calculate_midpoint(list_json):
             average_distance += distance
             average_time += duration
 
-            multiplyer = (all_ranks[i] * -0.2) + 1.5
-            multiplyers_added = multiplyers_added + multiplyer
-            average_time_weighted = average_time_weighted + multiplyer * duration
+            multiplier = (all_ranks[i] * -0.2) + 1.5
+            multipliers_added = multipliers_added + multiplier
+            average_time_weighted = average_time_weighted + multiplier * duration
 
             print(
                 f"Distance from midpoint to loc{i+1}: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
@@ -163,7 +165,7 @@ def calculate_midpoint(list_json):
         average_distance = round(average_distance / (1000 * len(list_json)), 2)
         average_time = round(average_time / (len(list_json) * 60), 2)
         average_time_weighted = round(
-            average_time_weighted / (multiplyers_added * 60), 2
+            average_time_weighted / (multipliers_added * 60), 2
         )
         location_string = "location_from_mid" + str(j)
         average_distance_time_array.append(
