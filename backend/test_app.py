@@ -4,16 +4,38 @@ import app
 
 class TestApp(unittest.TestCase):
     def test_calculate_midpoint(self):
-        loc1 = {"lat": -33.9456, "lng": 18.8842}
-        loc2 = {"lat": -33.99787, "lng": 18.8675}
-        loc3 = {"lat": -33.9123, "lng": 18.8301}
+        # latitudes, longitudes, and ranks
+        loc = [
+            (-33.9340673, 18.8661883, 2.0),
+            (-33.9326571, 18.8653934, 3.0),
+            (-33.9354089, 18.8600011, 4.0),
+            (-33.9340673, 18.8661883, 2.0),
+            (-33.9326571, 18.8653934, 3.0),
+            (-33.9340673, 18.8661883, 2.0),
+            (-33.9326571, 18.8653934, 3.0),
+        ]
 
-        result_list = app.calculate_midpoint(loc1, loc2, loc3)
-        result_all_coordinates = result_list["allCoordinates"]
-        result_midpoint = result_all_coordinates["midpoint"]
+        result_list = app.calculate_midpoint(loc)
+        result_midpoint = result_list["midpoint"]
 
-        check_midpoint_lat = (loc1["lat"] + loc2["lat"] + loc3["lat"]) / 3
-        check_midpoint_lng = (loc1["lng"] + loc2["lng"] + loc3["lng"]) / 3
+        check_midpoint_lat = (
+            loc[0][0]
+            + loc[1][0]
+            + loc[2][0]
+            + loc[3][0]
+            + loc[4][0]
+            + loc[5][0]
+            + loc[6][0]
+        ) / (len(loc))
+        check_midpoint_lng = (
+            loc[0][1]
+            + loc[1][1]
+            + loc[2][1]
+            + loc[3][1]
+            + loc[4][1]
+            + loc[5][1]
+            + loc[6][1]
+        ) / (len(loc))
         check_midpoint = {
             "lat": (check_midpoint_lat),
             "lng": (check_midpoint_lng),
@@ -21,16 +43,6 @@ class TestApp(unittest.TestCase):
         print(f"CheckMidpoint: {check_midpoint['lat']}, {check_midpoint['lng']}")
         self.assertAlmostEqual(result_midpoint["lat"], check_midpoint["lat"])
         self.assertAlmostEqual(result_midpoint["lng"], check_midpoint["lng"])
-        self.assertAlmostEqual(
-            (
-                app.calculate_midpoint(
-                    {"lat": -33.9456, "lng": 18.8842},
-                    {"lat": -33.9456, "lng": 18.8842},
-                    {"lat": -33.9456, "lng": 18.8842},
-                )["distance"]
-            ),
-            0.0,
-        )
 
 
 if __name__ == "__main__":

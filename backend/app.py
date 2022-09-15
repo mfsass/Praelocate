@@ -40,7 +40,7 @@ def locations():
     location_average_time = []
     times = []
 
-    # print(request.json)
+    print(request.json)
 
     no_locations = len(request.json)
     # NOTE: if optimize_preference is given subtract 1 from no_locations
@@ -48,7 +48,7 @@ def locations():
 
     list_json = []
     for i in range(1, no_locations):
-        loc_str = "location" + str(i)
+        loc_str = "loc" + str(i)
         loc = request.json[loc_str]
         item = (
             float(loc["lat"]),

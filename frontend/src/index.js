@@ -9,3 +9,5 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+module.hot.accept();
