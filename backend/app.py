@@ -10,8 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 coordinates = []
-all_distance = []
-all_time = []
+
 all_coordinates = {}
 midpoint = {}
 all_ranks = []
@@ -55,10 +54,10 @@ def locations():
 
 
 def calculate_midpoint(list_json):
-    if len(all_distance) > 0:
-        all_distance.clear()
-    if len(all_time) > 0:
-        all_time.clear()
+    # if len(all_distance) > 0:
+    #     all_distance.clear()
+    # if len(all_time) > 0:
+    #     all_time.clear()
 
     for i in range(0, len(list_json)):
         all_ranks.append(list_json[i][2])  # ranks
@@ -68,9 +67,22 @@ def calculate_midpoint(list_json):
     # print(times)
 
     # midpoint average of coordinates
+    # midpoint_lat = 0.0
+    # midpoint_lng = 0.0
+    # for i in range(0, len(list_json)):
+    #     midpoint_lat += coordinates[i][0]
+    #     midpoint_lng += coordinates[i][1]
+
+    # midpoint_lat = midpoint_lat / len(list_json)  # average of coordinates lat
+    # midpoint_lng = midpoint_lng / len(list_json)  # average of coordinates lng
+    # midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
+    # print(midpoint)
+
+    # NOTE: rank multiplier calculation here
     midpoint_lat = 0.0
     midpoint_lng = 0.0
     weights = 0.0
+
     # calculates weighted center mean
     for i in range(0, len(list_json)):
         midpoint_lat += coordinates[i][0] * (
@@ -82,6 +94,7 @@ def calculate_midpoint(list_json):
     midpoint_lat = midpoint_lat / weights  # average of coordinates lat
     midpoint_lng = midpoint_lng / weights  # average of coordinates lng
     midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
+    print(midpoint)
 
     earth_radius = 6378.0
     degrees_to_radians = math.pi / 180.0
@@ -124,7 +137,8 @@ def calculate_midpoint(list_json):
 
     # Now, instead of sending the average coordinates you send the tuples at the iteration in the loop
     for j in range(0, 5):
-
+        all_distance = []
+        all_time = []
         # try:
         average_distance = 0
         average_time = 0
@@ -137,8 +151,7 @@ def calculate_midpoint(list_json):
             average_coordinates_array[j]["lat"],
             average_coordinates_array[j]["lng"],
         )
-        all_distance.clear()
-        all_time.clear()
+
         location_string = "location_from_mid" + str(j)
         print(f"{location_string}:")
 
@@ -181,7 +194,6 @@ def calculate_midpoint(list_json):
             average_time_weighted / (multipliers_added * 60), 2
         )
 
-        print(all_time)
         average_distance_time_array.append(
             [
                 average_distance,  # 0
@@ -197,28 +209,29 @@ def calculate_midpoint(list_json):
             f"Average distance: {average_distance}km, Average time: {average_time} minutes"
         )
 
-        print(f"Midpoint: {midpoint['lat']}, {midpoint['lng']}")
+        print(f"Midpoint: {origin_tuple}")
+        print(f"Total distance: {round(sum(all_distance),2)} kms")
         print(f"Total time: {round(sum(all_time),2)} minutes \n")
 
         # except:
         #     return jsonify("Unsucessful request... maybe invalid coordinates")
 
-    # TODO optimize through distance/time ifs
+    # NOTE: optimize through distance/time ifs
     optimization = "t"
     min = 0.0
     optimized_location = average_distance_time_array[0]
     if optimization == "t":
-        min = average_distance_time_array[0][1]
+        min = sum(average_distance_time_array[0][3])
         for k in range(1, 5):
             # key_string = "location_from_mid" + str(k)
-            if average_distance_time_array[k][1] < min:
-                min = average_distance_time_array[k][1]
+            if sum(average_distance_time_array[k][3]) < min:
+                min = sum(average_distance_time_array[k][3])
                 optimized_location = average_distance_time_array[k]
     elif optimization == "d":
-        min = average_distance_time_array[0][0]
+        min = sum(average_distance_time_array[0][2])
         for k in range(1, 5):
-            if average_distance_time_array[k][0] < min:
-                min = average_distance_time_array[k][0]
+            if sum(average_distance_time_array[k][2]) < min:
+                min = sum(average_distance_time_array[k][2])
                 optimized_location = average_distance_time_array[k]
 
     print(optimized_location)
