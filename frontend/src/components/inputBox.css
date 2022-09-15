@@ -33,7 +33,8 @@
 
 .input.label input[type="checkbox"]:hover,
 .input.label input[type="checkbox"]:checked {
-  background: black;
+  background: var(--active);
+  border-color: var(--active);
 }
 
 .inputWrapper {
@@ -41,7 +42,7 @@
   padding: 10px;
   justify-content: center;
   align-items: center;
-  border-left: 3px solid black;
+  border-left: 3px solid var(--active);
 }
 
 .inputWrapper input[type="text"] {
@@ -84,12 +85,10 @@
   appearance: none;
 }
 
-.bars input[type="radio"]:hover {
-  background: black;
-}
-
+.bars input[type="radio"]:hover,
 .bars input[type="radio"]:checked {
-  background: black;
+  background: var(--active);
+  border-color: var(--active);
 }
 
 .bars input[value="4"] {
@@ -118,7 +117,7 @@
   justify-content: flex-end;
   align-items: center;
   gap: 15px;
-  border-left: 3px solid black;
+  border-left: 3px solid var(--active);
   padding-left: 10px;
   height: 100%;
 }
