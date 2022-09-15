@@ -132,89 +132,103 @@ def calculate_midpoint(list_json):
         multipliers_added = 0
         average_time_weighted = 0
 
-        now = datetime.now()
+        # now = datetime.now()
         origin_tuple = (
             average_coordinates_array[j]["lat"],
             average_coordinates_array[j]["lng"],
         )
+        all_distance.clear()
+        all_time.clear()
+        location_string = "location_from_mid" + str(j)
+        print(f"{location_string}:")
 
         # calculates distance and time
         for i in range(0, len(list_json)):
-
+            # time specified for tomorrow's (can be changed to future date) traffic report
+            time_str = times[i]
+            time_object = datetime.strptime(time_str, "%H:%M").time()
+            time_object = datetime.combine(
+                datetime.today() + timedelta(days=1), time_object
+            )
+            # print(time_object)
             directions_result = gmaps.directions(
                 origin=origin_tuple,
                 destination=(coordinates[i][0], coordinates[i][1]),
-                departure_time=now,
+                mode="driving",
+                departure_time=time_object,
             )
             distance = int(directions_result[0]["legs"][0]["distance"]["value"])
-            duration = int(directions_result[0]["legs"][0]["duration"]["value"])
+            duration = int(
+                directions_result[0]["legs"][0]["duration_in_traffic"]["value"]
+            )
 
             all_distance.append(round((distance / 1000), 2))
             all_time.append(round((duration / 60), 2))
             average_distance += distance
             average_time += duration
 
-            multiplier = (all_ranks[i] * -0.2) + 1.5
-            multipliers_added = multipliers_added + multiplier
-            average_time_weighted = average_time_weighted + multiplier * duration
-
             print(
                 f"Distance from midpoint to loc{i+1}: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
             )
+
+            multiplier = (all_ranks[i] * -0.2) + 1.5
+            multipliers_added = multipliers_added + multiplier
+            average_time_weighted = average_time_weighted + multiplier * duration
 
         average_distance = round(average_distance / (1000 * len(list_json)), 2)
         average_time = round(average_time / (len(list_json) * 60), 2)
         average_time_weighted = round(
             average_time_weighted / (multipliers_added * 60), 2
         )
-        location_string = "location_from_mid" + str(j)
+
+        print(all_time)
         average_distance_time_array.append(
             [
-                average_distance,
-                average_time,
-                all_distance,
-                all_time,
-                average_time_weighted,
-                origin_tuple,
+                average_distance,  # 0
+                average_time,  # 1
+                all_distance,  # 2
+                all_time,  # 3
+                average_time_weighted,  # 4
+                origin_tuple,  # 5
             ]
         )
-        all_distance.clear()
-        all_time.clear()
 
         print(
-            f"{location_string}:\nAverage distance: {average_distance}km, Average time: {average_time} minutes"
+            f"Average distance: {average_distance}km, Average time: {average_time} minutes"
         )
+
+        print(f"Midpoint: {midpoint['lat']}, {midpoint['lng']}")
+        print(f"Total time: {round(sum(all_time),2)} minutes \n")
 
         # except:
         #     return jsonify("Unsucessful request... maybe invalid coordinates")
 
-    # TODO optimise through distance/time ifs
-    optimisation = "t"
+    # TODO optimize through distance/time ifs
+    optimization = "t"
     min = 0.0
-    optimised_location = average_distance_time_array[0]
-    if optimisation == "t":
+    optimized_location = average_distance_time_array[0]
+    if optimization == "t":
         min = average_distance_time_array[0][1]
         for k in range(1, 5):
             # key_string = "location_from_mid" + str(k)
             if average_distance_time_array[k][1] < min:
                 min = average_distance_time_array[k][1]
-                optimised_location = average_distance_time_array[k]
-    elif optimisation == "d":
+                optimized_location = average_distance_time_array[k]
+    elif optimization == "d":
         min = average_distance_time_array[0][0]
         for k in range(1, 5):
             if average_distance_time_array[k][0] < min:
                 min = average_distance_time_array[k][0]
-                optimised_location = average_distance_time_array[k]
+                optimized_location = average_distance_time_array[k]
+
+    print(optimized_location)
 
     return {
-        "avgDistance": optimised_location[0],
-        "avgTime": optimised_location[1],
+        "avgDistance": optimized_location[0],
+        "avgTime": optimized_location[1],
         "allCoordinates": coordinates,
-        "allDistances": optimised_location[2],
-        "allTimes": optimised_location[3],
-        "totalTime": sum(optimised_location[3]),
-        "midpoint": optimised_location[5],
+        "allDistances": optimized_location[2],
+        "allTimes": optimized_location[3],
+        "totalTime": sum(optimized_location[3]),
+        "midpoint": optimized_location[5],
     }
-
-
-# TODO: create test suite
