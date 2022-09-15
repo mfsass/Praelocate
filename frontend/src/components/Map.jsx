@@ -292,9 +292,44 @@ function Map() {
     (async () => {
       let info = await fetchFunc();
       console.log(info);
-      // info.allDistances.map((location) => {
-      //   location
-      // })
+
+      if (info.allDistances.length >= 1) {
+        setLocation1Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[0]} | Time: ${info.allTimes[0]}`
+        );
+      }
+      if (info.allDistances.length >= 2) {
+        setLocation2Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[1]} | Time: ${info.allTimes[1]}`
+        );
+      }
+      if (info.allDistances.length >= 3) {
+        setLocation3Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[2]} | Time: ${info.allTimes[2]}`
+        );
+      }
+      if (info.allDistances.length >= 4) {
+        setLocation4Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[3]} | Time: ${info.allTimes[3]}`
+        );
+      }
+      if (info.allDistances.length >= 5) {
+        setLocation5Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[4]} | Time: ${info.allTimes[4]}`
+        );
+      }
+      if (info.allDistances.length >= 6) {
+        setLocation6Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[5]} | Time: ${info.allTimes[5]}`
+        );
+      }
+
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
