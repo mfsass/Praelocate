@@ -9,15 +9,6 @@ import math
 app = Flask(__name__)
 CORS(app)
 
-coordinates = []
-
-all_coordinates = {}
-midpoint = {}
-all_ranks = []
-location_average_time = []
-times = []
-
-
 # top secret
 with open("api-key.txt") as api_file:
     key = api_file.readline()
@@ -32,9 +23,27 @@ except:
 @app.route("/locations", methods=["POST"])
 @cross_origin()
 def locations():
-    # print(request)
+    # reset all variables
+    global coordinates
+    global all_coordinates
+    global midpoint
+    global all_ranks
+    global location_average_time
+    global times
+    global radius, optimize_preference
+
+    coordinates = []
+    all_coordinates = {}
+    midpoint = {}
+    all_ranks = []
+    location_average_time = []
+    times = []
+
     # print(request.json)
+
     no_locations = len(request.json)
+    # NOTE: if optimize_preference is given subtract 1 from no_locations
+    no_locations = no_locations - 1 if "optimize" in request.json else no_locations
 
     list_json = []
     for i in range(1, no_locations):
@@ -48,6 +57,8 @@ def locations():
         )
         list_json.append(item)
 
+    radius = request.json["radius"]["size"]
+    optimize_preference = request.json["optimize"]["preference"]
     # print(list_json)
 
     return calculate_midpoint(list_json)
@@ -87,7 +98,7 @@ def calculate_midpoint(list_json):
     for i in range(0, len(list_json)):
         midpoint_lat += coordinates[i][0] * (
             all_ranks[i] * 0.2 + 0.8
-        )  # NOTE: 0.2 and 0.8?
+        )  # NOTE: weight multiplier to be discussed how much it should affect
         midpoint_lng += coordinates[i][1] * (all_ranks[i] * 0.2 + 0.8)
         weights = weights + all_ranks[i] * 0.2 + 0.8
 
@@ -100,8 +111,7 @@ def calculate_midpoint(list_json):
     degrees_to_radians = math.pi / 180.0
     radians_to_degrees = 180.0 / math.pi
 
-    radius_in_metres = 1000
-    radius_in_kilometers = radius_in_metres / 1000
+    radius_in_kilometers = radius
     latitude_degrees = (radius_in_kilometers / earth_radius) * radians_to_degrees
     latitude = midpoint["lat"]
     r = earth_radius * math.cos(latitude * degrees_to_radians)
@@ -217,17 +227,16 @@ def calculate_midpoint(list_json):
             return jsonify("Unsucessful request... maybe invalid coordinates")
 
     # NOTE: optimize through distance/time ifs
-    optimization = "t"
     min = 0.0
     optimized_location = average_distance_time_array[0]
-    if optimization == "t":
+    if optimize_preference == "time":
         min = sum(average_distance_time_array[0][3])
         for k in range(1, 5):
             # key_string = "location_from_mid" + str(k)
             if sum(average_distance_time_array[k][3]) < min:
                 min = sum(average_distance_time_array[k][3])
                 optimized_location = average_distance_time_array[k]
-    elif optimization == "d":
+    elif optimize_preference == "distance":
         min = sum(average_distance_time_array[0][2])
         for k in range(1, 5):
             if sum(average_distance_time_array[k][2]) < min:
