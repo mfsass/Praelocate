@@ -5,44 +5,42 @@ import app
 class TestApp(unittest.TestCase):
     def test_calculate_midpoint(self):
         # latitudes, longitudes, and ranks
-        loc = [
-            (-33.9340673, 18.8661883, 2.0),
-            (-33.9326571, 18.8653934, 3.0),
-            (-33.9354089, 18.8600011, 4.0),
-            (-33.9340673, 18.8661883, 2.0),
-            (-33.9326571, 18.8653934, 3.0),
-            (-33.9340673, 18.8661883, 2.0),
-            (-33.9326571, 18.8653934, 3.0),
+        data = [
+            (-33.9180673, 18.8561883, 1.0, "20:30"),
+            (-33.9326571, 18.8653934, 3.0, "20:30"),
+            (-33.9354089, 18.8600011, 4.0, "08:30"),
+            (-33.9340673, 18.8661883, 2.0, "16:30"),
+            (-33.9356571, 18.8653934, 3.0, "11:30"),
+            (-33.924454, 18.821924, 2.0, "15:30"),
+            (-33.965704, 18.474756, 3.0, "16:30"),
         ]
 
-        result_list = app.calculate_midpoint(loc)
-        result_midpoint = result_list["midpoint"]
+        app.radius = 1
+        # initialize all app.locations global variables
+        app.all_ranks = []
+        app.coordinates = []
+        app.times = []
+        app.optimize_preference = "time"
+        coord = []
 
-        check_midpoint_lat = (
-            loc[0][0]
-            + loc[1][0]
-            + loc[2][0]
-            + loc[3][0]
-            + loc[4][0]
-            + loc[5][0]
-            + loc[6][0]
-        ) / (len(loc))
-        check_midpoint_lng = (
-            loc[0][1]
-            + loc[1][1]
-            + loc[2][1]
-            + loc[3][1]
-            + loc[4][1]
-            + loc[5][1]
-            + loc[6][1]
-        ) / (len(loc))
-        check_midpoint = {
-            "lat": (check_midpoint_lat),
-            "lng": (check_midpoint_lng),
-        }
-        print(f"CheckMidpoint: {check_midpoint['lat']}, {check_midpoint['lng']}")
-        self.assertAlmostEqual(result_midpoint["lat"], check_midpoint["lat"])
-        self.assertAlmostEqual(result_midpoint["lng"], check_midpoint["lng"])
+        for i in range(0, len(data)):
+            app.all_ranks.append(data[i][2])  # ranks
+            app.coordinates.append((data[i][0], data[i][1]))  # coordinates
+            coord.append((data[i][0], data[i][1]))  # coordinates
+            app.times.append((data[i][3]))
+        # call the function
+        app.calculate_midpoint(data)
+
+        # check the results
+        # output =
+        # Details: Avg distance, Avg time, All distances, All times, Avg time weighted, Origin
+        # [10.3, 14.48, [5.45, 4.89, 4.15, 4.7, 4.57, 3.45, 44.92], [9.25, 9.38, 10.42, 11.93, 10.8, 7.22, 42.37], 14.01, (-33.93614919347826, 18.830927215591863)]
+
+        self.assertEqual(app.location_average_time, 14.01)
+        self.assertEqual(app.midpoint["lat"], -33.93614919347826)
+        self.assertEqual(app.midpoint["lng"], 18.830927215591863)
+        self.assertEqual(app.origin, (-33.93614919347826, 18.830927215591863))
+        self.assertEqual(app.all_coordinates, coord)
 
 
 if __name__ == "__main__":
