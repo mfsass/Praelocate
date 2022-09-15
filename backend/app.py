@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+from tkinter import TRUE
 import googlemaps
 from flask import Flask, jsonify, request
 from flask_cors import cross_origin, CORS
@@ -64,13 +65,15 @@ def calculate_midpoint(list_json):
     # midpoint average of coordinates
     midpoint_lat = 0.0
     midpoint_lng = 0.0
+    weights = 0.0
     for i in range(0, len(list_json)):
-        midpoint_lat += coordinates[i][0]
-        midpoint_lng += coordinates[i][1]
+        midpoint_lat += coordinates[i][0]*(all_ranks[i]*0.2+0.8)
+        midpoint_lng += coordinates[i][1]*(all_ranks[i]*0.2+0.8)
+        weights = weights + all_ranks[i]*0.2+0.8
         # TODO: rank multiplier calculation here
 
-    midpoint_lat = midpoint_lat / len(list_json)  # average of coordinates lat
-    midpoint_lng = midpoint_lng / len(list_json)  # average of coordinates lng
+    midpoint_lat = midpoint_lat / weights # average of coordinates lat
+    midpoint_lng = midpoint_lng / weights  # average of coordinates lng
     midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
 
 
@@ -148,13 +151,23 @@ def calculate_midpoint(list_json):
         # except:
         #     return jsonify("Unsucessful request... maybe invalid coordinates")
 
-    min = average_distance_time_array[0][1]
+    #TODO optimise through distance/time ifs
+    optimisation = "t"
+    min = 0.0
     optimised_location = average_distance_time_array[0]
-    for k in range(1, 5):
+    if optimisation == "t":
+        min = average_distance_time_array[0][1]
+        for k in range(1, 5):
         # key_string = "location_from_mid" + str(k)
-        if average_distance_time_array[k][1] < min:
-            min = average_distance_time_array[k][1]
-            optimised_location = average_distance_time_array[k]
+            if average_distance_time_array[k][1] < min:
+                min = average_distance_time_array[k][1]
+                optimised_location = average_distance_time_array[k]
+    elif optimisation == "d":
+        min = average_distance_time_array[0][0]
+        for k in range(1, 5):
+            if average_distance_time_array[k][0] < min:
+                min = average_distance_time_array[k][0]
+                optimised_location = average_distance_time_array[k]
 
     return {
         "avgDistance": optimised_location[0],
