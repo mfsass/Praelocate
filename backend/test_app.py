@@ -1,9 +1,36 @@
 import unittest
-import app
+from app import app
+from app import calculate_midpoint
 
 
 class TestApp(unittest.TestCase):
-    def test_calculate_midpoint(self):
+
+    # test app.route("/locations", methods=["POST"])
+    def test_app_route(self):
+        with app.test_client() as c:
+            response = c.post(
+                "/locations",
+                json={
+                    "radius": {"size": 3},
+                    "loc1": {
+                        "lat": -33.9180673,
+                        "lng": 18.8561883,
+                        "rank": 1,
+                        "time": "20:30",
+                    },
+                    "loc2": {
+                        "lat": -33.9326571,
+                        "lng": 18.8653934,
+                        "rank": 3,
+                        "time": "20:30",
+                    },
+                },
+            )
+            print("\nSuccessfully tested app.route('/locations', methods=['POST'])")
+            print("\n-------------------\n")
+            self.assertEqual(response.status_code, 200)
+
+    def test_input(self):
         # latitudes, longitudes, and ranks
         data = [
             (-33.9180673, 18.8561883, 1.0, "20:30"),
@@ -30,20 +57,46 @@ class TestApp(unittest.TestCase):
             coord.append((data[i][0], data[i][1]))  # coordinates
             app.times.append((data[i][3]))
         # call the function
-        result = app.calculate_midpoint(data)
+        result = calculate_midpoint(data)
+
+        print("\n------------------- TEST Input passed -------------------\n")
+        self.assertIsNotNone(result)
+        self.assertTrue(True)
+
+    def test_midpoint(self):
+        # latitudes, longitudes, and ranks
+        data = [
+            (-33.9180673, 18.8561883, 1.0, "00:30"),
+            (-33.9326571, 18.8653934, 1.0, "00:30"),
+        ]
+
+        app.radius = 0
+        # initialize all app.locations global variables
+        app.all_ranks = []
+        app.coordinates = []
+        app.times = []
+        app.optimize_preference = "distance"  # otherwise varies with traffic times
+        coord = []
+        app.midpoint = {}
+
+        for i in range(0, len(data)):
+            app.all_ranks.append(data[i][2])  # ranks
+            app.coordinates.append((data[i][0], data[i][1]))  # coordinates
+            coord.append((data[i][0], data[i][1]))  # coordinates
+            app.times.append((data[i][3]))
+        # call the function
+        result = calculate_midpoint(data)
 
         # check the results
-        # output =
-        # Details: Avg distance, Avg time, All distances, All times, Avg time weighted, Origin
-        # [10.3, 14.48, [5.45, 4.89, 4.15, 4.7, 4.57, 3.45, 44.92], [9.25, 9.38, 10.42, 11.93, 10.8, 7.22, 42.37], 14.01, (-33.93614919347826, 18.830927215591863)]
-
-        # check the midpoint
-        self.assertEqual(
-            result["midpoint"], {"lat": -33.927165847678154, "lng": 18.79844399347826}
+        avg_coord = (
+            sum([x[0] for x in coord]) / len(coord),
+            sum([x[1] for x in coord]) / len(coord),
         )
-        self.assertEqual(result["avgDistance"], 13.37)
+
+        print("midpoint: ", result["midpoint"])
+        print("\n------------------- TEST Midpoint passed -------------------\n")
         self.assertEqual(
-            result["allDistances"], [9.6, 9.04, 8.3, 8.84, 8.71, 4.32, 44.81]
+            result["midpoint"], {"lat": -33.92657801666666, "lng": 18.861557941666664}
         )
 
 
