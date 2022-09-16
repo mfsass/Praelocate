@@ -27,7 +27,6 @@ def locations():
     global all_coordinates
     global midpoint
     global all_ranks
-    global location_average_time
     global times
     global radius, optimize_preference
 
@@ -35,10 +34,9 @@ def locations():
     all_coordinates = {}
     midpoint = {}
     all_ranks = []
-    location_average_time = []
     times = []
 
-    print(request.json)
+    # print(request.json)
 
     no_locations = len(request.json)
     # NOTE: if optimize_preference is given subtract 1 from no_locations
@@ -60,7 +58,7 @@ def locations():
     optimize_preference = (
         request.json["optimize"]["preference"] if "optimize" in request.json else "time"
     )
-    # print(list_json)
+    print(list_json)
 
     return calculate_midpoint(list_json)
 
@@ -263,8 +261,5 @@ def calculate_midpoint(list_json):
         "allTimes": optimized_location[3],
         "totalTime": sum(optimized_location[3]),
         "totalDistance": sum(optimized_location[2]),
-        "midpoint": {
-            "lat": optimized_location[5][0],
-            "lng": optimized_location[5][1]
-        }
+        "midpoint": {"lat": optimized_location[5][0], "lng": optimized_location[5][1]},
     }
