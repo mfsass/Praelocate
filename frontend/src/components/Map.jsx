@@ -105,6 +105,7 @@ function Map() {
   const [location6Label, setLocation6Label] = useState("");
 
   const [sliderValue, setSliderValue] = useState(1);
+  const [preference, setPreference] = useState("time");
   const [center, setCenter] = useState({
     lat: -33.9328,
     lng: 18.8644,
@@ -124,12 +125,12 @@ function Map() {
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
       setShouldShowMidPoint((shouldShowMidPoint) => !shouldShowMidPoint);
-      changeColor(event, "#2b65b1");
+      changeColor(event, "#236F74");
     }
   };
 
   const changeColor = (event, color) => {
-    let tempColor = color ? color : "#4cb98c";
+    let tempColor = color ? color : "#236F74";
     event.target.style["background-color"] = tempColor;
   };
 
@@ -138,9 +139,9 @@ function Map() {
 
     const locations = [
       {
-        string: location1Str, // Praelexis, ... ... ...
+        string: location1Str,
         function: setLocation1,
-        labelFunction: setLocation1Label, // -> Praelexis
+        labelFunction: setLocation1Label,
       },
       {
         string: location2Str,
@@ -278,6 +279,10 @@ function Map() {
       };
     }
 
+    data.optimize = {
+      preference: preference,
+    };
+
     console.log(JSON.stringify(data));
     const requestOpt = {
       method: "POST",
@@ -365,6 +370,7 @@ function Map() {
         console.log("Unhandled");
     }
   };
+
   return (
     <div className="map">
       <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
@@ -450,8 +456,21 @@ function Map() {
             </div>
 
             <div className="locations preference">
-              <label>Calculation preference: </label>
-              <input type="radio" />
+              <div>Calculation preference: </div>
+              <div className="preference options">
+                <label>Distance</label>
+                <input
+                  type="radio"
+                  name="preference"
+                  onClick={() => setPreference("distance")}
+                />
+                <label>Time</label>
+                <input
+                  type="radio"
+                  name="preference"
+                  onClick={() => setPreference("time")}
+                />
+              </div>
             </div>
 
             <div className="box button">
