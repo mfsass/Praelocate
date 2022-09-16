@@ -105,6 +105,7 @@ function Map() {
   const [location6Label, setLocation6Label] = useState("");
 
   const [sliderValue, setSliderValue] = useState(1);
+  const [preference, setPreference] = useState("time");
   const [center, setCenter] = useState({
     lat: -33.9328,
     lng: 18.8644,
@@ -124,12 +125,12 @@ function Map() {
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
       setShouldShowMidPoint((shouldShowMidPoint) => !shouldShowMidPoint);
-      changeColor(event, "#2b65b1");
+      changeColor(event, "#236F74");
     }
   };
 
   const changeColor = (event, color) => {
-    let tempColor = color ? color : "#4cb98c";
+    let tempColor = color ? color : "#236F74";
     event.target.style["background-color"] = tempColor;
   };
 
@@ -138,9 +139,9 @@ function Map() {
 
     const locations = [
       {
-        string: location1Str, // Praelexis, ... ... ...
+        string: location1Str,
         function: setLocation1,
-        labelFunction: setLocation1Label, // -> Praelexis
+        labelFunction: setLocation1Label,
       },
       {
         string: location2Str,
@@ -278,6 +279,10 @@ function Map() {
       };
     }
 
+    data.optimize = {
+      preference: preference,
+    };
+
     console.log(JSON.stringify(data));
     const requestOpt = {
       method: "POST",
@@ -292,9 +297,44 @@ function Map() {
     (async () => {
       let info = await fetchFunc();
       console.log(info);
-      // info.allDistances.map((location) => {
-      //   location
-      // })
+
+      if (info.allDistances.length >= 1) {
+        setLocation1Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[0]} | Time: ${info.allTimes[0]}`
+        );
+      }
+      if (info.allDistances.length >= 2) {
+        setLocation2Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[1]} | Time: ${info.allTimes[1]}`
+        );
+      }
+      if (info.allDistances.length >= 3) {
+        setLocation3Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[2]} | Time: ${info.allTimes[2]}`
+        );
+      }
+      if (info.allDistances.length >= 4) {
+        setLocation4Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[3]} | Time: ${info.allTimes[3]}`
+        );
+      }
+      if (info.allDistances.length >= 5) {
+        setLocation5Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[4]} | Time: ${info.allTimes[4]}`
+        );
+      }
+      if (info.allDistances.length >= 6) {
+        setLocation6Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[5]} | Time: ${info.allTimes[5]}`
+        );
+      }
+
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
@@ -330,6 +370,7 @@ function Map() {
         console.log("Unhandled");
     }
   };
+
   return (
     <div className="map">
       <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
@@ -415,8 +456,21 @@ function Map() {
             </div>
 
             <div className="locations preference">
-              <label>Calculation preference: </label>
-              <input type="radio" />
+              <div>Calculation preference: </div>
+              <div className="preference options">
+                <label>Distance</label>
+                <input
+                  type="radio"
+                  name="preference"
+                  onClick={() => setPreference("distance")}
+                />
+                <label>Time</label>
+                <input
+                  type="radio"
+                  name="preference"
+                  onClick={() => setPreference("time")}
+                />
+              </div>
             </div>
 
             <div className="box button">

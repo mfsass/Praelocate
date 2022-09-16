@@ -37,12 +37,12 @@
 }
 
 .locations.button:hover {
-  background: #33686e;
+  background: var(--button-hover);
 }
 
 .locations.button {
   padding: 10px;
-  background: #182425;
+  background: var(--button);
   border: none;
   border-radius: 7px;
   cursor: pointer;
@@ -62,16 +62,35 @@
   gap: 20px;
 }
 
+.locations.preference {
+  display: inline-flexbox;
+}
+
+.preference.options {
+  font-size: 25px;
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.preference.options input[type="radio"] {
+  background: white;
+  appearance: none;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
+.preference.options input[type="radio"]:hover,
+.preference.options input[type="radio"]:checked {
+  background-color: var(--active);
+  border-color: var(--active);
+}
+
 /* child 2 */
 .googleMap {
   width: 50vw;
-}
-
-:root {
-  --main-color: #182425;
-  --main-color-hover: rgb(104, 117, 217, 0.2);
-  --track-color: #ddd;
-  --mark-color: #aaaaaa;
 }
 
 .customSlider {
@@ -83,22 +102,23 @@
 .customSlider-track {
   top: 8px;
   height: 4px;
-  background: var(--track-color);
+  background: #ddd;
 }
 
 .customSlider-track.customSlider-track-0 {
-  background: var(--main-color);
+  background: var(--active);
 }
 
 .customSlider-thumb {
   cursor: pointer;
-  background: var(--main-color);
+  background: var(--active);
   width: 20px;
   height: 20px;
   border-radius: 100%;
   outline: none;
 }
 
-.customSlider-thumb:hover {
-  box-shadow: 0 0 0 8px var(--main-color-hover);
+.customSlider-thumb:hover,
+.customSlider-thumb:active {
+  box-shadow: 0 0 0 5px var(--active);
 }
