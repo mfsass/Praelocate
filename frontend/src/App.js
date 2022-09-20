@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import Map from "./components/Map";
 import "./App.css";
+import StateTest from "./components/StateTest";
+import StateTest2 from "./components/StateTest2";
 
 const location = {
   address: "1600 Amphitheatre Parkway, Mountain View, california.",
@@ -32,6 +34,10 @@ function App() {
           <a className="fakeButton" href="#body">
             Start
           </a>
+          <div className="stateTest">
+            <StateTest />
+          </div>
+          {/* <StateTest2 /> */}
         </div>
       </div>
       <div id="body" className="body">

@@ -83,4 +83,16 @@
   color: black;
 }
 
+.stateTest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.testInputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* #53E9FF -> main color */
