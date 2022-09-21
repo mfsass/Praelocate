@@ -67,6 +67,11 @@ A web-app that would find the best location to find a house given certain signif
 
    `$ flask run`
 
+### Test cases
+
+Run:
+`$ python -m unittest test_app.py`
+
 ### Frontend
 
 1. Open a new terminal instance in frontend directory

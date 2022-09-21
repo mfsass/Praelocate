@@ -1,0 +1,136 @@
+.box {
+  margin: 15px;
+  border-radius: 7px;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  padding: 30px 30px 20px 30px;
+  width: 60%;
+}
+
+.box.button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input.label {
+  display: flex;
+}
+
+.mainLabel {
+  text-align: left;
+  width: 90%;
+}
+
+.input.label input[type="checkbox"] {
+  height: 25px;
+  width: 25px;
+  user-select: none;
+  appearance: none;
+  background: white;
+  border: 1px solid black;
+}
+
+.input.label input[type="checkbox"]:hover,
+.input.label input[type="checkbox"]:checked {
+  background: var(--active);
+  border-color: var(--active);
+}
+
+.inputWrapper {
+  margin: 0px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  border-left: 3px solid var(--active);
+}
+
+.inputWrapper input[type="text"] {
+  flex: 10;
+  background-color: white;
+  height: 25px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  outline: none;
+  text-overflow: ellipsis;
+  padding: 15px;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.extraInput {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.bars {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-size: 20px;
+}
+
+.bars input[type="radio"] {
+  border-radius: 0;
+  background: white;
+  border: 1px solid grey;
+  border-radius: 3px;
+  width: 20px;
+  margin: 0 5px;
+  appearance: none;
+}
+
+.bars input[type="radio"]:hover,
+.bars input[type="radio"]:checked {
+  background: var(--active);
+  border-color: var(--active);
+}
+
+.bars input[value="4"] {
+  height: 100%;
+}
+
+.bars input[value="3"] {
+  height: 80%;
+}
+
+.bars input[value="2"] {
+  height: 70%;
+}
+
+.bars input[value="1"] {
+  height: 60%;
+}
+
+.bars span {
+  margin-left: 15px;
+}
+
+.timeInput {
+  display: flex;
+  font-size: 25px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  border-left: 3px solid var(--active);
+  padding-left: 10px;
+  height: 100%;
+}
+
+.timeInput>input[type="time"] {
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  padding: 7px;
+  font-family: "Segoe UI";
+  font-size: 18px;
+}
+
+.timeInput>input[type="time"]:focus {
+  outline: none;
+}
