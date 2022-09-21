@@ -13,6 +13,7 @@
   flex-direction: column;
   width: 50vw;
   margin: 10px;
+  align-items: center;
 }
 
 .locations.form {
@@ -21,7 +22,10 @@
   width: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
 }
 
 .locations.showPoint,
@@ -32,49 +36,89 @@
   justify-content: center;
 }
 
-
-
-.box {
-  margin: 15px;
-  border-radius: 7px;
-  background-color: whitesmoke;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  padding: 30px 30px 20px 30px;
-  width: 40%;
-}
-
-.box.button {
-  padding: 10px;
-  background: #182425;
-  border: none;
-  border-radius: 7px;
-  cursor: pointer;
-  font-weight: bolder;
-  color: white;
-  font-size: 11pt;
-}
-
-.locations.button:hover,
-.box.button:hover {
-  background: #33686e;
+.locations.button:hover {
+  background: var(--button-hover);
 }
 
 .locations.button {
   padding: 10px;
-  background: #182425;
+  background: var(--button);
   border: none;
   border-radius: 7px;
   cursor: pointer;
-  font-weight: bolder;
   color: white;
   width: 300px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   text-align: center;
   align-items: center;
-  font-size: 11pt;
+  font-size: 22px;
+}
+
+.locations.slider {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.locations.preference {
+  display: inline-flexbox;
+}
+
+.preference.options {
+  font-size: 25px;
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.preference.options input[type="radio"] {
+  background: white;
+  appearance: none;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
+.preference.options input[type="radio"]:hover,
+.preference.options input[type="radio"]:checked {
+  background-color: var(--active);
+  border-color: var(--active);
 }
 
 /* child 2 */
 .googleMap {
   width: 50vw;
+}
+
+.customSlider {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 300px;
+}
+
+.customSlider-track {
+  top: 8px;
+  height: 4px;
+  background: #ddd;
+}
+
+.customSlider-track.customSlider-track-0 {
+  background: var(--active);
+}
+
+.customSlider-thumb {
+  cursor: pointer;
+  background: var(--active);
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  outline: none;
+}
+
+.customSlider-thumb:hover,
+.customSlider-thumb:active {
+  box-shadow: 0 0 0 5px var(--active);
 }

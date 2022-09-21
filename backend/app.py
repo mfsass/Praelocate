@@ -1,19 +1,13 @@
-from ast import For
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
-from flask import Flask, jsonify, request
-from numpy import place
 import googlemaps
+from flask import Flask, jsonify, request
 from flask_cors import cross_origin, CORS
-import numpy as np
+import math
 
 app = Flask(__name__)
 CORS(app)
 
-allDistance = []
-allTime = []
-allCoordinates = []
-midpoint = ""
 # top secret
 with open("api-key.txt") as api_file:
     key = api_file.readline()
@@ -28,122 +22,244 @@ except:
 @app.route("/locations", methods=["POST"])
 @cross_origin()
 def locations():
-    loc1 = request.json["location1"]
-    loc2 = request.json["location2"]
-    loc3 = request.json["location3"]
-    print(f"Location1: {loc1}")
-    print(f"Location2: {loc2}")
-    print(f"Location3: {loc3}")
-    allDistance.clear()
-    allTime.clear()
-    allCoordinates.clear()
+    # reset all variables
+    global coordinates
+    global all_coordinates
+    global midpoint
+    global all_ranks
+    global times
+    global radius, optimize_preference
 
-    loc1_coordinates = (float(loc1["lat"]), float(loc1["lng"]))
-    loc2_coordinates = (float(loc2["lat"]), float(loc2["lng"]))
-    loc3_coordinates = (float(loc3["lat"]), float(loc3["lng"]))
+    coordinates = []
+    all_coordinates = {}
+    midpoint = {}
+    all_ranks = []
+    times = []
 
-    average_coordinates_latitude = (
-        float(loc1_coordinates[0])
-        + float(loc2_coordinates[0])
-        + float(loc3_coordinates[0])
-    ) / 3
-    average_coordinates_longitude = (
-        float(loc1_coordinates[1])
-        + float(loc2_coordinates[1])
-        + float(loc3_coordinates[1])
-    ) / 3
+    # print(request.json)
 
-    midpoint = {
-        "lat": round(average_coordinates_latitude, ndigits=7),
-        "lng": round(average_coordinates_longitude, ndigits=7),
+    no_locations = len(request.json)
+    # NOTE: if optimize_preference is given subtract 1 from no_locations
+    no_locations = no_locations - 1 if "optimize" in request.json else no_locations
+
+    list_json = []
+    for i in range(1, no_locations):
+        loc_str = "loc" + str(i)
+        loc = request.json[loc_str]
+        item = (
+            float(loc["lat"]),
+            float(loc["lng"]),
+            float(loc["rank"]),
+            str(loc["time"]),
+        )
+        list_json.append(item)
+
+    radius = request.json["radius"]["size"]
+    optimize_preference = (
+        request.json["optimize"]["preference"] if "optimize" in request.json else "time"
+    )
+    print(list_json)
+
+    return calculate_midpoint(list_json)
+
+
+def calculate_midpoint(list_json):
+    # if len(all_distance) > 0:
+    #     all_distance.clear()
+    # if len(all_time) > 0:
+    #     all_time.clear()
+
+    for i in range(0, len(list_json)):
+        all_ranks.append(list_json[i][2])  # ranks
+        coordinates.append((list_json[i][0], list_json[i][1]))  # coordinates
+        times.append((list_json[i][3]))  # time
+
+    # print(times)
+
+    # midpoint average of coordinates
+    # midpoint_lat = 0.0
+    # midpoint_lng = 0.0
+    # for i in range(0, len(list_json)):
+    #     midpoint_lat += coordinates[i][0]
+    #     midpoint_lng += coordinates[i][1]
+
+    # midpoint_lat = midpoint_lat / len(list_json)  # average of coordinates lat
+    # midpoint_lng = midpoint_lng / len(list_json)  # average of coordinates lng
+    # midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
+    # print(midpoint)
+
+    # NOTE: rank multiplier calculation here
+    midpoint_lat = 0.0
+    midpoint_lng = 0.0
+    weights = 0.0
+
+    # calculates weighted center mean
+    for i in range(0, len(list_json)):
+        midpoint_lat += coordinates[i][0] * (
+            all_ranks[i] * 0.2 + 0.8
+        )  # NOTE: weight multiplier to be discussed how much it should affect
+        midpoint_lng += coordinates[i][1] * (all_ranks[i] * 0.2 + 0.8)
+        weights = weights + all_ranks[i] * 0.2 + 0.8
+
+    midpoint_lat = midpoint_lat / weights  # average of coordinates lat
+    midpoint_lng = midpoint_lng / weights  # average of coordinates lng
+    midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
+    print(f"Weighted midpoint: {midpoint}\n")
+
+    earth_radius = 6378.0
+    degrees_to_radians = math.pi / 180.0
+    radians_to_degrees = 180.0 / math.pi
+
+    radius_in_kilometers = radius
+    latitude_degrees = (radius_in_kilometers / earth_radius) * radians_to_degrees
+    latitude = midpoint["lat"]
+    r = earth_radius * math.cos(latitude * degrees_to_radians)
+    longitude_degrees = (radius_in_kilometers / r) * radians_to_degrees
+
+    # Creating the four other dictionaries
+    average_coordinates_1 = {
+        "lat": midpoint_lat,
+        "lng": midpoint_lng + longitude_degrees,
     }
-    print(f"Midpoint of coordinates: {midpoint['lat']}, {midpoint['lng']}")
-    average_coordinates = (average_coordinates_latitude, average_coordinates_longitude)
-    # print(average_coordinates)
+    average_coordinates_2 = {
+        "lat": midpoint_lat,
+        "lng": midpoint_lng - longitude_degrees,
+    }
+    average_coordinates_3 = {
+        "lat": midpoint_lat + latitude_degrees,
+        "lng": midpoint_lng,
+    }
+    average_coordinates_4 = {
+        "lat": midpoint_lat - latitude_degrees,
+        "lng": midpoint_lng,
+    }
 
-    try:
-        average_distance = 0
-        average_time = 0
+    # Storing all of the dictionaries in a list
+    average_coordinates_array = [
+        midpoint,
+        average_coordinates_1,
+        average_coordinates_2,
+        average_coordinates_3,
+        average_coordinates_4,
+    ]
+    average_distance_time_array = []
 
-        now = datetime.now()
-        directions_result = gmaps.directions(
-            origin=average_coordinates, destination=loc1_coordinates, departure_time=now
-        )
-        with open("output.txt", "w") as output:
-            output.write(json.dumps(directions_result, indent=2))
-        # print(json.dumps(directions_result, indent=2))
-        distance = int(directions_result[0]["legs"][0]["distance"]["value"])
-        duration = int(directions_result[0]["legs"][0]["duration"]["value"])
-        allDistance.append(round((distance / 1000), 2))
-        allTime.append(round((duration / 60), 2))
-        average_distance += distance
-        average_time += duration
-        print(
-            f"Distance from midpoint to loc1: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
-        )
+    # Now, instead of sending the average coordinates you send the tuples at the iteration in the loop
+    for j in range(0, 5):
+        all_distance = []
+        all_time = []
+        try:
+            average_distance = 0
+            average_time = 0
+            multiplier = 0
+            multipliers_added = 0
+            average_time_weighted = 0
 
-        directions_result = gmaps.directions(
-            origin=average_coordinates, destination=loc2_coordinates, departure_time=now
-        )
-        with open("output.txt", "w") as output:
-            output.write(json.dumps(directions_result, indent=2))
-        # print(json.dumps(directions_result, indent=2))
-        distance = int(directions_result[0]["legs"][0]["distance"]["value"])
-        duration = int(directions_result[0]["legs"][0]["duration"]["value"])
-        allDistance.append(round((distance / 1000), 2))
-        allTime.append(round((duration / 60), 2))
-        average_distance += distance
-        average_time += duration
-        print(
-            f"Distance from midpoint to loc2: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
-        )
+            # now = datetime.now()
+            origin_tuple = (
+                average_coordinates_array[j]["lat"],
+                average_coordinates_array[j]["lng"],
+            )
 
-        directions_result = gmaps.directions(
-            origin=average_coordinates, destination=loc3_coordinates, departure_time=now
-        )
-        with open("output.txt", "w") as output:
-            output.write(json.dumps(directions_result, indent=2))
-        # print(json.dumps(directions_result, indent=2))
-        distance = int(directions_result[0]["legs"][0]["distance"]["value"])
-        duration = int(directions_result[0]["legs"][0]["duration"]["value"])
-        allDistance.append(round((distance / 1000), 2))
-        allTime.append(round((duration / 60), 2))
-        average_distance += distance
-        average_time += duration
-        print(
-            f"Distance from midpoint to loc3: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
-        )
+            location_string = "location_from_mid" + str(j)
+            print(f"{location_string}:")
 
-        average_distance = round((average_distance / 1000) / 3, 2)
-        average_time = round((average_time / 60) / 3, 2)
+            # calculates distance and time
+            for i in range(0, len(list_json)):
+                # time specified for tomorrow's (can be changed to future date) traffic report
+                time_str = times[i]
+                time_object = datetime.strptime(time_str, "%H:%M").time()
+                time_object = datetime.combine(
+                    datetime.today() + timedelta(days=1), time_object
+                )
+                # print(time_object)
+                directions_result = gmaps.directions(
+                    origin=origin_tuple,
+                    destination=(coordinates[i][0], coordinates[i][1]),
+                    mode="driving",
+                    departure_time=time_object,
+                )
+                distance = int(directions_result[0]["legs"][0]["distance"]["value"])
+                duration = int(
+                    directions_result[0]["legs"][0]["duration_in_traffic"]["value"]
+                )
 
-        allCoordinates.append((f'{loc1["lat"]} {loc1["lng"]}'))
-        allCoordinates.append((f'{loc2["lat"]} {loc2["lng"]}'))
-        allCoordinates.append((f'{loc3["lat"]} {loc3["lng"]}'))
-        allCoordinates.append((f'{midpoint["lat"]} {midpoint["lng"]}'))
+                all_distance.append(round((distance / 1000), 2))
+                all_time.append(round((duration / 60), 2))
+                average_distance += distance
+                average_time += duration
 
-        print(allCoordinates)
+                print(
+                    f"Distance from midpoint to loc{i+1}: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
+                )
 
-    except:
-        return jsonify("Unsucessful request... maybe invalid coordinates")
+                multiplier = (all_ranks[i] * -0.2) + 1.5
+                multipliers_added = multipliers_added + multiplier
+                average_time_weighted = average_time_weighted + multiplier * duration
 
-    # return jsonify(str(average_coordinates_latitude) +
-    #    ","+str(average_coordinates_longitude))
+            average_distance = round(average_distance / (1000 * len(list_json)), 2)
+            average_time = round(average_time / (len(list_json) * 60), 2)
+            average_time_weighted = round(
+                average_time_weighted / (multipliers_added * 60), 2
+            )
 
-    return jsonify("Success")
+            average_distance_time_array.append(
+                [
+                    average_distance,  # 0
+                    average_time,  # 1
+                    all_distance,  # 2
+                    all_time,  # 3
+                    average_time_weighted,  # 4
+                    origin_tuple,  # 5
+                ]
+            )
 
+            print(
+                f"Average distance: {average_distance}km, Average time: {average_time} minutes"
+            )
 
-# return {
-#     'coordinates': average_coordinates,
-#     'distance': average_distance,
-#     'time': average_time,
-#     'allCoordinates': allCoordinates,
-#     'allDistances': allDistance,
-#     'allTimes': allTime
-# }
+            print(f"Midpoint: {origin_tuple}")
+            print(f"Total distance: {round(sum(all_distance),2)} kms")
+            print(f"Total time: {round(sum(all_time),2)} minutes \n")
 
+        except:
+            return jsonify("Unsuccessful request...")
 
-@app.route("/getLocations", methods=["GET"])
-@cross_origin()
-def getLocations():
-    return jsonify(allCoordinates)
+    # NOTE: optimize through distance/time ifs
+    min = 0.0
+    global index
+    index = 0
+    optimized_location = average_distance_time_array[0]
+    if optimize_preference == "time":
+        min = sum(average_distance_time_array[0][3])
+        for k in range(1, 5):
+            # key_string = "location_from_mid" + str(k)
+            if sum(average_distance_time_array[k][3]) < min:
+                min = sum(average_distance_time_array[k][3])
+                optimized_location = average_distance_time_array[k]
+                index = k
+    elif optimize_preference == "distance":
+        min = sum(average_distance_time_array[0][2])
+        for k in range(1, 5):
+            if sum(average_distance_time_array[k][2]) < min:
+                min = sum(average_distance_time_array[k][2])
+                optimized_location = average_distance_time_array[k]
+                index = k
+
+    print("-------------------")
+    print(
+        f"Optimized location{index} [based on {optimize_preference}] \nDetails: Avg distance, Avg time, All distances, All times, Avg time weighted, Origin"
+    )
+    print(optimized_location)
+    print("-------------------")
+
+    return {
+        "avgDistance": optimized_location[0],
+        "avgTime": optimized_location[1],
+        "allCoordinates": coordinates,
+        "allDistances": optimized_location[2],
+        "allTimes": optimized_location[3],
+        "totalTime": sum(optimized_location[3]),
+        "totalDistance": sum(optimized_location[2]),
+        "midpoint": {"lat": optimized_location[5][0], "lng": optimized_location[5][1]},
+    }

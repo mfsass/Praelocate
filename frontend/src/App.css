@@ -1,3 +1,11 @@
+:root {
+  --background-light: #F0F8F9;
+  --button: #6B8F92;
+  --button-hover: #4a797e;
+  --input-fill: #E1E1E1;
+  --active: #236F74;
+}
+
 .App {
   text-align: center;
   height: 100%;
@@ -21,25 +29,26 @@
   font-size: 20pt;
 }
 
+.header.wrapper {
+  opacity: 0;
+  transition: opacity ease-in-out 3s;
+}
+
 .header h1 {
   font-size: 36pt;
+  position: relative;
+  top: -80px;
+  font-weight: 400;
+  margin: 0;
 }
 
 .header img {
-  height: 150px;
-  margin-bottom: 50px;
+  height: 250px;
 }
 
-.header a {
-  font-weight: bold;
-  scroll-behavior: smooth;
-  text-decoration: none;
+.header h2 {
+  margin: 0;
 }
-
-.header a:visited {
-  color: #182425;
-}
-
 
 .body {
   display: flex;
@@ -48,7 +57,30 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: rgb(29, 13, 0);
-  background-color: rgb(241, 246, 247);
+  background-color: #F0F8F9;
+}
+
+.imageButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fakeButton {
+  padding: 10px;
+  border-radius: 10px;
+  background: black;
+  color: white;
+  text-decoration: none;
+  border: solid 3px rgb(29, 13, 0);
+  scroll-behavior: smooth;
+  text-decoration: none;
+  width: 100px;
+}
+
+.fakeButton:hover {
+  background: white;
+  color: black;
 }
 
 /* #53E9FF -> main color */

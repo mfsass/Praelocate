@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Map from "./components/Map";
 import "./App.css";
 
@@ -9,21 +9,30 @@ const location = {
 };
 
 function App() {
+  const ref = useRef();
+
+  const handleClick = () => {
+    ref.current.style.opacity = 1;
+  };
+
   return (
     <div className="App">
-      <div className="header">
-        <h1>Praelocate</h1>
-        <i>
-          <h3>A home location tool</h3>
-        </i>
-        <p>Your quest to find your dream home just became one step closer.</p>
-        <p>Enter your important locations below.</p>
-        <img
-          src={process.env.PUBLIC_URL + "home.png"}
-          className="App-logo"
-          alt="logo"
-        />
-        <a href="#body">Start</a>
+      <div className="header" onClick={handleClick}>
+        <div className="header wrapper" ref={ref}>
+          <div className="logo">
+            <img
+              src={process.env.PUBLIC_URL + "home.png"}
+              className="App-logo"
+              alt="logo"
+            />
+            <h1>PRAELOCATE</h1>
+          </div>
+          <h2>A home location tool</h2>
+          <p>Your quest to find your dream home just became one step closer.</p>
+          <a className="fakeButton" href="#body">
+            Start
+          </a>
+        </div>
       </div>
       <div id="body" className="body">
         <Map location={location} />
