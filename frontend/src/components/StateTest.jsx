@@ -10,25 +10,18 @@ function StateTest() {
   const [inputs, setInputs] = useState([]);
   const [count, setCount] = useState(0);
   const refs = useRef([]);
+  const [ranks, setRanks] = useState([]);
 
   // useEffect(() => {
   //   console.log("Refs:");
   //   console.log(refs.current);
   // }, [refs.current]);
 
-  const onClick = (event, id, ref) => {
-    setLocations({
-      ...locations,
-      [`location${id}`]: {
-        coordinates: {
-          lat: 0,
-          lng: 0,
-        },
-        time: "12:00",
-        rank: "4",
-        shouldShowInfoWindow: false,
-      },
-    });
+  const onClick = async (event, id, ref) => {
+    console.log("First");
+
+    console.log("Second");
+    return;
   };
 
   const getValues = () => {
@@ -41,69 +34,54 @@ function StateTest() {
 
   const handleSave = (event) => {
     event.preventDefault();
-    refs.current.forEach((string, index) => {
+
+    refs.current.forEach(async (string, index) => {
       try {
         console.log(`Trying: ${string.value}`);
       } catch (error) {
         console.log(`Aborting: ${string}`);
       }
 
-      getGeoFromText(string.value, index, locations[`location${index}`]);
+      getGeoFromText(string.value, index).then((response) => {
+        const index = response.index;
+        const tempLocation = {
+          ...locations[`location${index}`],
+          coordinates: response.coordinates,
+        };
+        setLocations((state) => ({
+          ...state,
+          [`location${index}`]: tempLocation,
+        }));
+      });
     });
   };
 
   // Praelexis (Pty) Ltd, Neutron Road, Techno Park, Stellenbosch, South Africa
   // Amsterdam Centraal, Stationsplein, Amsterdam, Netherlands
 
-  const getGeoFromText = async (text, index, location) => {
+  const getGeoFromText = async (text, index) => {
     console.log(`Trying geo ${index}`);
-    if (text && location.coordinates.lat === 0) {
-      console.log(`Getting geo ${index}`);
-      const promise = Geocode.fromAddress(text);
-
-      console.log(`Waiting ${index}`);
-      const response = await promise;
-      console.log(response);
-      let tempLocation = {
-        ...locations[`location${index}`],
-        coordinates: response.results[0].geometry.location,
-      };
-      console.log(tempLocation);
-      console.log(`Setting: ${index}`);
-      setLocations({
-        ...locations,
-        [`location${index}`]: tempLocation,
-      });
-      console.log(`Finished ${index}`);
-      // Geocode.fromAddress(text).then(
-      //   (response) => {
-      //     const tempIndex2 = tempIndex;
-      //     console.log(`Then ${tempIndex2}`);
-      //     let tempLocation = {
-      //       ...locations[`location${tempIndex2}`],
-      //       coordinates: response.results[0].geometry.location,
-      //     };
-      //     console.log(tempLocation);
-      //     console.log(`Setting: ${tempIndex2}`);
-      //     setLocations({
-      //       ...locations,
-      //       [`location${tempIndex2}`]: tempLocation,
-      //     });
-      //     console.log(`Finished ${tempIndex}`);
-      //   },
-      //   (error) => {
-      //     console.error(error);
-      //   }
-      // );
-      // await sleep(1000);
+    if (text) {
+      return await Geocode.fromAddress(text).then(
+        (response) => {
+          return {
+            index: index,
+            coordinates: response.results[0].geometry.location,
+          };
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
     }
   };
 
-  // useEffect(() => {
-  //   console.log(`Count: ${count}`);
-  //   console.log(`Locations:`);
-  //   console.log(locations);
-  // }, [count, locations]);
+  const getRank = (value, name) => {
+    console.log(`Changing value to ${value} of ${name}`);
+    console.log(ranks);
+    setRanks(() => (ranks[name] = value));
+    setRanks((latest) => console.log(latest));
+  };
 
   /*
   lat, lng, str, time, ref, rank, label, infowindow
@@ -114,13 +92,37 @@ function StateTest() {
       <label>Click to add a location</label>
       <button
         name="Work"
-        onClick={(e) => {
+        onClick={async (e) => {
+          console.log("Count: ", count);
+
+          setRanks(() => ranks.push(""));
+
           setInputs((state) => [
             ...state,
-            <InputTest ref={(newRef) => refs.current.push(newRef)} />,
+            <InputTest
+              ref={(newRef) => refs.current.push(newRef)}
+              getRank={getRank}
+              rank={ranks[count]}
+              name={count}
+            />,
           ]);
-          onClick(e, count);
+
+          let tempLocation = {
+            ...locations[`location${count}`],
+            coordinates: {
+              lat: 0,
+              lng: 0,
+            },
+            time: "12:00",
+            shouldShowInfoWindow: false,
+          };
+
+          setLocations({
+            ...locations,
+            [`location${count}`]: tempLocation,
+          });
           setCount(count + 1);
+          console.log("Fourth");
         }}
       >
         +
