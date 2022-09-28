@@ -1,4 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
+import {useTable} from "react-table";
+import Columns from "./Columns";
 import ReactSlider from "react-slider";
 import Geocode from "react-geocode";
 import {
@@ -335,6 +337,21 @@ function Map() {
         );
       }
 
+      const columns = useMemo(() => Columns, [])
+
+      const tableInstance = useTable({
+        columns,
+        info
+      })
+
+      const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+      } = tableInstance
+
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
@@ -471,6 +488,26 @@ function Map() {
                   onClick={() => setPreference("time")}
                 />
               </div>
+            </div>
+
+            <div className = "table output">
+              <table {...getTableProps()}>
+                <thead>
+                  {headerGroups.map((headerGroups) => (
+                    <tr {...headerGroups.geHeaderGroupProps()}>
+                      {headerGroups.header.map((column) => (
+                      <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                  ))}
+                    </tr>
+
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                  <tr>
+                    <td></td>
+                  </tr>
+
+                </tbody>
+              </table>
             </div>
 
             <div className="box button">
