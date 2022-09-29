@@ -371,10 +371,76 @@ function Map() {
     }
   };
 
-  const newMidpoint = () => {
-    allCoordinates.midpoint.lat = 0;
-    allCoordinates.midpoint.lng = 0;
-    alert(allCoordinates.midpoint.lat + " " + allCoordinates.midpoint.lng)
+  const newMidpoint = (e) => {
+    const { latLng } = e; 
+    allCoordinates.midpoint.lat = latLng.lat();
+    allCoordinates.midpoint.lng = latLng.lng();
+    let data = {
+      midpoint: {
+        lat: latLng.lat(),
+        lng: latLng.lng(),
+      },
+    }
+    console.log(JSON.stringify(data));
+    const requestOpt = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+    async function fetchFunc() {
+      return await fetch("/newMidpoint", requestOpt)
+        .then((response) => response.json())
+        .catch((error) => console.log(error));
+    }
+    (async () => {
+      let info = await fetchFunc();
+      console.log(info);
+
+      if (info.allDistances.length >= 1) {
+        setLocation1Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[0]} | Time: ${info.allTimes[0]}`
+        );
+      }
+      if (info.allDistances.length >= 2) {
+        setLocation2Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[1]} | Time: ${info.allTimes[1]}`
+        );
+      }
+      if (info.allDistances.length >= 3) {
+        setLocation3Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[2]} | Time: ${info.allTimes[2]}`
+        );
+      }
+      if (info.allDistances.length >= 4) {
+        setLocation4Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[3]} | Time: ${info.allTimes[3]}`
+        );
+      }
+      if (info.allDistances.length >= 5) {
+        setLocation5Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[4]} | Time: ${info.allTimes[4]}`
+        );
+      }
+      if (info.allDistances.length >= 6) {
+        setLocation6Label(
+          (previousData) =>
+            `${previousData} | Distance: ${info.allDistances[5]} | Time: ${info.allTimes[5]}`
+        );
+      }
+
+      setAllCoordinates(info.allCoordinates);
+      setAllCoordinates((previousState) => ({
+        ...previousState,
+        midpoint: info.midpoint,
+      }));
+      setCenter(info.midpoint);
+      setSubmitting(false);
+    })();
   }
 
   return (
@@ -603,7 +669,7 @@ function Map() {
                 radius={sliderValue * 1000}
                 options={options}
                 draggable={true}
-                onDragEnd={(e) => newMidpoint()}
+                onDragEnd={(e) => newMidpoint(e)}
               />
             )}
           </GoogleMap>
