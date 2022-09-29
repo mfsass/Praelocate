@@ -371,6 +371,12 @@ function Map() {
     }
   };
 
+  const newMidpoint = () => {
+    allCoordinates.midpoint.lat = 0;
+    allCoordinates.midpoint.lng = 0;
+    alert(allCoordinates.midpoint.lat + " " + allCoordinates.midpoint.lng)
+  }
+
   return (
     <div className="map">
       <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
@@ -596,6 +602,8 @@ function Map() {
                 center={allCoordinates.midpoint}
                 radius={sliderValue * 1000}
                 options={options}
+                draggable={true}
+                onDragEnd={(e) => newMidpoint()}
               />
             )}
           </GoogleMap>
