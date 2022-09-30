@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo } from "react";
-import {useTable} from "react-table";
+import { useTable } from "react-table";
 import Columns from "./Columns";
 import ReactSlider from "react-slider";
 import Geocode from "react-geocode";
@@ -337,12 +337,12 @@ function Map() {
         );
       }
 
-      const columns = useMemo(() => Columns, [])
+      const columns = useMemo(() => Columns, []);
 
       const tableInstance = useTable({
         columns,
-        info
-      })
+        info,
+      });
 
       const {
         getTableProps,
@@ -350,7 +350,7 @@ function Map() {
         headerGroups,
         rows,
         prepareRow,
-      } = tableInstance
+      } = tableInstance;
 
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
@@ -490,22 +490,34 @@ function Map() {
               </div>
             </div>
 
-            <div className = "table output">
+            <div className="table output">
               <table {...getTableProps()}>
                 <thead>
                   {headerGroups.map((headerGroups) => (
                     <tr {...headerGroups.geHeaderGroupProps()}>
                       {headerGroups.header.map((column) => (
-                      <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                  ))}
+                        <th {...column.getHeaderProps()}>
+                          {column.render("Header")}
+                        </th>
+                      ))}
                     </tr>
-
+                  ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                  <tr>
-                    <td></td>
-                  </tr>
-
+                  {rows.map((row) => {
+                    prepareRow(row);
+                    return (
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map((cell) => {
+                          return (
+                            <td {...cell.getCellProps()}>
+                              {cell.render("Cell")}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
