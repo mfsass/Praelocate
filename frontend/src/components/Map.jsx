@@ -337,8 +337,6 @@ function Map() {
         );
       }
 
-      const columns = useMemo(() => Columns, []);
-
       const tableInstance = useTable({
         columns,
         info,
@@ -387,6 +385,8 @@ function Map() {
         console.log("Unhandled");
     }
   };
+
+  const columns = useMemo(() => Columns, []);
 
   return (
     <div className="map">
