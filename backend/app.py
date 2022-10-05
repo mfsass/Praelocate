@@ -252,6 +252,23 @@ def calculate_midpoint(list_json):
 
 # @app.route("midpoint", methods=["POST"])
 # @cross_origin()
-def easy_midpoint():
+def easy_midpoint(list_ranks, list_coordinates):
+    # NOTE: rank multiplier calculation here
+    midpoint_lat = 0.0
+    midpoint_lng = 0.0
+    weights = 0.0
 
-    return
+    # calculates weighted center mean
+    for i in range(0, len(list_ranks)):
+        midpoint_lat += list_coordinates[i][0] * (
+            all_ranks[i] * 0.2 + 0.8
+        )  # NOTE: weight multiplier to be discussed how much it should affect
+        midpoint_lng += list_coordinates[i][1] * (list_ranks[i] * 0.2 + 0.8)
+        weights = weights + list_ranks[i] * 0.2 + 0.8
+
+    midpoint_lat = midpoint_lat / weights  # average of coordinates lat
+    midpoint_lng = midpoint_lng / weights  # average of coordinates lng
+    midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
+    print(f"Weighted midpoint: {midpoint}\n")
+
+    return midpoint
