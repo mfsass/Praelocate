@@ -6,31 +6,77 @@ import InputTest from "./InputTest";
 import Geocode from "react-geocode";
 
 function StateTest() {
-  const [locations, setLocations] = useState({});
+  const [locations, setLocations] = useState([]);
   const [inputs, setInputs] = useState([]);
   const [count, setCount] = useState(0);
   const refs = useRef([]);
-  const [ranks, setRanks] = useState([]);
+  const [ranks, setRanks] = useState(Array(5).fill(-1));
+  const [lastRank, setLastRank] = useState({
+    shouldUpdate: false,
+    index: -1,
+    value: -1,
+  });
 
-  // useEffect(() => {
-  //   console.log("Refs:");
-  //   console.log(refs.current);
-  // }, [refs.current]);
-
-  const onClick = async (event, id, ref) => {
-    console.log("First");
-
-    console.log("Second");
-    return;
-  };
-
+  /*
+    Prints the current state of this component
+  */
   const getValues = () => {
+    console.log("Refs:");
     console.log(refs.current);
     refs.current.forEach((ref, index) => {
       console.log(`Input value [${index}]: ${ref.value}`);
     });
+    console.log("Ranks:");
+    console.log(ranks);
+    console.log("Locations:");
     console.log(locations);
   };
+
+  /*
+    Called by the child
+    !** important **! does not have the state of the parent
+  */
+  const changeRank = (index, value) => {
+    console.log(`Changing rank ${index} to ${value}`);
+    setRanks(
+      ranks.map((item, i) => {
+        if (i === index) {
+          console.log("Changing");
+          item = value;
+          return item;
+        } else {
+          console.log("Not changing");
+          return item;
+        }
+      })
+    );
+    setLastRank({
+      value: value,
+      index: index,
+      shouldUpdate: true,
+    });
+  };
+
+  /* When a location's rank has been changed, sets that value for that 
+    location in the locations object
+   */
+  useEffect(() => {
+    if (lastRank.shouldUpdate) {
+      console.log("Locations:::");
+      console.log(locations[lastRank.index]);
+      const tempLocation = {
+        ...locations[lastRank.index],
+      };
+      tempLocation.rank = lastRank.value;
+
+      setLocations((state) => ({
+        ...state,
+        [`${lastRank.index}`]: tempLocation,
+      }));
+
+      setLastRank({ ...lastRank, shouldUpdate: false });
+    }
+  }, [ranks, lastRank, locations]);
 
   const handleSave = (event) => {
     event.preventDefault();
@@ -43,21 +89,27 @@ function StateTest() {
       }
 
       getGeoFromText(string.value, index).then((response) => {
-        const index = response.index;
+        console.log(`Response: ${response.index}`);
+        const index2 = response.index;
         const tempLocation = {
-          ...locations[`location${index}`],
-          coordinates: response.coordinates,
+          ...locations[index2],
         };
+
+        tempLocation.coordinates = response.coordinates;
+        tempLocation.label = replaceText(refs.current[index2].value);
+        tempLocation.shouldShow = true;
+
         setLocations((state) => ({
           ...state,
-          [`location${index}`]: tempLocation,
+          [`${index2}`]: tempLocation,
         }));
       });
     });
   };
 
-  // Praelexis (Pty) Ltd, Neutron Road, Techno Park, Stellenbosch, South Africa
-  // Amsterdam Centraal, Stationsplein, Amsterdam, Netherlands
+  const replaceText = (value) => {
+    return value.substring(0, value.indexOf(","));
+  };
 
   const getGeoFromText = async (text, index) => {
     console.log(`Trying geo ${index}`);
@@ -76,13 +128,6 @@ function StateTest() {
     }
   };
 
-  const getRank = (value, name) => {
-    console.log(`Changing value to ${value} of ${name}`);
-    console.log(ranks);
-    setRanks(() => (ranks[name] = value));
-    setRanks((latest) => console.log(latest));
-  };
-
   /*
   lat, lng, str, time, ref, rank, label, infowindow
   */
@@ -92,37 +137,35 @@ function StateTest() {
       <label>Click to add a location</label>
       <button
         name="Work"
-        onClick={async (e) => {
-          console.log("Count: ", count);
+        onClick={(e) => {
+          console.log(`Count: ${count}`);
 
-          setRanks(() => ranks.push(""));
+          setLocations([
+            ...locations,
+            {
+              id: count,
+              coordinates: {
+                lat: 0,
+                lng: 0,
+              },
+              title: "",
+              label: "",
+              time: "12:00",
+              shouldShow: false,
+              rank: -1,
+            },
+          ]);
 
           setInputs((state) => [
             ...state,
             <InputTest
               ref={(newRef) => refs.current.push(newRef)}
-              getRank={getRank}
-              rank={ranks[count]}
+              changeRank={changeRank}
               name={count}
             />,
           ]);
 
-          let tempLocation = {
-            ...locations[`location${count}`],
-            coordinates: {
-              lat: 0,
-              lng: 0,
-            },
-            time: "12:00",
-            shouldShowInfoWindow: false,
-          };
-
-          setLocations({
-            ...locations,
-            [`location${count}`]: tempLocation,
-          });
           setCount(count + 1);
-          console.log("Fourth");
         }}
       >
         +
