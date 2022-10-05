@@ -60,33 +60,16 @@ def locations():
     )
     print(list_json)
 
+    # if school option then quick calculate
     return calculate_midpoint(list_json)
 
 
 def calculate_midpoint(list_json):
-    # if len(all_distance) > 0:
-    #     all_distance.clear()
-    # if len(all_time) > 0:
-    #     all_time.clear()
 
     for i in range(0, len(list_json)):
         all_ranks.append(list_json[i][2])  # ranks
         coordinates.append((list_json[i][0], list_json[i][1]))  # coordinates
         times.append((list_json[i][3]))  # time
-
-    # print(times)
-
-    # midpoint average of coordinates
-    # midpoint_lat = 0.0
-    # midpoint_lng = 0.0
-    # for i in range(0, len(list_json)):
-    #     midpoint_lat += coordinates[i][0]
-    #     midpoint_lng += coordinates[i][1]
-
-    # midpoint_lat = midpoint_lat / len(list_json)  # average of coordinates lat
-    # midpoint_lng = midpoint_lng / len(list_json)  # average of coordinates lng
-    # midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
-    # print(midpoint)
 
     # NOTE: rank multiplier calculation here
     midpoint_lat = 0.0
@@ -263,3 +246,12 @@ def calculate_midpoint(list_json):
         "totalDistance": sum(optimized_location[2]),
         "midpoint": {"lat": optimized_location[5][0], "lng": optimized_location[5][1]},
     }
+
+    # calculate just midpoint not optimised
+
+
+# @app.route("midpoint", methods=["POST"])
+# @cross_origin()
+def easy_midpoint():
+
+    return
