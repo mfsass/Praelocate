@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import json
 import googlemaps
+import requests
 from flask import Flask, jsonify, request
 from flask_cors import cross_origin, CORS
 import math
@@ -234,7 +235,17 @@ def calculate_midpoint(list_json):
         f"Optimized location{index} [based on {optimize_preference}] \nDetails: Avg distance, Avg time, All distances, All times, Avg time weighted, Origin"
     )
     print(optimized_location)
-    print("-------------------")
+
+    school = fuzzy_schools(optimized_location[5])
+
+    print("\n------Schools------")
+    # print list(school)
+    print(school[0])
+    print(school[1])
+    print(school[2])
+    print(school[3])
+    print(school[4])
+    print("-------------------\n")
 
     return {
         "avgDistance": optimized_location[0],
@@ -275,16 +286,21 @@ def easy_midpoint(list_ranks, list_coordinates):
 
 
 def fuzzy_schools(origin):
-    # google api find nearest schools from origin
-    school_list = gmaps.places_nearby(origin, radius=10000, type="school")
+    url = (
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.93614919347826%2C18.830927215591863&radius="
+        + str(radius * 2000)
+        + "&type=school&keyword=highschool&key="
+        + key
+    )
 
-    # fuzzywuzzy find closest school
-    school_list = school_list["results"]
-    school_list.sort(key=lambda x: fuzz.token_set_ratio(x["name"], "school"))
-    school_list = school_list[:3]
+    payload = {}
+    headers = {}
 
-    # find nearest school with google places api
+    response = requests.request("GET", url, headers=headers, data=payload)
 
-    print("Schools: ")
-    print(school_list)
-    return school_list
+    # return name of schools in list_schools
+    list_schools = []
+    for i in range(0, 5):
+        list_schools.append(response.json()["results"][i]["name"])
+
+    return list_schools
