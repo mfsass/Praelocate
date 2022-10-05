@@ -28,6 +28,26 @@
   height: 100vh;
 }
 
+.locations.add {
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+}
+
+.locations.add button {
+  width: 75px;
+  height: 30px;
+  border-radius: 7px;
+  background: var(--button);
+  border: none;
+  color: white;
+  font-size: 20px;
+}
+
+.locations.add button:hover {
+  background: var(--button-hover);
+}
+
 .locations.showPoint,
 .locations.getPoint {
   width: 100%;
