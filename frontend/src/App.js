@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="header" onClick={handleClick}>
+      {/* <div className="header" onClick={handleClick}>
         <div className="header wrapper" ref={ref}>
           <div className="logo">
             <img
@@ -34,15 +34,15 @@ function App() {
           <a className="fakeButton" href="#body">
             Start
           </a>
-          <div className="stateTest">
-            <StateTest />
-          </div>
-          {/* <StateTest2 /> */}
         </div>
+      </div> */}
+
+      <div className="stateTest">
+        <StateTest />
       </div>
-      <div id="body" className="body">
+      {/* <div id="body" className="body">
         <Map location={location} />
-      </div>
+      </div> */}
     </div>
   );
 }

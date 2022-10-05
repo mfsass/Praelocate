@@ -30,7 +30,8 @@
 }
 
 .header.wrapper {
-  opacity: 0;
+  opacity: 1;
+  /* change opacity here */
   transition: opacity ease-in-out 3s;
 }
 
