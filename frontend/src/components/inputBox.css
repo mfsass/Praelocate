@@ -4,7 +4,7 @@
   background-color: whitesmoke;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   padding: 30px 30px 20px 30px;
-  width: 60%;
+  width: 100%;
 }
 
 .box.button {
@@ -15,11 +15,22 @@
 
 .input.label {
   display: flex;
+  align-items: center;
 }
 
-.mainLabel {
+.input.label.title {
+  padding: 10px;
   text-align: left;
   width: 90%;
+  border: none;
+  background: none;
+  font-size: 25px;
+  border-radius: 7px;
+}
+
+.input.label.title:focus {
+  background: #dbdada;
+  outline: none;
 }
 
 .input.label input[type="checkbox"] {
@@ -37,15 +48,17 @@
   border-color: var(--active);
 }
 
-.inputWrapper {
+.input.wrapper {
   margin: 0px;
   padding: 10px;
   justify-content: center;
   align-items: center;
+  row-gap: 10px;
   border-left: 3px solid var(--active);
 }
 
-.inputWrapper input[type="text"] {
+
+.input.wrapper input[type="text"] {
   flex: 10;
   background-color: white;
   height: 25px;
@@ -59,6 +72,44 @@
   padding: 15px;
   margin-bottom: 10px;
   font-size: 18px;
+}
+
+.input.wrapper input[type="text"]:read-only {
+  background: #dbdada;
+  cursor: not-allowed;
+}
+
+.input.wrapper.school {
+  border-left: none;
+  text-align: left;
+  align-items: center;
+  justify-content: left;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.input.wrapper.school.label {
+  width: 100%;
+}
+
+.input.wrapper.school input[type="checkbox"] {
+  height: 25px;
+  width: 25px;
+  appearance: none;
+  user-select: none;
+  background: white;
+  border: 1px solid black;
+}
+
+.input.wrapper.school input[type="checkbox"]:hover,
+.input.wrapper.school input[type="checkbox"]:checked {
+  background: var(--active);
+  border-color: var(--active);
+}
+
+.input.wrapper.school span {
+  text-align: right;
 }
 
 .extraInput {
