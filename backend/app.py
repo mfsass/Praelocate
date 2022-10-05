@@ -162,10 +162,14 @@ def calculate_midpoint(list_json):
                     destination=(coordinates[i][0], coordinates[i][1]),
                     mode="driving",
                     departure_time=time_object,
+                    # arrival_time=time_object,
                 )
+                # print(directions_result)
+                # NOTE: duration not traffic and arrival times
                 distance = int(directions_result[0]["legs"][0]["distance"]["value"])
                 duration = int(
                     directions_result[0]["legs"][0]["duration_in_traffic"]["value"]
+                    # directions_result[0]["legs"][0]["duration"]["value"]
                 )
 
                 all_distance.append(round((distance / 1000), 2))
