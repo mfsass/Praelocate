@@ -6,30 +6,84 @@ import InputTest from "./InputTest";
 import Geocode from "react-geocode";
 
 function StateTest() {
+  const titleRefs = useRef([]);
+  const stringRefs = useRef([]);
+  const timeRefs = useRef([]);
   const [locations, setLocations] = useState([]);
   const [inputs, setInputs] = useState([]);
   const [count, setCount] = useState(0);
-  const refs = useRef([]);
-  const [ranks, setRanks] = useState(Array(5).fill(-1));
-  const [lastRank, setLastRank] = useState({
-    shouldUpdate: false,
-    index: -1,
-    value: -1,
-  });
+  const [ranks, setRanks] = useState(Array(20).fill(-1));
+  const [isFuzzy, setIsFuzzy] = useState(false);
 
   /*
     Prints the current state of this component
   */
   const getValues = () => {
-    console.log("Refs:");
-    console.log(refs.current);
-    refs.current.forEach((ref, index) => {
+    console.log("*** Title refs: ***");
+    console.log(titleRefs.current);
+    titleRefs.current.forEach((ref, index) => {
+      console.log(`Title value [${index}]: ${ref.value}`);
+    });
+
+    console.log("*** String refs: ***");
+    console.log(stringRefs.current);
+    stringRefs.current.forEach((ref, index) => {
       console.log(`Input value [${index}]: ${ref.value}`);
     });
-    console.log("Ranks:");
+
+    console.log("*** Time refs: ***");
+    console.log(timeRefs.current);
+    timeRefs.current.forEach((ref, index) => {
+      console.log(`Time value [${index}]: ${ref.value}`);
+    });
+
+    console.log("*** Ranks: ***");
     console.log(ranks);
-    console.log("Locations:");
+    console.log("*** Locations: ***");
     console.log(locations);
+
+    console.log(`*** Is fuzzy? ${isFuzzy} ***`);
+  };
+
+  const addInput = () => {
+    console.log(`Count: ${count}`);
+
+    setLocations([
+      ...locations,
+      {
+        id: count,
+        coordinates: {
+          lat: 0,
+          lng: 0,
+        },
+        title: "",
+        label: "",
+        time: "12:00",
+        shouldShow: false,
+        rank: -1,
+      },
+    ]);
+
+    // Adds new refs for the input components
+    let lastTitleRef = (ref0) => titleRefs.current.push(ref0);
+    let lastStringRef = (ref1) => stringRefs.current.push(ref1);
+    let lastTimeRef = (ref2) => timeRefs.current.push(ref2);
+
+    setInputs((state) => [
+      ...state,
+      <InputTest
+        ref={{
+          locationTitle: lastTitleRef,
+          locationStr: lastStringRef,
+          locationTime: lastTimeRef,
+        }}
+        changeRank={changeRank}
+        name={count}
+        setIsFuzzy={setIsFuzzy}
+      />,
+    ]);
+
+    setCount(count + 1);
   };
 
   /*
@@ -50,38 +104,15 @@ function StateTest() {
         }
       })
     );
-    setLastRank({
-      value: value,
-      index: index,
-      shouldUpdate: true,
-    });
   };
 
-  /* When a location's rank has been changed, sets that value for that 
-    location in the locations object
+  /**
+   * Saves all the values and requests the coordinates from the google maps API
    */
-  useEffect(() => {
-    if (lastRank.shouldUpdate) {
-      console.log("Locations:::");
-      console.log(locations[lastRank.index]);
-      const tempLocation = {
-        ...locations[lastRank.index],
-      };
-      tempLocation.rank = lastRank.value;
-
-      setLocations((state) => ({
-        ...state,
-        [`${lastRank.index}`]: tempLocation,
-      }));
-
-      setLastRank({ ...lastRank, shouldUpdate: false });
-    }
-  }, [ranks, lastRank, locations]);
-
   const handleSave = (event) => {
     event.preventDefault();
 
-    refs.current.forEach(async (string, index) => {
+    stringRefs.current.forEach(async (string, index) => {
       try {
         console.log(`Trying: ${string.value}`);
       } catch (error) {
@@ -93,11 +124,13 @@ function StateTest() {
         const index2 = response.index;
         const tempLocation = {
           ...locations[index2],
+          coordinates: response.coordinates,
+          label: getLabel(stringRefs.current[index2].value),
+          shouldShow: true,
+          rank: ranks[index2],
+          time: timeRefs.current[index2].value,
+          title: titleRefs.current[index2].value,
         };
-
-        tempLocation.coordinates = response.coordinates;
-        tempLocation.label = replaceText(refs.current[index2].value);
-        tempLocation.shouldShow = true;
 
         setLocations((state) => ({
           ...state,
@@ -107,7 +140,7 @@ function StateTest() {
     });
   };
 
-  const replaceText = (value) => {
+  const getLabel = (value) => {
     return value.substring(0, value.indexOf(","));
   };
 
@@ -135,39 +168,7 @@ function StateTest() {
   return (
     <>
       <label>Click to add a location</label>
-      <button
-        name="Work"
-        onClick={(e) => {
-          console.log(`Count: ${count}`);
-
-          setLocations([
-            ...locations,
-            {
-              id: count,
-              coordinates: {
-                lat: 0,
-                lng: 0,
-              },
-              title: "",
-              label: "",
-              time: "12:00",
-              shouldShow: false,
-              rank: -1,
-            },
-          ]);
-
-          setInputs((state) => [
-            ...state,
-            <InputTest
-              ref={(newRef) => refs.current.push(newRef)}
-              changeRank={changeRank}
-              name={count}
-            />,
-          ]);
-
-          setCount(count + 1);
-        }}
-      >
+      <button name="Work" onClick={addInput}>
         +
       </button>
       <div className="testInputs">
