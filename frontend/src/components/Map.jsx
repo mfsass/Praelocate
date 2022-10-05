@@ -13,9 +13,6 @@ import InputBox from "./InputBox";
 import "./map.css";
 
 const libraries = ["places"];
-
-var tableinfo;
-
 const containerStyle = {
   width: "100%",
   height: "100%",
@@ -123,6 +120,7 @@ function Map() {
   const [shouldShowLocations, setShouldShowLocations] = useState(false);
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
+  const [tableData, setTableData] = useState([]);
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -336,8 +334,8 @@ function Map() {
             `${previousData} | Distance: ${info.allDistances[5]} | Time: ${info.allTimes[5]}`
         );
       }
-      
-      tableinfo = info;
+
+      setTableData(info);
 
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
@@ -481,21 +479,22 @@ function Map() {
               <table id="myTable" className="table table-available">
                 <thead>
                   <tr>
-                    <th>Location:</th>
-                    <th>Distances from Midpoint (kms)</th>
-                    <th>Travel time from Midpoint (mins)</th>
+                    <th>Location</th>
+                    <th>Distance (kms)</th>
+                    <th>Time(mins)</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.keys(tableinfo).map((value, index) => {
-                    return (
-                      <tr>
-                        <td>{tableinfo.allCoordinates[index]} </td>
-                        <td>{tableinfo.allDistances[index]}</td>
-                        <td>{tableinfo.allTimes[index]}</td>
-                      </tr>
-                    );
-                  })}
+                  {shouldShowLocations &&
+                    Object.keys(tableData).map((value, index) => {
+                      return (
+                        <tr>
+                          <td>{tableData.allCoordinates[index]} </td>
+                          <td>{tableData.allDistances[index]}</td>
+                          <td>{tableData.allTimes[index]}</td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
