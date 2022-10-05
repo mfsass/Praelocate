@@ -272,3 +272,19 @@ def easy_midpoint(list_ranks, list_coordinates):
     print(f"Weighted midpoint: {midpoint}\n")
 
     return midpoint
+
+
+def fuzzy_schools(origin):
+    # google api find nearest schools from origin
+    school_list = gmaps.places_nearby(origin, radius=10000, type="school")
+
+    # fuzzywuzzy find closest school
+    school_list = school_list["results"]
+    school_list.sort(key=lambda x: fuzz.token_set_ratio(x["name"], "school"))
+    school_list = school_list[:3]
+
+    # find nearest school with google places api
+
+    print("Schools: ")
+    print(school_list)
+    return school_list
