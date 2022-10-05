@@ -3,6 +3,8 @@ import { forwardRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
+import { StandaloneSearchBox } from "@react-google-maps/api";
+
 import "./inputBox.css";
 
 const InputTest = forwardRef((props, ref) => {
@@ -51,19 +53,22 @@ const InputTest = forwardRef((props, ref) => {
           name="check"
           type="checkbox"
           readOnly
-          onClick={() => setShouldShow(!shouldShow)}
+          onClick={() => {
+            setShouldShow(!shouldShow);
+            setFuzzy(false);
+          }}
         />
       </div>
       {shouldShow && (
         <div className="input wrapper">
-          {/* <StandaloneSearchBox> */}
-          <input
-            ref={locationStr}
-            type="text"
-            placeholder={"Enter your location here"}
-            readOnly={fuzzy}
-          ></input>
-          {/* </StandaloneSearchBox> */}
+          <StandaloneSearchBox>
+            <input
+              ref={locationStr}
+              type="text"
+              placeholder={"Enter your location here"}
+              readOnly={fuzzy}
+            ></input>
+          </StandaloneSearchBox>
           {title.toLowerCase().includes("school") && (
             <div className="input wrapper school">
               <div className="input wrapper school label">

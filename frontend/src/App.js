@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* <div className="header" onClick={handleClick}>
+      <div className="header" onClick={handleClick}>
         <div className="header wrapper" ref={ref}>
           <div className="logo">
             <img
@@ -35,14 +35,14 @@ function App() {
             Start
           </a>
         </div>
-      </div> */}
-
-      <div className="stateTest">
-        <StateTest />
       </div>
-      {/* <div id="body" className="body">
-        <Map location={location} />
+
+      {/* <div className="stateTest">
+        <StateTest />
       </div> */}
+      <div id="body" className="body">
+        <Map location={location} />
+      </div>
     </div>
   );
 }

@@ -29,6 +29,7 @@ def locations():
     global all_ranks
     global times
     global radius, optimize_preference
+    global isFuzzy
 
     coordinates = []
     all_coordinates = {}
@@ -41,23 +42,34 @@ def locations():
     no_locations = len(request.json)
     # NOTE: if optimize_preference is given subtract 1 from no_locations
     no_locations = no_locations - 1 if "optimize" in request.json else no_locations
-
+    
     list_json = []
-    for i in range(1, no_locations):
-        loc_str = "loc" + str(i)
-        loc = request.json[loc_str]
+    locations = request.json["locations"]
+    for location in locations:
         item = (
-            float(loc["lat"]),
-            float(loc["lng"]),
-            float(loc["rank"]),
-            str(loc["time"]),
+            float(location["lat"]),
+            float(location["lng"]),
+            float(location["rank"]),
+            str(location["time"])
         )
         list_json.append(item)
+
+    # for i in range(1, no_locations):
+    #     loc_str = "loc" + str(i)
+    #     loc = request.json[loc_str]
+    #     item = (
+    #         float(loc["lat"]),
+    #         float(loc["lng"]),
+    #         float(loc["rank"]),
+    #         str(loc["time"]),
+    #     )
+    #     list_json.append(item)
 
     radius = request.json["radius"]["size"]
     optimize_preference = (
         request.json["optimize"]["preference"] if "optimize" in request.json else "time"
     )
+    isFuzzy = request.json["isFuzzy"] == 'true'
     print(list_json)
 
     return calculate_midpoint(list_json)
