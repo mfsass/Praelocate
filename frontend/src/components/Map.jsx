@@ -1,6 +1,4 @@
-import React, { useState, useRef, useMemo } from "react";
-import { useTable } from "react-table";
-import Columns from "./Columns";
+import React, { useState, useRef } from "react";
 import ReactSlider from "react-slider";
 import Geocode from "react-geocode";
 import {
@@ -15,6 +13,8 @@ import InputBox from "./InputBox";
 import "./map.css";
 
 const libraries = ["places"];
+
+var tableinfo;
 
 const containerStyle = {
   width: "100%",
@@ -336,19 +336,8 @@ function Map() {
             `${previousData} | Distance: ${info.allDistances[5]} | Time: ${info.allTimes[5]}`
         );
       }
-
-      const tableInstance = useTable({
-        columns,
-        info,
-      });
-
-      const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-      } = tableInstance;
+      
+      tableinfo = info;
 
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
@@ -385,8 +374,6 @@ function Map() {
         console.log("Unhandled");
     }
   };
-
-  const columns = useMemo(() => Columns, []);
 
   return (
     <div className="map">
@@ -491,30 +478,21 @@ function Map() {
             </div>
 
             <div className="table output">
-              <table {...getTableProps()}>
+              <table id="myTable" className="table table-available">
                 <thead>
-                  {headerGroups.map((headerGroups) => (
-                    <tr {...headerGroups.geHeaderGroupProps()}>
-                      {headerGroups.header.map((column) => (
-                        <th {...column.getHeaderProps()}>
-                          {column.render("Header")}
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
+                  <tr>
+                    <th>Location:</th>
+                    <th>Distances from Midpoint (kms)</th>
+                    <th>Travel time from Midpoint (mins)</th>
+                  </tr>
                 </thead>
-                <tbody {...getTableBodyProps()}>
-                  {rows.map((row) => {
-                    prepareRow(row);
+                <tbody>
+                  {Object.keys(tableinfo).map((value, index) => {
                     return (
-                      <tr {...row.getRowProps()}>
-                        {row.cells.map((cell) => {
-                          return (
-                            <td {...cell.getCellProps()}>
-                              {cell.render("Cell")}
-                            </td>
-                          );
-                        })}
+                      <tr>
+                        <td>{tableinfo.allCoordinates[index]} </td>
+                        <td>{tableinfo.allDistances[index]}</td>
+                        <td>{tableinfo.allTimes[index]}</td>
                       </tr>
                     );
                   })}
