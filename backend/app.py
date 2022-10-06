@@ -42,6 +42,7 @@ def locations():
     no_locations = len(request.json)
     # NOTE: if optimize_preference is given subtract 1 from no_locations
     no_locations = no_locations - 1 if "optimize" in request.json else no_locations
+    # check school checkbox
 
     list_json = []
     for i in range(1, no_locations):
@@ -295,6 +296,7 @@ def fuzzy_schools(origin):
         + str(radius * 2000)
         + "&type=school&keyword=highschool&key="
         + key
+        # rank by prominence
     )
 
     payload = {}
