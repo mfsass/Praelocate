@@ -19,6 +19,13 @@ except:
     print("Invalid api key")
     exit(0)
 
+@app.route("/newMidpoint", methods=["POST"])
+@cross_origin()
+def newMidpoint():
+    print("Received")
+    
+
+    
 
 @app.route("/locations", methods=["POST"])
 @cross_origin()
