@@ -169,20 +169,25 @@ function Map() {
       getGeoFromText(string.value, index).then((response) => {
         console.log(`Response: ${response.index}`);
         const index2 = response.index;
+        const timeValue = timeRefs.current[index2].value;
         const tempLocation = {
           ...locations[index2],
           coordinates: response.coordinates,
           label: getLabel(stringRefs.current[index2].value),
           shouldShow: true,
-          rank: ranks[index2],
-          time: timeRefs.current[index2].value,
+          rank: ranks[index2] > 0 ? ranks[index2] : 1,
+          time: timeValue !== "" ? timeValue : "12:00",
           title: titleRefs.current[index2].value,
         };
 
-        setLocations((state) => ({
-          ...state,
-          [`${index2}`]: tempLocation,
-        }));
+        setLocations(
+          locations.map((item, i) => {
+            if (i === index2) {
+              locations[i] = tempLocation;
+              return locations[i];
+            } else return locations[i];
+          })
+        );
       });
     });
 
@@ -210,155 +215,31 @@ function Map() {
     }
   };
 
-  // const handleSave2 = (event) => {
-  //   event.preventDefault();
-
-  //   const locations = [
-  //     {
-  //       string: location1Str,
-  //       function: setLocation1,
-  //       labelFunction: setLocation1Label,
-  //     },
-  //     {
-  //       string: location2Str,
-  //       function: setLocation2,
-  //       labelFunction: setLocation2Label,
-  //     },
-  //     {
-  //       string: location3Str,
-  //       function: setLocation3,
-  //       labelFunction: setLocation3Label,
-  //     },
-  //     {
-  //       string: location4Str,
-  //       function: setLocation4,
-  //       labelFunction: setLocation4Label,
-  //     },
-  //     {
-  //       string: location5Str,
-  //       function: setLocation5,
-  //       labelFunction: setLocation5Label,
-  //     },
-  //     {
-  //       string: location6Str,
-  //       function: setLocation6,
-  //       labelFunction: setLocation6Label,
-  //     },
-  //   ];
-  //   locations.map((entry) => {
-  //     try {
-  //       console.log(`Trying: ${entry.string.current.value}`);
-  //     } catch (error) {
-  //       console.log(`aborting: ${entry}`);
-  //       return undefined;
-  //     }
-  //     const temp = entry.string.current.value;
-  //     entry.labelFunction(temp.substring(0, temp.indexOf(",")));
-  //     return getGeoFromText(entry.string.current.value, entry.function);
-  //   });
-
-  //   changeColor(event);
-  // };
-
-  // const getGeoFromText = (text, changeLocation) => {
-  //   if (text) {
-  //     Geocode.fromAddress(text).then(
-  //       (response) => {
-  //         changeLocation(() => response.results[0].geometry.location);
-  //       },
-  //       (error) => {
-  //         console.error(error);
-  //       }
-  //     );
-  //   }
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitting(true);
 
+    let tempLocations = [];
+    if (isFuzzy) {
+      let index = -1;
+      Object.keys(locations).forEach((key) => {
+        console.log(locations[key]);
+        if (!locations[key].title.toLowerCase().includes("school")) {
+          tempLocations.push(locations[key]);
+        }
+      });
+    } else {
+      tempLocations = [...locations];
+    }
+    console.log("Templocations");
+    console.log(tempLocations);
+
     let data = {
-      locations: locations,
+      locations: tempLocations,
       radius: { size: sliderValue },
       optimize: { preference: preference },
       isFuzzy: isFuzzy,
     };
-
-    // if (location1) {
-    //   const tempTime = location1Time.current.value
-    //     ? location1Time.current.value
-    //     : "12:00";
-    //   data.loc1 = {
-    //     lat: location1.lat,
-    //     lng: location1.lng,
-    //     rank: rank1,
-    //     time: tempTime,
-    //   };
-    // }
-
-    // if (location2) {
-    //   const tempTime = location2Time.current.value
-    //     ? location2Time.current.value
-    //     : "12:00";
-    //   data.loc2 = {
-    //     lat: location2.lat,
-    //     lng: location2.lng,
-    //     rank: rank2,
-    //     time: tempTime,
-    //   };
-    // }
-
-    // if (location3) {
-    //   const tempTime = location3Time.current.value
-    //     ? location3Time.current.value
-    //     : "12:00";
-    //   data.loc3 = {
-    //     lat: location3.lat,
-    //     lng: location3.lng,
-    //     rank: rank3,
-    //     time: tempTime,
-    //   };
-    // }
-
-    // if (location4) {
-    //   const tempTime = location4Time.current.value
-    //     ? location4Time.current.value
-    //     : "12:00";
-    //   data.loc4 = {
-    //     lat: location4.lat,
-    //     lng: location4.lng,
-    //     rank: rank4,
-    //     time: tempTime,
-    //   };
-    // }
-
-    // if (location5) {
-    //   const tempTime = location5Time.current.value
-    //     ? location5Time.current.value
-    //     : "12:00";
-    //   data.loc5 = {
-    //     lat: location5.lat,
-    //     lng: location5.lng,
-    //     rank: rank5,
-    //     time: tempTime,
-    //   };
-    // }
-
-    // if (location6) {
-    //   const tempTime = location6Time.current.value
-    //     ? location6Time.current.value
-    //     : "12:00";
-    //   data.loc6 = {
-    //     lat: location6.lat,
-    //     lng: location6.lng,
-    //     rank: rank6,
-    //     time: tempTime,
-    //   };
-    // }
-
-    // data.optimize = {
-    //   preference: preference,
-    // };
 
     console.log(JSON.stringify(data));
     const requestOpt = {
@@ -454,6 +335,33 @@ function Map() {
   //   }
   // };
 
+  const getValues = () => {
+    console.log("*** Title refs: ***");
+    console.log(titleRefs.current);
+    titleRefs.current.forEach((ref, index) => {
+      console.log(`Title value [${index}]: ${ref.value}`);
+    });
+
+    console.log("*** String refs: ***");
+    console.log(stringRefs.current);
+    stringRefs.current.forEach((ref, index) => {
+      console.log(`Input value [${index}]: ${ref.value}`);
+    });
+
+    console.log("*** Time refs: ***");
+    console.log(timeRefs.current);
+    timeRefs.current.forEach((ref, index) => {
+      console.log(`Time value [${index}]: ${ref.value}`);
+    });
+
+    console.log("*** Ranks: ***");
+    console.log(ranks);
+    console.log("*** Locations: ***");
+    console.log(locations);
+
+    console.log(`*** Is fuzzy? ${isFuzzy} ***`);
+  };
+
   return (
     <div className="map">
       <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
@@ -470,6 +378,9 @@ function Map() {
               <label>Add a location</label>
               <button type="button" onClick={addInput}>
                 +
+              </button>
+              <button type="button" onClick={getValues}>
+                GET
               </button>
             </div>
             {/* <InputBox
