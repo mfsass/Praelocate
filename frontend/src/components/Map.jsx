@@ -290,14 +290,8 @@ function Map() {
   };
 
   const newMidpoint = (e) => {
-<<<<<<< HEAD
-    const { latLng } = e;
-    allCoordinates.midpoint.lat = latLng.lat();
-    allCoordinates.midpoint.lng = latLng.lng();
-=======
     setSubmitting(true);
     const { latLng } = e;
->>>>>>> origin/Jacques-sprint-3
     let data = {
       midpoint: {
         lat: latLng.lat(),
@@ -319,8 +313,6 @@ function Map() {
       let info = await fetchFunc();
       console.log(info);
 
-<<<<<<< HEAD
-=======
       locations.map((item) => {
         let index = info.allCoordinates.findIndex(
           (coor) => coor[0] === item.coordinates.lat
@@ -335,7 +327,6 @@ function Map() {
         return item;
       });
 
->>>>>>> origin/Jacques-sprint-3
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
