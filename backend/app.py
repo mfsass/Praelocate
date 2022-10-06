@@ -29,6 +29,7 @@ def locations():
     global all_ranks
     global times
     global radius, optimize_preference
+    global isFuzzy
 
     coordinates = []
     all_coordinates = {}
@@ -37,28 +38,40 @@ def locations():
     times = []
 
     # print(request.json)
-
-    no_locations = len(request.json)
-    # NOTE: if optimize_preference is given subtract 1 from no_locations
-    no_locations = no_locations - 1 if "optimize" in request.json else no_locations
-
-    list_json = []
-    for i in range(1, no_locations):
-        loc_str = "loc" + str(i)
-        loc = request.json[loc_str]
-        item = (
-            float(loc["lat"]),
-            float(loc["lng"]),
-            float(loc["rank"]),
-            str(loc["time"]),
-        )
-        list_json.append(item)
-
+    
     radius = request.json["radius"]["size"]
     optimize_preference = (
         request.json["optimize"]["preference"] if "optimize" in request.json else "time"
     )
+    isFuzzy = request.json["isFuzzy"] == 'true'
+   
+    no_locations = len(request.json)
+    # NOTE: if optimize_preference is given subtract 1 from no_locations
+    no_locations = no_locations - 1 if "optimize" in request.json else no_locations
+    
+    list_json = []
+    locations = request.json["locations"]
+    for location in locations:        
+        item = (
+            float(location["coordinates"]["lat"]),
+            float(location["coordinates"]["lng"]),
+            float(location["rank"]),
+            str(location["time"])
+        )
+        list_json.append(item)
+        
     print(list_json)
+        
+    # for i in range(1, no_locations):
+    #     loc_str = "loc" + str(i)
+    #     loc = request.json[loc_str]
+    #     item = (
+    #         float(loc["lat"]),
+    #         float(loc["lng"]),
+    #         float(loc["rank"]),
+    #         str(loc["time"]),
+    #     )
+    #     list_json.append(item)
 
     return calculate_midpoint(list_json)
 
@@ -162,10 +175,11 @@ def calculate_midpoint(list_json):
             )
 
             location_string = "location_from_mid" + str(j)
+            
             print(f"{location_string}:")
 
             # calculates distance and time
-            for i in range(0, len(list_json)):
+            for i in range(len(list_json)):
                 # time specified for tomorrow's (can be changed to future date) traffic report
                 time_str = times[i]
                 time_object = datetime.strptime(time_str, "%H:%M").time()
@@ -173,12 +187,18 @@ def calculate_midpoint(list_json):
                     datetime.today() + timedelta(days=1), time_object
                 )
                 # print(time_object)
+                print((coordinates[i][0], coordinates[i][1]))
                 directions_result = gmaps.directions(
                     origin=origin_tuple,
                     destination=(coordinates[i][0], coordinates[i][1]),
                     mode="driving",
                     departure_time=time_object,
                 )
+                if len(directions_result) == 0:
+                    print("Too many requests... chill a minute or two")
+                    return jsonify("Too many requests from backend")
+                
+                
                 distance = int(directions_result[0]["legs"][0]["distance"]["value"])
                 duration = int(
                     directions_result[0]["legs"][0]["duration_in_traffic"]["value"]
