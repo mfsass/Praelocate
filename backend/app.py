@@ -24,6 +24,7 @@ except:
 @cross_origin()
 def newMidpoint():
     print("Received")
+    return "Received"
 
 
 @app.route("/locations", methods=["POST"])
