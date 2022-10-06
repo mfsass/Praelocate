@@ -19,13 +19,12 @@ except:
     print("Invalid api key")
     exit(0)
 
+
 @app.route("/newMidpoint", methods=["POST"])
 @cross_origin()
 def newMidpoint():
     print("Received")
-    
 
-    
 
 @app.route("/locations", methods=["POST"])
 @cross_origin()
@@ -271,11 +270,8 @@ def calculate_midpoint(list_json):
 
     print("\n------Schools------")
     # print list(school)
-    print(school[0])
-    print(school[1])
-    print(school[2])
-    print(school[3])
-    print(school[4])
+    for i in range(len(school)):
+        print(school[i])
     print("-------------------\n")
 
     return {
@@ -317,9 +313,14 @@ def easy_midpoint(list_ranks, list_coordinates):
 
 
 def fuzzy_schools(origin):
+    print(radius)
     url = (
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.93614919347826%2C18.830927215591863&radius="
-        + str(radius * 2000)
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
+        + str(origin[0])
+        + "%2C"
+        + str(origin[1])
+        + "&radius="
+        + str(radius * 5000)
         + "&type=school&keyword=highschool&key="
         + key
         # rank by prominence
@@ -329,10 +330,13 @@ def fuzzy_schools(origin):
     headers = {}
 
     response = requests.request("GET", url, headers=headers, data=payload)
+    # calculate length of Response
+    length = len(response.json()["results"])
 
     # return name of schools in list_schools
     list_schools = []
-    for i in range(0, 5):
+
+    for i in range(0, length):
         list_schools.append(response.json()["results"][i]["name"])
 
     return list_schools

@@ -290,7 +290,7 @@ function Map() {
   };
 
   const newMidpoint = (e) => {
-    const { latLng } = e; 
+    const { latLng } = e;
     allCoordinates.midpoint.lat = latLng.lat();
     allCoordinates.midpoint.lng = latLng.lng();
     let data = {
@@ -298,7 +298,7 @@ function Map() {
         lat: latLng.lat(),
         lng: latLng.lng(),
       },
-    }
+    };
     console.log(JSON.stringify(data));
     const requestOpt = {
       method: "POST",
@@ -314,43 +314,6 @@ function Map() {
       let info = await fetchFunc();
       console.log(info);
 
-      if (info.allDistances.length >= 1) {
-        setLocation1Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[0]} | Time: ${info.allTimes[0]}`
-        );
-      }
-      if (info.allDistances.length >= 2) {
-        setLocation2Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[1]} | Time: ${info.allTimes[1]}`
-        );
-      }
-      if (info.allDistances.length >= 3) {
-        setLocation3Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[2]} | Time: ${info.allTimes[2]}`
-        );
-      }
-      if (info.allDistances.length >= 4) {
-        setLocation4Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[3]} | Time: ${info.allTimes[3]}`
-        );
-      }
-      if (info.allDistances.length >= 5) {
-        setLocation5Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[4]} | Time: ${info.allTimes[4]}`
-        );
-      }
-      if (info.allDistances.length >= 6) {
-        setLocation6Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[5]} | Time: ${info.allTimes[5]}`
-        );
-      }
-
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
@@ -359,7 +322,7 @@ function Map() {
       setCenter(info.midpoint);
       setSubmitting(false);
     })();
-  }
+  };
 
   return (
     <div className="map">
