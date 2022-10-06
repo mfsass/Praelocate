@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import Map from "./components/Map";
 import "./App.css";
+import StateTest from "./components/StateTest";
+import StateTest2 from "./components/StateTest2";
 
 const location = {
   address: "1600 Amphitheatre Parkway, Mountain View, california.",
@@ -34,6 +36,10 @@ function App() {
           </a>
         </div>
       </div>
+
+      {/* <div className="stateTest">
+        <StateTest />
+      </div> */}
       <div id="body" className="body">
         <Map location={location} />
       </div>
