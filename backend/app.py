@@ -26,12 +26,12 @@ def newMidpoint():
     # recalculates distances and times from midpoint to coordinates
     # returns new midpoint and new distances and times
     data = request.get_json()
-    print(data)
+    # print(data)
     origin_tuple = (
         data["midpoint"]["lat"],
         data["midpoint"]["lng"],
     )
-    print(coordinates)
+    # print(coordinates)
 
     # calculate distances and times from midpoint to coordinates
     list_distances = []
@@ -51,22 +51,25 @@ def newMidpoint():
             mode="driving",
             departure_time=time_object,
         )
-        list_distances.append(result["rows"][0]["elements"][0]["distance"]["value"])
-        list_times.append(
-            result["rows"][0]["elements"][0]["duration_in_traffic"]["value"]
+        distance = int(result[0]["legs"][0]["distance"]["value"])
+        duration = int(
+            result[0]["legs"][0]["duration_in_traffic"]["value"]
+            # directions_result[0]["legs"][0]["duration"]["value"]
         )
+
+        list_distances.append(round((distance / 1000), 2))
+        list_times.append(round((duration / 60), 2))
 
     print(f"Distances: {list_distances}")
     print(f"Times: {list_times}")
 
     # calculate best schools
-    list_schools = fuzzy_schools(midpoint)
+    list_schools = fuzzy_schools(origin_tuple)
 
     return jsonify(
         {
-            "midpoint": midpoint,
-            "distances": list_distances,
-            "times": list_times,
+            "allDistances": list_distances,
+            "allTimes": list_times,
             "schools": list_schools,
         }
     )
