@@ -290,9 +290,8 @@ function Map() {
   };
 
   const newMidpoint = (e) => {
-    const { latLng } = e; 
-    allCoordinates.midpoint.lat = latLng.lat();
-    allCoordinates.midpoint.lng = latLng.lng();
+    setSubmitting(true);
+    const { latLng } = e;
     let data = {
       midpoint: {
         lat: latLng.lat(),
@@ -314,49 +313,25 @@ function Map() {
       let info = await fetchFunc();
       console.log(info);
 
-      if (info.allDistances.length >= 1) {
-        setLocation1Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[0]} | Time: ${info.allTimes[0]}`
-        );
-      }
-      if (info.allDistances.length >= 2) {
-        setLocation2Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[1]} | Time: ${info.allTimes[1]}`
-        );
-      }
-      if (info.allDistances.length >= 3) {
-        setLocation3Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[2]} | Time: ${info.allTimes[2]}`
-        );
-      }
-      if (info.allDistances.length >= 4) {
-        setLocation4Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[3]} | Time: ${info.allTimes[3]}`
-        );
-      }
-      if (info.allDistances.length >= 5) {
-        setLocation5Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[4]} | Time: ${info.allTimes[4]}`
-        );
-      }
-      if (info.allDistances.length >= 6) {
-        setLocation6Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[5]} | Time: ${info.allTimes[5]}`
-        );
-      }
+      locations.map((item) => {
+        let index = info.allCoordinates.findIndex(
+          (coor) => coor[0] === item.coordinates.lat
+        ); // makes sure to map the correct distance and times to the correct location
+        if (index >= 0) {
+          item.label = `${getLabel(
+            stringRefs.current[item.id].value
+          )} | Distance: ${info.allDistances[index]} | Time: ${
+            info.allDistances[index]
+          }`;
+        }
+        return item;
+      });
 
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
         midpoint: info.midpoint,
       }));
-      setCenter(info.midpoint);
       setSubmitting(false);
     })();
   }
