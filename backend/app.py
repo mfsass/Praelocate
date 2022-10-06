@@ -23,8 +23,53 @@ except:
 @app.route("/newMidpoint", methods=["POST"])
 @cross_origin()
 def newMidpoint():
-    print("Received")
-    return "Received"
+    # recalculates distances and times from midpoint to coordinates
+    # returns new midpoint and new distances and times
+    data = request.get_json()
+    print(data)
+    origin_tuple = (
+        data["midpoint"]["lat"],
+        data["midpoint"]["lng"],
+    )
+    print(coordinates)
+
+    # calculate distances and times from midpoint to coordinates
+    list_distances = []
+    list_times = []
+
+    for i in range(0, len(coordinates)):
+        # print(f"Calculating distance from {midpoint} to {coordinates[i]}")
+        time_str = times[i]
+        time_object = datetime.strptime(time_str, "%H:%M").time()
+        time_object = datetime.combine(
+            datetime.today() + timedelta(days=1), time_object
+        )
+
+        result = gmaps.directions(
+            origin=origin_tuple,
+            destination=(coordinates[i][0], coordinates[i][1]),
+            mode="driving",
+            departure_time=time_object,
+        )
+        list_distances.append(result["rows"][0]["elements"][0]["distance"]["value"])
+        list_times.append(
+            result["rows"][0]["elements"][0]["duration_in_traffic"]["value"]
+        )
+
+    print(f"Distances: {list_distances}")
+    print(f"Times: {list_times}")
+
+    # calculate best schools
+    list_schools = fuzzy_schools(midpoint)
+
+    return jsonify(
+        {
+            "midpoint": midpoint,
+            "distances": list_distances,
+            "times": list_times,
+            "schools": list_schools,
+        }
+    )
 
 
 @app.route("/locations", methods=["POST"])
