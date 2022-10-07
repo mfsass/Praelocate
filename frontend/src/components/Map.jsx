@@ -239,7 +239,7 @@ function Map() {
           item.label = `${getLabel(
             stringRefs.current[item.id].value
           )} | Distance: ${info.allDistances[index]} | Time: ${
-            info.allDistances[index]
+            info.allTimes[index]
           }`;
         }
         return item;
@@ -312,7 +312,6 @@ function Map() {
     (async () => {
       let info = await fetchFunc();
       console.log(info);
-
       locations.map((item) => {
         let index = info.allCoordinates.findIndex(
           (coor) => coor[0] === item.coordinates.lat
@@ -321,17 +320,13 @@ function Map() {
           item.label = `${getLabel(
             stringRefs.current[item.id].value
           )} | Distance: ${info.allDistances[index]} | Time: ${
-            info.allDistances[index]
+            info.allTimes[index]
           }`;
         }
         return item;
       });
 
       setAllCoordinates(info.allCoordinates);
-      setAllCoordinates((previousState) => ({
-        ...previousState,
-        midpoint: info.midpoint,
-      }));
       setSubmitting(false);
     })();
   };

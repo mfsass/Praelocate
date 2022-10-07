@@ -66,13 +66,13 @@ def newMidpoint():
     # calculate best schools
     list_schools = fuzzy_schools(origin_tuple)
 
-    return jsonify(
-        {
+    return {
+            "allCoordinates": coordinates,
             "allDistances": list_distances,
             "allTimes": list_times,
             "schools": list_schools,
         }
-    )
+    
 
 
 @app.route("/locations", methods=["POST"])
