@@ -239,7 +239,7 @@ function Map() {
           item.label = `${getLabel(
             stringRefs.current[item.id].value
           )} | Distance: ${info.allDistances[index]} | Time: ${
-            info.allDistances[index]
+            info.allTimes[index]
           }`;
         }
         return item;
@@ -287,6 +287,48 @@ function Map() {
     console.log(locations);
 
     console.log(`*** Is fuzzy? ${isFuzzy} ***`);
+  };
+
+  const newMidpoint = (e) => {
+    setSubmitting(true);
+    const { latLng } = e;
+    let data = {
+      midpoint: {
+        lat: latLng.lat(),
+        lng: latLng.lng(),
+      },
+    };
+    console.log(JSON.stringify(data));
+    const requestOpt = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+    async function fetchFunc() {
+      return await fetch("/newMidpoint", requestOpt)
+        .then((response) => response.json())
+        .catch((error) => console.log(error));
+    }
+    (async () => {
+      let info = await fetchFunc();
+      console.log(info);
+      locations.map((item) => {
+        let index = info.allCoordinates.findIndex(
+          (coor) => coor[0] === item.coordinates.lat
+        ); // makes sure to map the correct distance and times to the correct location
+        if (index >= 0) {
+          item.label = `${getLabel(
+            stringRefs.current[item.id].value
+          )} | Distance: ${info.allDistances[index]} | Time: ${
+            info.allTimes[index]
+          }`;
+        }
+        return item;
+      });
+
+      setAllCoordinates(info.allCoordinates);
+      setSubmitting(false);
+    })();
   };
 
   return (
@@ -423,6 +465,8 @@ function Map() {
                 center={allCoordinates.midpoint}
                 radius={sliderValue * 1000}
                 options={options}
+                draggable={true}
+                onDragEnd={(e) => newMidpoint(e)}
               />
             )}
           </GoogleMap>
