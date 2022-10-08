@@ -121,6 +121,7 @@ function Map() {
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
   const [tableData, setTableData] = useState([]);
+  const [locationsLabels] = useState([]);
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -299,42 +300,23 @@ function Map() {
       console.log(info);
 
       if (info.allDistances.length >= 1) {
-        setLocation1Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[0]} | Time: ${info.allTimes[0]}`
-        );
+        locationsLabels.push(location1Label);
       }
       if (info.allDistances.length >= 2) {
-        setLocation2Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[1]} | Time: ${info.allTimes[1]}`
-        );
+        locationsLabels.push(location2Label);
       }
       if (info.allDistances.length >= 3) {
-        setLocation3Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[2]} | Time: ${info.allTimes[2]}`
-        );
+        locationsLabels.push(location3Label);
       }
       if (info.allDistances.length >= 4) {
-        setLocation4Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[3]} | Time: ${info.allTimes[3]}`
-        );
+        locationsLabels.push(location4Label);
       }
       if (info.allDistances.length >= 5) {
-        setLocation5Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[4]} | Time: ${info.allTimes[4]}`
-        );
+        locationsLabels.push(location5Label);
       }
       if (info.allDistances.length >= 6) {
-        setLocation6Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[5]} | Time: ${info.allTimes[5]}`
-        );
+        locationsLabels.push(location6Label);
       }
-
       setTableData(info);
 
       setAllCoordinates(info.allCoordinates);
@@ -476,7 +458,7 @@ function Map() {
             </div>
 
             <div className="table output">
-              <table id="myTable" className="table table-available">
+              <table className="table labels">
                 <thead>
                   <tr>
                     <th>Location</th>
@@ -489,13 +471,25 @@ function Map() {
                     Object.keys(tableData).map((value, index) => {
                       return (
                         <tr>
-                          <td>{tableData.allCoordinates[index]} </td>
+                          <td>{locationsLabels[index]} </td>
                           <td>{tableData.allDistances[index]}</td>
                           <td>{tableData.allTimes[index]}</td>
                         </tr>
                       );
                     })}
                 </tbody>
+              </table>
+            </div>
+            <div className="table output">
+              <table className="table schools">
+                <thead>
+                  <tr>
+                    <th>Schools</th>
+                    <th>Distance (kms)</th>
+                    <th>Time(mins)</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
               </table>
             </div>
 
