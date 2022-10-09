@@ -13,6 +13,7 @@ import InputTest from "./InputTest";
 import "./map.css";
 
 const libraries = ["places"];
+
 const containerStyle = {
   width: "100%",
   height: "100%",
@@ -53,6 +54,7 @@ function Map() {
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
   const [tableData, setTableData] = useState([]);
+  const [locationsLabels] = useState([]);
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -230,12 +232,13 @@ function Map() {
     (async () => {
       let info = await fetchFunc();
       console.log(info);
-      setTableData(info);
+
       locations.map((item) => {
         let index = info.allCoordinates.findIndex(
           (coor) => coor[0] === item.coordinates.lat
         ); // makes sure to map the correct distance and times to the correct location
         if (index >= 0) {
+          locationsLabels.push(getLabel(stringRefs.current[item.id].value));
           item.label = `${getLabel(
             stringRefs.current[item.id].value
           )} | Distance: ${info.allDistances[index]} | Time: ${
@@ -244,6 +247,8 @@ function Map() {
         }
         return item;
       });
+
+      setTableData(info);
 
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
@@ -404,7 +409,7 @@ function Map() {
                     Object.keys(tableData).map((value, index) => {
                       return (
                         <tr>
-                          <td>{locations[index]}</td>
+                          <td>{locationsLabels[index]}</td>
                           <td>{tableData.allDistances[index]}</td>
                           <td>{tableData.allTimes[index]}</td>
                         </tr>
