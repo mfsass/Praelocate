@@ -53,7 +53,6 @@ function Map() {
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
   const [tableData, setTableData] = useState([]);
-  const [locationsLabels] = useState([]);
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -231,25 +230,6 @@ function Map() {
     (async () => {
       let info = await fetchFunc();
       console.log(info);
-
-      if (info.allDistances.length >= 1) {
-        locationsLabels.push(location1Label);
-      }
-      if (info.allDistances.length >= 2) {
-        locationsLabels.push(location2Label);
-      }
-      if (info.allDistances.length >= 3) {
-        locationsLabels.push(location3Label);
-      }
-      if (info.allDistances.length >= 4) {
-        locationsLabels.push(location4Label);
-      }
-      if (info.allDistances.length >= 5) {
-        locationsLabels.push(location5Label);
-      }
-      if (info.allDistances.length >= 6) {
-        locationsLabels.push(location6Label);
-      }
       setTableData(info);
       locations.map((item) => {
         let index = info.allCoordinates.findIndex(
@@ -424,7 +404,7 @@ function Map() {
                     Object.keys(tableData).map((value, index) => {
                       return (
                         <tr>
-                          <td>{locationsLabels[index]} </td>
+                          <td>{locations[index]}</td>
                           <td>{tableData.allDistances[index]}</td>
                           <td>{tableData.allTimes[index]}</td>
                         </tr>
