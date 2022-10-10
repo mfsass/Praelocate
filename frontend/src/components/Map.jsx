@@ -332,6 +332,7 @@ function Map() {
       });
 
       setAllCoordinates(info.allCoordinates);
+      setTableData(info);
       setSubmitting(false);
     })();
   };
