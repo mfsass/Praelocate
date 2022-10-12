@@ -485,9 +485,9 @@ function Map() {
                     })}
                   </tbody>
                 </table>
-                <span>
-                  Median price in neighbourhood: {medPrice ? medPrice : ""}
-                </span>
+                {medPrice !== 0 && (
+                  <span>Median price in neighbourhood: R{medPrice}</span>
+                )}
               </div>
             )}
             {shouldShowLocations && isFuzzy && schools && (
