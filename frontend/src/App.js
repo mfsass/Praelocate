@@ -1,8 +1,6 @@
 import React, { useRef } from "react";
 import Map from "./components/Map";
 import "./App.css";
-import StateTest from "./components/StateTest";
-import StateTest2 from "./components/StateTest2";
 
 function App() {
   const ref = useRef();
