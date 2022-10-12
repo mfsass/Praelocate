@@ -416,35 +416,41 @@ def fuzzy_hospitals(origin):
 
 
 def determine_sale_price(location):
-    options = Options()
-    options.headless = True
+    try:
+        options = Options()
+        options.headless = True
 
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-    driver.get("https://www.google.com/")
-    inputElem = driver.find_element(By.CLASS_NAME, "a4bIc")
-    inputElem = inputElem.find_element(By.TAG_NAME, "input")
-    search_string = "Property24 trends" + location
-    inputElem.send_keys(search_string)
-    inputElem.send_keys(Keys.ENTER)
-    # print(driver.current_url)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        driver.get("https://www.google.com/")
+        inputElem = driver.find_element(By.CLASS_NAME, "a4bIc")
+        inputElem = inputElem.find_element(By.TAG_NAME, "input")
+        search_string = "Property24 trends" + location
+        inputElem.send_keys(search_string)
+        inputElem.send_keys(Keys.ENTER)
+        # print(driver.current_url)
 
-    websiteURL = driver.find_element(By.CLASS_NAME, "yuRUbf").get_attribute("innerHTML")
-    websiteURL = websiteURL[(websiteURL.index('"') + 1) :]
-    websiteURL = websiteURL[0 : (websiteURL.index('"'))]
-    # print(websiteURL)
-    # driver.close()
+        websiteURL = driver.find_element(By.CLASS_NAME, "yuRUbf").get_attribute(
+            "innerHTML"
+        )
+        websiteURL = websiteURL[(websiteURL.index('"') + 1) :]
+        websiteURL = websiteURL[0 : (websiteURL.index('"'))]
+        # print(websiteURL)
+        # driver.close()
 
-    # driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.get(websiteURL)
-    content = driver.find_element(
-        By.XPATH,
-        '//div[@class="p24_results p24_areaTrends"]/div[1]/div[3]/div[1]/div[1]/div[1]/script[1]',
-    ).get_attribute("innerHTML")
-    content = content[(content.index(";") + 1) :]
-    content = content[(content.index(";") + 1) :]
-    importantIndex = content.index(";")
-    content = content[(importantIndex - 20) : importantIndex - 7]
-    numeric_filter = filter(str.isdigit, content)
-    numeric_string = "".join(numeric_filter)
-    print("\nThe average price in " + location + " is R" + numeric_string)
-    return numeric_string
+        # driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver.get(websiteURL)
+        content = driver.find_element(
+            By.XPATH,
+            '//div[@class="p24_results p24_areaTrends"]/div[1]/div[3]/div[1]/div[1]/div[1]/script[1]',
+        ).get_attribute("innerHTML")
+        content = content[(content.index(";") + 1) :]
+        content = content[(content.index(";") + 1) :]
+        importantIndex = content.index(";")
+        content = content[(importantIndex - 20) : importantIndex - 7]
+        numeric_filter = filter(str.isdigit, content)
+        numeric_string = "".join(numeric_filter)
+        print("\nThe average price in" + location + " is R" + numeric_string)
+        return numeric_string
+    except Exception as e:
+        print("Error: ", e)
+        return "- No price found -"
