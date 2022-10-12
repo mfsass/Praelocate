@@ -262,9 +262,12 @@ function Map() {
           locationsLabels.push(getLabel(stringRefs.current[item.id].value));
           item.label = (
             <span>
-              <b>{getLabel(stringRefs.current[item.id].value)}</b>
-              <br /> Distance: {info.allDistances[index]} km
-              <br /> Time: {info.allTimes[index]} min
+              <b>{item.title}</b>
+              <br />
+              <i>{getLabel(stringRefs.current[item.id].value)}</i> <br />
+              Distance: {info.allDistances[index]} km
+              <br />
+              Time: {info.allTimes[index]} min
             </span>
           );
         }
@@ -351,9 +354,12 @@ function Map() {
         if (index >= 0) {
           item.label = (
             <span>
-              <b>{getLabel(stringRefs.current[item.id].value)}</b>
-              <br /> Distance: {info.allDistances[index]} km
-              <br /> Time: {info.allTimes[index]} min
+              <b>{item.title}</b>
+              <br />
+              <i>{getLabel(stringRefs.current[item.id].value)}</i> <br />
+              Distance: {info.allDistances[index]} km
+              <br />
+              Time: {info.allTimes[index]} min
             </span>
           );
         }
@@ -439,10 +445,10 @@ function Map() {
                     </tr>
                   </thead>
                   <tbody>
-                    {Object.keys(tableData).map((value, index) => {
+                    {locationsLabels.map((label, index) => {
                       return (
                         <tr key={index}>
-                          <td>{locationsLabels[index]}</td>
+                          <td>{label}</td>
                           <td>{tableData.allDistances[index]}</td>
                           <td>{tableData.allTimes[index]}</td>
                         </tr>
@@ -460,9 +466,9 @@ function Map() {
                 <table className="table schools">
                   <thead>
                     <tr>
-                      <th>Schools</th>
-                      <th>Distance (kms)</th>
-                      <th>Time(mins)</th>
+                      <th>Schools (nearest, ascending)</th>
+                      {/* <th>Distance (kms)</th>
+                      <th>Time(mins)</th> */}
                     </tr>
                   </thead>
                   <tbody>
