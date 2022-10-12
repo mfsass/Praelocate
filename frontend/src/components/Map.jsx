@@ -469,8 +469,8 @@ function Map() {
                   <thead>
                     <tr>
                       <th>Location</th>
-                      <th>Distance (kms)</th>
-                      <th>Time(mins)</th>
+                      <th>Distance (km)</th>
+                      <th>Time (min)</th>
                     </tr>
                   </thead>
                   <tbody>
