@@ -49,6 +49,7 @@ function Map() {
   const [shouldHospital, setShouldHospital] = useState(false);
   const [sliderValue, setSliderValue] = useState(1);
   const [preference, setPreference] = useState("time");
+  const [zoom, setZoom] = useState(14);
   const [center, setCenter] = useState({
     lat: -33.9328,
     lng: 18.8644,
@@ -59,7 +60,7 @@ function Map() {
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
   const [tableData, setTableData] = useState([]);
-  const [locationsLabels] = useState([]);
+  const [locationLabels, setLocationLabels] = useState([]);
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -258,12 +259,14 @@ function Map() {
       let info = await fetchFunc();
       console.log(info);
 
+      let tempLabels = [];
+
       locations.map((item) => {
         let index = info.allCoordinates.findIndex(
           (coor) => coor[0] === item.coordinates.lat
         ); // makes sure to map the correct distance and times to the correct location
         if (index >= 0) {
-          locationsLabels.push(getLabel(stringRefs.current[item.id].value));
+          tempLabels.push(getLabel(stringRefs.current[item.id].value));
           item.label = (
             <span>
               <b>{item.title}</b>
@@ -278,6 +281,8 @@ function Map() {
         return item;
       });
 
+      setLocationLabels(tempLabels);
+
       setTableData(info);
       if (isFuzzy) {
         setSchools(info.schools.splice(0, 6));
@@ -286,6 +291,7 @@ function Map() {
         setHospitals(info.hospitals.splice(0, 2));
       }
 
+      setZoom(15 - sliderValue);
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
@@ -376,6 +382,7 @@ function Map() {
       if (isFuzzy) {
         setSchools(info.schools.splice(0, 6));
       }
+      setMedPrice(info.median);
       setAllCoordinates(info.allCoordinates);
       setTableData(info);
       setSubmitting(false);
@@ -456,21 +463,21 @@ function Map() {
               </div>
             </div>
 
-            {shouldShowLocations && (
+            {shouldShowLocations && tableData && (
               <div className="table output">
                 <table className="table labels">
                   <thead>
                     <tr>
                       <th>Location</th>
-                      <th>Distance (kms)</th>
-                      <th>Time(mins)</th>
+                      <th>Distance (km)</th>
+                      <th>Time (min)</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {locationsLabels.map((label, index) => {
+                    {locationLabels.map((location, index) => {
                       return (
                         <tr key={index}>
-                          <td>{label}</td>
+                          <td>{location}</td>
                           <td>{tableData.allDistances[index]}</td>
                           <td>{tableData.allTimes[index]}</td>
                         </tr>
@@ -478,12 +485,12 @@ function Map() {
                     })}
                   </tbody>
                 </table>
-                <span>
-                  Median price in neighbourhood: {medPrice ? medPrice : ""}
-                </span>
+                {medPrice !== 0 && (
+                  <span>Median price in neighbourhood: R{medPrice}</span>
+                )}
               </div>
             )}
-            {shouldShowLocations && isFuzzy && (
+            {shouldShowLocations && isFuzzy && schools && (
               <div className="table output">
                 <table className="table schools">
                   <thead>
@@ -494,35 +501,33 @@ function Map() {
                     </tr>
                   </thead>
                   <tbody>
-                    {schools &&
-                      schools.map((item, index) => {
-                        return (
-                          <tr key={index}>
-                            <td>{item}</td>
-                          </tr>
-                        );
-                      })}
+                    {schools.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{item}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
             )}
-            {shouldShowLocations && shouldHospital && (
+            {shouldShowLocations && shouldHospital && hospitals && (
               <div className="table output">
-                <table className="table schools">
+                <table className="table labels">
                   <thead>
                     <tr>
                       <th>Hospitals (nearest, ascending)</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {hospitals &&
-                      hospitals.map((item, index) => {
-                        return (
-                          <tr key={index}>
-                            <td>{item}</td>
-                          </tr>
-                        );
-                      })}
+                    {hospitals.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{item}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -561,7 +566,7 @@ function Map() {
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={14}
+            zoom={zoom}
           >
             {shouldShowLocations && (
               <div>

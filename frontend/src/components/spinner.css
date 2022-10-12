@@ -1,7 +1,7 @@
 .spinner {
   position: absolute;
   top: calc(150% - 50px);
-  left: calc(50% - 50px);
+  left: calc(25% - 50px);
   background-color: white;
   box-shadow: rgba(54, 54, 54, 0.426) 1px 1px 10px;
   width: 100px;
@@ -11,6 +11,7 @@
   animation-duration: 300ms;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+  z-index: 15;
 }
 
 @keyframes spin {
