@@ -59,6 +59,7 @@ def newMidpoint():
             mode="driving",
             departure_time=time_object,
         )
+        print(result)
         distance = int(result[0]["legs"][0]["distance"]["value"])
         duration = int(
             result[0]["legs"][0]["duration_in_traffic"]["value"]
@@ -102,9 +103,9 @@ def locations():
 
     # print(request.json)
 
-    radius = request.json["radius"]["size"]
+    radius = request.json["radius"]
     optimize_preference = (
-        request.json["optimize"]["preference"] if "optimize" in request.json else "time"
+        request.json["preference"] if "optimize" in request.json else "time"
     )
     isFuzzy = request.json["isFuzzy"] == "true"
 
@@ -314,10 +315,16 @@ def calculate_midpoint(list_json):
         print(school[i])
     print("-------------------\n")
 
+    origin_tuple = (
+        optimized_location[5][0],
+        optimized_location[5][1],
+    )
+    list_schools = fuzzy_schools(origin_tuple)
+
     # Average Price
-    location_name = "Constantia, Cape Town"
+    location_name = "Constantia"
     average_sale_price = determine_sale_price(location_name)
-    print(f"Average sale price: ${average_sale_price}")
+    print(f"Average sale price: R{average_sale_price}")
 
     return {
         "avgDistance": optimized_location[0],
@@ -328,6 +335,7 @@ def calculate_midpoint(list_json):
         "totalTime": sum(optimized_location[3]),
         "totalDistance": sum(optimized_location[2]),
         "midpoint": {"lat": optimized_location[5][0], "lng": optimized_location[5][1]},
+        "schools": list_schools,
     }
 
 
