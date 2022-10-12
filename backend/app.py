@@ -329,6 +329,12 @@ def calculate_midpoint(list_json):
         optimized_location[5][1],
     )
     list_schools = fuzzy_schools(origin_tuple)
+    list_hospitals = fuzzy_hospitals(origin_tuple)
+    print("\n------Hospitals------")
+    # print list(school)
+    for i in range(len(list_hospitals)):
+        print(list_hospitals[i])
+    print("-------------------\n")
 
     # Average Price
     average_sale_price = determine_sale_price(suburb)
@@ -345,6 +351,7 @@ def calculate_midpoint(list_json):
         "midpoint": {"lat": optimized_location[5][0], "lng": optimized_location[5][1]},
         "schools": list_schools,
         "median": average_sale_price,
+        "hospitals": list_hospitals,
     }
 
 
@@ -376,6 +383,36 @@ def fuzzy_schools(origin):
         list_schools.append(response.json()["results"][i]["name"])
 
     return list_schools
+
+
+def fuzzy_hospitals(origin):
+    # print(radius)
+    url = (
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
+        + str(origin[0])
+        + "%2C"
+        + str(origin[1])
+        + "&radius="
+        + str(radius * 5000)
+        + "&type=hospital&keyword=hospital&key="
+        + key
+        # rank by prominence
+    )
+
+    payload = {}
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+    # calculate length of Response
+    length = len(response.json()["results"])
+
+    # return name of schools in list_schools
+    list_hospitals = []
+
+    for i in range(0, length):
+        list_hospitals.append(response.json()["results"][i]["name"])
+
+    return list_hospitals
 
 
 def determine_sale_price(location):
