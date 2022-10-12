@@ -41,6 +41,8 @@ function Map() {
   const [count, setCount] = useState(0);
   const [ranks, setRanks] = useState(Array(20).fill(-1));
   const [infoWindows, setInfoWindows] = useState([]);
+  const [school, setSchools] = useState([]);
+  const [medPrice, setMedPrice] = useState(0);
   const [isFuzzy, setIsFuzzy] = useState(false);
   const [sliderValue, setSliderValue] = useState(1);
   const [preference, setPreference] = useState("time");
@@ -53,6 +55,8 @@ function Map() {
   const [shouldShowLocations, setShouldShowLocations] = useState(false);
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
+  const [tableData, setTableData] = useState([]);
+  const [locationsLabels] = useState([]);
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -92,7 +96,7 @@ function Map() {
 
     setInputs((state) => [
       ...state,
-      <InputTest
+      <InputBox
         ref={{
           locationTitle: lastTitleRef,
           locationStr: lastStringRef,
@@ -236,20 +240,27 @@ function Map() {
           (coor) => coor[0] === item.coordinates.lat
         ); // makes sure to map the correct distance and times to the correct location
         if (index >= 0) {
+          locationsLabels.push(getLabel(stringRefs.current[item.id].value));
           item.label = `${getLabel(
             stringRefs.current[item.id].value
           )} | Distance: ${info.allDistances[index]} | Time: ${
-            info.allDistances[index]
+            info.allTimes[index]
           }`;
         }
         return item;
       });
+
+      setTableData(info);
+      if (isFuzzy) {
+        setSchools(info.schools);
+      }
 
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
         midpoint: info.midpoint,
       }));
+      setMedPrice(info.median);
       setCenter(info.midpoint);
       setSubmitting(false);
     })();
@@ -287,6 +298,49 @@ function Map() {
     console.log(locations);
 
     console.log(`*** Is fuzzy? ${isFuzzy} ***`);
+  };
+
+  const newMidpoint = (e) => {
+    setSubmitting(true);
+    const { latLng } = e;
+    let data = {
+      midpoint: {
+        lat: latLng.lat(),
+        lng: latLng.lng(),
+      },
+    };
+    console.log(JSON.stringify(data));
+    const requestOpt = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+    async function fetchFunc() {
+      return await fetch("/newMidpoint", requestOpt)
+        .then((response) => response.json())
+        .catch((error) => console.log(error));
+    }
+    (async () => {
+      let info = await fetchFunc();
+      console.log(info);
+      locations.map((item) => {
+        let index = info.allCoordinates.findIndex(
+          (coor) => coor[0] === item.coordinates.lat
+        ); // makes sure to map the correct distance and times to the correct location
+        if (index >= 0) {
+          item.label = `${getLabel(
+            stringRefs.current[item.id].value
+          )} | Distance: ${info.allDistances[index]} | Time: ${
+            info.allTimes[index]
+          }`;
+        }
+        return item;
+      });
+
+      setAllCoordinates(info.allCoordinates);
+      setTableData(info);
+      setSubmitting(false);
+    })();
   };
 
   return (
@@ -347,6 +401,45 @@ function Map() {
                 />
               </div>
             </div>
+
+            {shouldShowLocations && (
+              <div className="table output">
+                <table className="table labels">
+                  <thead>
+                    <tr>
+                      <th>Location</th>
+                      <th>Distance (kms)</th>
+                      <th>Time(mins)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.keys(tableData).map((value, index) => {
+                      return (
+                        <tr>
+                          <td>{locationsLabels[index]}</td>
+                          <td>{tableData.allDistances[index]}</td>
+                          <td>{tableData.allTimes[index]}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {shouldShowLocations && isFuzzy && (
+              <div className="table output">
+                <table className="table schools">
+                  <thead>
+                    <tr>
+                      <th>Schools</th>
+                      <th>Distance (kms)</th>
+                      <th>Time(mins)</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            )}
 
             <div className="box button">
               <button
@@ -423,6 +516,8 @@ function Map() {
                 center={allCoordinates.midpoint}
                 radius={sliderValue * 1000}
                 options={options}
+                draggable={true}
+                onDragEnd={(e) => newMidpoint(e)}
               />
             )}
           </GoogleMap>

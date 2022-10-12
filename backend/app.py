@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import json
 import googlemaps
+import requests
 from flask import Flask, jsonify, request
 from flask_cors import cross_origin, CORS
 import math
@@ -17,6 +18,61 @@ try:
 except:
     print("Invalid api key")
     exit(0)
+
+
+@app.route("/newMidpoint", methods=["POST"])
+@cross_origin()
+def newMidpoint():
+    # recalculates distances and times from midpoint to coordinates
+    # returns new midpoint and new distances and times
+    data = request.get_json()
+    # print(data)
+    origin_tuple = (
+        data["midpoint"]["lat"],
+        data["midpoint"]["lng"],
+    )
+    # print(coordinates)
+
+    # calculate distances and times from midpoint to coordinates
+    list_distances = []
+    list_times = []
+
+    for i in range(0, len(coordinates)):
+        # print(f"Calculating distance from {midpoint} to {coordinates[i]}")
+        time_str = times[i]
+        time_object = datetime.strptime(time_str, "%H:%M").time()
+        time_object = datetime.combine(
+            datetime.today() + timedelta(days=1), time_object
+        )
+
+        result = gmaps.directions(
+            origin=origin_tuple,
+            destination=(coordinates[i][0], coordinates[i][1]),
+            mode="driving",
+            departure_time=time_object,
+        )
+        distance = int(result[0]["legs"][0]["distance"]["value"])
+        duration = int(
+            result[0]["legs"][0]["duration_in_traffic"]["value"]
+            # directions_result[0]["legs"][0]["duration"]["value"]
+        )
+
+        list_distances.append(round((distance / 1000), 2))
+        list_times.append(round((duration / 60), 2))
+
+    print(f"Distances: {list_distances}")
+    print(f"Times: {list_times}")
+
+    # calculate best schools
+    list_schools = fuzzy_schools(origin_tuple)
+
+    return {
+            "allCoordinates": coordinates,
+            "allDistances": list_distances,
+            "allTimes": list_times,
+            "schools": list_schools,
+        }
+    
 
 
 @app.route("/locations", methods=["POST"])
@@ -61,45 +117,16 @@ def locations():
         list_json.append(item)
         
     print(list_json)
-        
-    # for i in range(1, no_locations):
-    #     loc_str = "loc" + str(i)
-    #     loc = request.json[loc_str]
-    #     item = (
-    #         float(loc["lat"]),
-    #         float(loc["lng"]),
-    #         float(loc["rank"]),
-    #         str(loc["time"]),
-    #     )
-    #     list_json.append(item)
 
     return calculate_midpoint(list_json)
 
 
 def calculate_midpoint(list_json):
-    # if len(all_distance) > 0:
-    #     all_distance.clear()
-    # if len(all_time) > 0:
-    #     all_time.clear()
 
     for i in range(0, len(list_json)):
         all_ranks.append(list_json[i][2])  # ranks
         coordinates.append((list_json[i][0], list_json[i][1]))  # coordinates
         times.append((list_json[i][3]))  # time
-
-    # print(times)
-
-    # midpoint average of coordinates
-    # midpoint_lat = 0.0
-    # midpoint_lng = 0.0
-    # for i in range(0, len(list_json)):
-    #     midpoint_lat += coordinates[i][0]
-    #     midpoint_lng += coordinates[i][1]
-
-    # midpoint_lat = midpoint_lat / len(list_json)  # average of coordinates lat
-    # midpoint_lng = midpoint_lng / len(list_json)  # average of coordinates lng
-    # midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
-    # print(midpoint)
 
     # NOTE: rank multiplier calculation here
     midpoint_lat = 0.0
@@ -193,6 +220,7 @@ def calculate_midpoint(list_json):
                     destination=(coordinates[i][0], coordinates[i][1]),
                     mode="driving",
                     departure_time=time_object,
+                    # arrival_time=time_object,
                 )
                 if len(directions_result) == 0:
                     print("Too many requests... chill a minute or two")
@@ -202,6 +230,7 @@ def calculate_midpoint(list_json):
                 distance = int(directions_result[0]["legs"][0]["distance"]["value"])
                 duration = int(
                     directions_result[0]["legs"][0]["duration_in_traffic"]["value"]
+                    # directions_result[0]["legs"][0]["duration"]["value"]
                 )
 
                 all_distance.append(round((distance / 1000), 2))
@@ -271,7 +300,14 @@ def calculate_midpoint(list_json):
         f"Optimized location{index} [based on {optimize_preference}] \nDetails: Avg distance, Avg time, All distances, All times, Avg time weighted, Origin"
     )
     print(optimized_location)
-    print("-------------------")
+
+    school = fuzzy_schools(optimized_location[5])
+
+    print("\n------Schools------")
+    # print list(school)
+    for i in range(len(school)):
+        print(school[i])
+    print("-------------------\n")
 
     return {
         "avgDistance": optimized_location[0],
@@ -283,3 +319,59 @@ def calculate_midpoint(list_json):
         "totalDistance": sum(optimized_location[2]),
         "midpoint": {"lat": optimized_location[5][0], "lng": optimized_location[5][1]},
     }
+
+    # calculate just midpoint not optimised
+
+
+# @app.route("midpoint", methods=["POST"])
+# @cross_origin()
+def easy_midpoint(list_ranks, list_coordinates):
+    # NOTE: rank multiplier calculation here
+    midpoint_lat = 0.0
+    midpoint_lng = 0.0
+    weights = 0.0
+
+    # calculates weighted center mean
+    for i in range(0, len(list_ranks)):
+        midpoint_lat += list_coordinates[i][0] * (
+            all_ranks[i] * 0.2 + 0.8
+        )  # NOTE: weight multiplier to be discussed how much it should affect
+        midpoint_lng += list_coordinates[i][1] * (list_ranks[i] * 0.2 + 0.8)
+        weights = weights + list_ranks[i] * 0.2 + 0.8
+
+    midpoint_lat = midpoint_lat / weights  # average of coordinates lat
+    midpoint_lng = midpoint_lng / weights  # average of coordinates lng
+    midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
+    print(f"Weighted midpoint: {midpoint}\n")
+
+    return midpoint
+
+
+def fuzzy_schools(origin):
+    print(radius)
+    url = (
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
+        + str(origin[0])
+        + "%2C"
+        + str(origin[1])
+        + "&radius="
+        + str(radius * 5000)
+        + "&type=school&keyword=highschool&key="
+        + key
+        # rank by prominence
+    )
+
+    payload = {}
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+    # calculate length of Response
+    length = len(response.json()["results"])
+
+    # return name of schools in list_schools
+    list_schools = []
+
+    for i in range(0, length):
+        list_schools.append(response.json()["results"][i]["name"])
+
+    return list_schools
