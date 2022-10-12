@@ -5,7 +5,6 @@ import requests
 from flask import Flask, jsonify, request
 from flask_cors import cross_origin, CORS
 import math
-from operator import indexOf
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
@@ -16,6 +15,7 @@ from selenium.webdriver.common.keys import Keys
 app = Flask(__name__)
 CORS(app)
 # app.run(debug=True)
+
 
 # top secret
 with open("api-key.txt") as api_file:
