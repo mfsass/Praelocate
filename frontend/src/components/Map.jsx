@@ -9,7 +9,7 @@ import {
   InfoWindowF,
 } from "@react-google-maps/api";
 
-import InputTest from "./InputTest";
+import InputBox from "./InputBox";
 import "./map.css";
 
 const libraries = ["places"];
@@ -41,6 +41,8 @@ function Map() {
   const [count, setCount] = useState(0);
   const [ranks, setRanks] = useState(Array(20).fill(-1));
   const [infoWindows, setInfoWindows] = useState([]);
+  const [school, setSchools] = useState([]);
+  const [medPrice, setMedPrice] = useState(0);
   const [isFuzzy, setIsFuzzy] = useState(false);
   const [sliderValue, setSliderValue] = useState(1);
   const [preference, setPreference] = useState("time");
@@ -94,7 +96,7 @@ function Map() {
 
     setInputs((state) => [
       ...state,
-      <InputTest
+      <InputBox
         ref={{
           locationTitle: lastTitleRef,
           locationStr: lastStringRef,
@@ -249,12 +251,16 @@ function Map() {
       });
 
       setTableData(info);
+      if (isFuzzy) {
+        setSchools(info.schools);
+      }
 
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
         midpoint: info.midpoint,
       }));
+      setMedPrice(info.median);
       setCenter(info.midpoint);
       setSubmitting(false);
     })();
@@ -396,18 +402,18 @@ function Map() {
               </div>
             </div>
 
-            <div className="table output">
-              <table className="table labels">
-                <thead>
-                  <tr>
-                    <th>Location</th>
-                    <th>Distance (kms)</th>
-                    <th>Time(mins)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {shouldShowLocations &&
-                    Object.keys(tableData).map((value, index) => {
+            {shouldShowLocations && (
+              <div className="table output">
+                <table className="table labels">
+                  <thead>
+                    <tr>
+                      <th>Location</th>
+                      <th>Distance (kms)</th>
+                      <th>Time(mins)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.keys(tableData).map((value, index) => {
                       return (
                         <tr>
                           <td>{locationsLabels[index]}</td>
@@ -416,21 +422,24 @@ function Map() {
                         </tr>
                       );
                     })}
-                </tbody>
-              </table>
-            </div>
-            <div className="table output">
-              <table className="table schools">
-                <thead>
-                  <tr>
-                    <th>Schools</th>
-                    <th>Distance (kms)</th>
-                    <th>Time(mins)</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </div>
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {shouldShowLocations && isFuzzy && (
+              <div className="table output">
+                <table className="table schools">
+                  <thead>
+                    <tr>
+                      <th>Schools</th>
+                      <th>Distance (kms)</th>
+                      <th>Time(mins)</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            )}
 
             <div className="box button">
               <button
