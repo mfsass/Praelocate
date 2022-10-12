@@ -29,9 +29,6 @@ function App() {
         </div>
       </div>
 
-      {/* <div className="stateTest">
-        <StateTest />
-      </div> */}
       <div id="body" className="body">
         <Map />
       </div>

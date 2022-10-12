@@ -41,7 +41,7 @@ function Map() {
   const [count, setCount] = useState(0);
   const [ranks, setRanks] = useState(Array(20).fill(-1));
   const [infoWindows, setInfoWindows] = useState([]);
-  const [school, setSchools] = useState([]);
+  const [schools, setSchools] = useState([]);
   const [medPrice, setMedPrice] = useState(0);
   const [isFuzzy, setIsFuzzy] = useState(false);
   const [sliderValue, setSliderValue] = useState(1);
@@ -146,6 +146,20 @@ function Map() {
         console.log(`Aborting: ${string}`);
       }
 
+      if (
+        titleRefs.current[index].value.toLowerCase().includes("school") &&
+        isFuzzy
+      ) {
+        console.log("Running school");
+
+        let tempList = {
+          ...locations,
+        };
+        tempList[index].title = titleRefs.current[index].value;
+        return setLocations(tempList);
+      }
+
+      console.log("Not running school");
       getGeoFromText(string.value, index).then((response) => {
         console.log(`Response: ${response.index}`);
         const index2 = response.index;
@@ -210,13 +224,18 @@ function Map() {
     } else {
       tempLocations = [...locations];
     }
+
+    if (tempLocations.length == 0) {
+      console.log("Not enough locations");
+      return;
+    }
     console.log("Templocations");
     console.log(tempLocations);
 
     let data = {
       locations: tempLocations,
-      radius: { size: sliderValue },
-      optimize: { preference: preference },
+      radius: sliderValue,
+      preference: preference,
       isFuzzy: isFuzzy,
     };
 
@@ -241,18 +260,23 @@ function Map() {
         ); // makes sure to map the correct distance and times to the correct location
         if (index >= 0) {
           locationsLabels.push(getLabel(stringRefs.current[item.id].value));
-          item.label = `${getLabel(
-            stringRefs.current[item.id].value
-          )} | Distance: ${info.allDistances[index]} | Time: ${
-            info.allTimes[index]
-          }`;
+          item.label = (
+            <span>
+              <b>{item.title}</b>
+              <br />
+              <i>{getLabel(stringRefs.current[item.id].value)}</i> <br />
+              Distance: {info.allDistances[index]} km
+              <br />
+              Time: {info.allTimes[index]} min
+            </span>
+          );
         }
         return item;
       });
 
       setTableData(info);
       if (isFuzzy) {
-        setSchools(info.schools);
+        setSchools(info.schools.splice(0, 6));
       }
 
       setAllCoordinates(info.allCoordinates);
@@ -328,15 +352,23 @@ function Map() {
           (coor) => coor[0] === item.coordinates.lat
         ); // makes sure to map the correct distance and times to the correct location
         if (index >= 0) {
-          item.label = `${getLabel(
-            stringRefs.current[item.id].value
-          )} | Distance: ${info.allDistances[index]} | Time: ${
-            info.allTimes[index]
-          }`;
+          item.label = (
+            <span>
+              <b>{item.title}</b>
+              <br />
+              <i>{getLabel(stringRefs.current[item.id].value)}</i> <br />
+              Distance: {info.allDistances[index]} km
+              <br />
+              Time: {info.allTimes[index]} min
+            </span>
+          );
         }
         return item;
       });
 
+      if (isFuzzy) {
+        setSchools(info.schools.splice(0, 6));
+      }
       setAllCoordinates(info.allCoordinates);
       setTableData(info);
       setSubmitting(false);
@@ -413,10 +445,10 @@ function Map() {
                     </tr>
                   </thead>
                   <tbody>
-                    {Object.keys(tableData).map((value, index) => {
+                    {locationsLabels.map((label, index) => {
                       return (
-                        <tr>
-                          <td>{locationsLabels[index]}</td>
+                        <tr key={index}>
+                          <td>{label}</td>
                           <td>{tableData.allDistances[index]}</td>
                           <td>{tableData.allTimes[index]}</td>
                         </tr>
@@ -424,6 +456,9 @@ function Map() {
                     })}
                   </tbody>
                 </table>
+                <span>
+                  Median price in neighbourhood: {medPrice ? medPrice : ""}
+                </span>
               </div>
             )}
             {shouldShowLocations && isFuzzy && (
@@ -431,12 +466,21 @@ function Map() {
                 <table className="table schools">
                   <thead>
                     <tr>
-                      <th>Schools</th>
-                      <th>Distance (kms)</th>
-                      <th>Time(mins)</th>
+                      <th>Schools (nearest, ascending)</th>
+                      {/* <th>Distance (kms)</th>
+                      <th>Time(mins)</th> */}
                     </tr>
                   </thead>
-                  <tbody></tbody>
+                  <tbody>
+                    {schools &&
+                      schools.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{item}</td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
                 </table>
               </div>
             )}
