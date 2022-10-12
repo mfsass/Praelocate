@@ -10,6 +10,7 @@ import {
 } from "@react-google-maps/api";
 
 import InputBox from "./InputBox";
+import Spinner from "./Spinner";
 import "./map.css";
 
 const libraries = ["places"];
@@ -42,8 +43,10 @@ function Map() {
   const [ranks, setRanks] = useState(Array(20).fill(-1));
   const [infoWindows, setInfoWindows] = useState([]);
   const [schools, setSchools] = useState([]);
+  const [hospitals, setHospitals] = useState([]);
   const [medPrice, setMedPrice] = useState(0);
   const [isFuzzy, setIsFuzzy] = useState(false);
+  const [shouldHospital, setShouldHospital] = useState(false);
   const [sliderValue, setSliderValue] = useState(1);
   const [preference, setPreference] = useState("time");
   const [center, setCenter] = useState({
@@ -236,6 +239,7 @@ function Map() {
       locations: tempLocations,
       radius: sliderValue,
       preference: preference,
+      hospitals: shouldHospital,
       isFuzzy: isFuzzy,
     };
 
@@ -277,6 +281,9 @@ function Map() {
       setTableData(info);
       if (isFuzzy) {
         setSchools(info.schools.splice(0, 6));
+      }
+      if (shouldHospital) {
+        setHospitals(info.hospitals.splice(0, 2));
       }
 
       setAllCoordinates(info.allCoordinates);
@@ -417,6 +424,21 @@ function Map() {
             </div>
 
             <div className="locations preference">
+              <div>Search for hospitals: </div>
+              <div className="preference options">
+                <label>Yes</label>
+                <input
+                  type="radio"
+                  name="preference"
+                  onClick={() => setShouldHospital(true)}
+                ></input>
+                <label>No</label>
+                <input
+                  type="radio"
+                  name="preference"
+                  onClick={() => setShouldHospital(false)}
+                ></input>
+              </div>
               <div>Calculation preference: </div>
               <div className="preference options">
                 <label>Distance</label>
@@ -484,6 +506,27 @@ function Map() {
                 </table>
               </div>
             )}
+            {shouldShowLocations && shouldHospital && (
+              <div className="table output">
+                <table className="table schools">
+                  <thead>
+                    <tr>
+                      <th>Hospitals (nearest, ascending)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {hospitals &&
+                      hospitals.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{item}</td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
             <div className="box button">
               <button
@@ -511,7 +554,7 @@ function Map() {
               </button>
             </div>
           </form>
-          {submitting && <span>Submitting ... </span>}
+          {submitting && <Spinner type="spinner" />}
         </div>
 
         <div className="googleMap">
