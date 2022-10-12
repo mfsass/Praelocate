@@ -429,13 +429,13 @@ function Map() {
                 <label>Yes</label>
                 <input
                   type="radio"
-                  name="preference"
+                  name="hospital"
                   onClick={() => setShouldHospital(true)}
                 ></input>
                 <label>No</label>
                 <input
                   type="radio"
-                  name="preference"
+                  name="hospital"
                   onClick={() => setShouldHospital(false)}
                 ></input>
               </div>
