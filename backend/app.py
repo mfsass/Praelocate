@@ -97,11 +97,10 @@ def calculate_midpoint(list_json):
 
     # calculates weighted center mean
     for i in range(0, len(list_json)):
-        midpoint_lat += coordinates[i][0] * (
-            all_ranks[i] * 0.2 + 0.8
-        )  # NOTE: weight multiplier to be discussed how much it should affect
-        midpoint_lng += coordinates[i][1] * (all_ranks[i] * 0.2 + 0.8)
-        weights = weights + all_ranks[i] * 0.2 + 0.8
+        midpoint_lat += coordinates[i][0] * (all_ranks[i])  
+            # NOTE: weight multiplier to be discussed how much it should affect
+        midpoint_lng += coordinates[i][1] * (all_ranks[i])
+        weights = weights + all_ranks[i]
 
     midpoint_lat = midpoint_lat / weights  # average of coordinates lat
     midpoint_lng = midpoint_lng / weights  # average of coordinates lng
