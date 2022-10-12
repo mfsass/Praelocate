@@ -41,7 +41,7 @@ function Map() {
   const [count, setCount] = useState(0);
   const [ranks, setRanks] = useState(Array(20).fill(-1));
   const [infoWindows, setInfoWindows] = useState([]);
-  const [school, setSchools] = useState([]);
+  const [schools, setSchools] = useState([]);
   const [medPrice, setMedPrice] = useState(0);
   const [isFuzzy, setIsFuzzy] = useState(false);
   const [sliderValue, setSliderValue] = useState(1);
@@ -146,6 +146,23 @@ function Map() {
         console.log(`Aborting: ${string}`);
       }
 
+      if (string.value === "") {
+        console.log("Running school");
+        let school = {
+          ...locations[index],
+          title: titleRefs.current[index].value,
+        };
+        setLocations(
+          locations.map((item, i) => {
+            if (i === index) {
+              return school;
+            } else return item;
+          })
+        );
+        return;
+      }
+
+      console.log("Not running school");
       getGeoFromText(string.value, index).then((response) => {
         console.log(`Response: ${response.index}`);
         const index2 = response.index;
@@ -415,7 +432,7 @@ function Map() {
                   <tbody>
                     {Object.keys(tableData).map((value, index) => {
                       return (
-                        <tr>
+                        <tr key={index}>
                           <td>{locationsLabels[index]}</td>
                           <td>{tableData.allDistances[index]}</td>
                           <td>{tableData.allTimes[index]}</td>
@@ -424,6 +441,9 @@ function Map() {
                     })}
                   </tbody>
                 </table>
+                <span>
+                  Median price in neighbourhood: {medPrice ? medPrice : ""}
+                </span>
               </div>
             )}
             {shouldShowLocations && isFuzzy && (
@@ -436,7 +456,16 @@ function Map() {
                       <th>Time(mins)</th>
                     </tr>
                   </thead>
-                  <tbody></tbody>
+                  <tbody>
+                    {schools &&
+                      schools.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{item}</td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
                 </table>
               </div>
             )}
