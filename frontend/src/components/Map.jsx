@@ -53,6 +53,8 @@ function Map() {
   const [shouldShowLocations, setShouldShowLocations] = useState(false);
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
+  const [tableData, setTableData] = useState([]);
+  const [locationsLabels] = useState([]);
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -236,6 +238,7 @@ function Map() {
           (coor) => coor[0] === item.coordinates.lat
         ); // makes sure to map the correct distance and times to the correct location
         if (index >= 0) {
+          locationsLabels.push(getLabel(stringRefs.current[item.id].value));
           item.label = `${getLabel(
             stringRefs.current[item.id].value
           )} | Distance: ${info.allDistances[index]} | Time: ${
@@ -244,6 +247,8 @@ function Map() {
         }
         return item;
       });
+
+      setTableData(info);
 
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
@@ -327,6 +332,7 @@ function Map() {
       });
 
       setAllCoordinates(info.allCoordinates);
+      setTableData(info);
       setSubmitting(false);
     })();
   };
@@ -388,6 +394,42 @@ function Map() {
                   onClick={() => setPreference("time")}
                 />
               </div>
+            </div>
+
+            <div className="table output">
+              <table className="table labels">
+                <thead>
+                  <tr>
+                    <th>Location</th>
+                    <th>Distance (kms)</th>
+                    <th>Time(mins)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {shouldShowLocations &&
+                    Object.keys(tableData).map((value, index) => {
+                      return (
+                        <tr>
+                          <td>{locationsLabels[index]}</td>
+                          <td>{tableData.allDistances[index]}</td>
+                          <td>{tableData.allTimes[index]}</td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
+            <div className="table output">
+              <table className="table schools">
+                <thead>
+                  <tr>
+                    <th>Schools</th>
+                    <th>Distance (kms)</th>
+                    <th>Time(mins)</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
             </div>
 
             <div className="box button">
