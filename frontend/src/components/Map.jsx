@@ -146,20 +146,17 @@ function Map() {
         console.log(`Aborting: ${string}`);
       }
 
-      if (string.value === "") {
+      if (
+        titleRefs.current[index].value.toLowerCase().includes("school") &&
+        isFuzzy
+      ) {
         console.log("Running school");
-        let school = {
-          ...locations[index],
-          title: titleRefs.current[index].value,
+
+        let tempList = {
+          ...locations,
         };
-        setLocations(
-          locations.map((item, i) => {
-            if (i === index) {
-              return school;
-            } else return item;
-          })
-        );
-        return;
+        tempList[index].title = titleRefs.current[index].value;
+        return setLocations(tempList);
       }
 
       console.log("Not running school");
@@ -227,13 +224,18 @@ function Map() {
     } else {
       tempLocations = [...locations];
     }
+
+    if (tempLocations.length == 0) {
+      console.log("Not enough locations");
+      return;
+    }
     console.log("Templocations");
     console.log(tempLocations);
 
     let data = {
       locations: tempLocations,
-      radius: { size: sliderValue },
-      optimize: { preference: preference },
+      radius: sliderValue,
+      preference: preference,
       isFuzzy: isFuzzy,
     };
 
@@ -354,6 +356,9 @@ function Map() {
         return item;
       });
 
+      if (isFuzzy) {
+        setSchools(info.schools);
+      }
       setAllCoordinates(info.allCoordinates);
       setTableData(info);
       setSubmitting(false);
