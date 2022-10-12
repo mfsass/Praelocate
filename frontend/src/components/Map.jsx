@@ -260,18 +260,20 @@ function Map() {
         ); // makes sure to map the correct distance and times to the correct location
         if (index >= 0) {
           locationsLabels.push(getLabel(stringRefs.current[item.id].value));
-          item.label = `${getLabel(
-            stringRefs.current[item.id].value
-          )} | Distance: ${info.allDistances[index]} | Time: ${
-            info.allTimes[index]
-          }`;
+          item.label = (
+            <span>
+              <b>{getLabel(stringRefs.current[item.id].value)}</b>
+              <br /> Distance: {info.allDistances[index]} km
+              <br /> Time: {info.allTimes[index]} min
+            </span>
+          );
         }
         return item;
       });
 
       setTableData(info);
       if (isFuzzy) {
-        setSchools(info.schools);
+        setSchools(info.schools.splice(0, 6));
       }
 
       setAllCoordinates(info.allCoordinates);
@@ -347,17 +349,19 @@ function Map() {
           (coor) => coor[0] === item.coordinates.lat
         ); // makes sure to map the correct distance and times to the correct location
         if (index >= 0) {
-          item.label = `${getLabel(
-            stringRefs.current[item.id].value
-          )} | Distance: ${info.allDistances[index]} | Time: ${
-            info.allTimes[index]
-          }`;
+          item.label = (
+            <span>
+              <b>{getLabel(stringRefs.current[item.id].value)}</b>
+              <br /> Distance: {info.allDistances[index]} km
+              <br /> Time: {info.allTimes[index]} min
+            </span>
+          );
         }
         return item;
       });
 
       if (isFuzzy) {
-        setSchools(info.schools);
+        setSchools(info.schools.splice(0, 6));
       }
       setAllCoordinates(info.allCoordinates);
       setTableData(info);
