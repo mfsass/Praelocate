@@ -5,9 +5,17 @@ import requests
 from flask import Flask, jsonify, request
 from flask_cors import cross_origin, CORS
 import math
+from operator import indexOf
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.keys import Keys
+
 
 app = Flask(__name__)
 CORS(app)
+# app.run(debug=True)
 
 # top secret
 with open("api-key.txt") as api_file:
@@ -67,12 +75,11 @@ def newMidpoint():
     list_schools = fuzzy_schools(origin_tuple)
 
     return {
-            "allCoordinates": coordinates,
-            "allDistances": list_distances,
-            "allTimes": list_times,
-            "schools": list_schools,
-        }
-    
+        "allCoordinates": coordinates,
+        "allDistances": list_distances,
+        "allTimes": list_times,
+        "schools": list_schools,
+    }
 
 
 @app.route("/locations", methods=["POST"])
@@ -94,28 +101,28 @@ def locations():
     times = []
 
     # print(request.json)
-    
+
     radius = request.json["radius"]["size"]
     optimize_preference = (
         request.json["optimize"]["preference"] if "optimize" in request.json else "time"
     )
-    isFuzzy = request.json["isFuzzy"] == 'true'
-   
+    isFuzzy = request.json["isFuzzy"] == "true"
+
     no_locations = len(request.json)
     # NOTE: if optimize_preference is given subtract 1 from no_locations
     no_locations = no_locations - 1 if "optimize" in request.json else no_locations
-    
+
     list_json = []
     locations = request.json["locations"]
-    for location in locations:        
+    for location in locations:
         item = (
             float(location["coordinates"]["lat"]),
             float(location["coordinates"]["lng"]),
             float(location["rank"]),
-            str(location["time"])
+            str(location["time"]),
         )
         list_json.append(item)
-        
+
     print(list_json)
 
     return calculate_midpoint(list_json)
@@ -135,11 +142,10 @@ def calculate_midpoint(list_json):
 
     # calculates weighted center mean
     for i in range(0, len(list_json)):
-        midpoint_lat += coordinates[i][0] * (
-            all_ranks[i] * 0.2 + 0.8
-        )  # NOTE: weight multiplier to be discussed how much it should affect
-        midpoint_lng += coordinates[i][1] * (all_ranks[i] * 0.2 + 0.8)
-        weights = weights + all_ranks[i] * 0.2 + 0.8
+        midpoint_lat += coordinates[i][0] * (all_ranks[i])
+        # NOTE: weight multiplier to be discussed how much it should affect
+        midpoint_lng += coordinates[i][1] * (all_ranks[i])
+        weights = weights + all_ranks[i]
 
     midpoint_lat = midpoint_lat / weights  # average of coordinates lat
     midpoint_lng = midpoint_lng / weights  # average of coordinates lng
@@ -202,7 +208,7 @@ def calculate_midpoint(list_json):
             )
 
             location_string = "location_from_mid" + str(j)
-            
+
             print(f"{location_string}:")
 
             # calculates distance and time
@@ -225,8 +231,7 @@ def calculate_midpoint(list_json):
                 if len(directions_result) == 0:
                     print("Too many requests... chill a minute or two")
                     return jsonify("Too many requests from backend")
-                
-                
+
                 distance = int(directions_result[0]["legs"][0]["distance"]["value"])
                 duration = int(
                     directions_result[0]["legs"][0]["duration_in_traffic"]["value"]
@@ -309,6 +314,11 @@ def calculate_midpoint(list_json):
         print(school[i])
     print("-------------------\n")
 
+    # Average Price
+    location_name = "Constantia, Cape Town"
+    average_sale_price = determine_sale_price(location_name)
+    print(f"Average sale price: ${average_sale_price}")
+
     return {
         "avgDistance": optimized_location[0],
         "avgTime": optimized_location[1],
@@ -319,32 +329,6 @@ def calculate_midpoint(list_json):
         "totalDistance": sum(optimized_location[2]),
         "midpoint": {"lat": optimized_location[5][0], "lng": optimized_location[5][1]},
     }
-
-    # calculate just midpoint not optimised
-
-
-# @app.route("midpoint", methods=["POST"])
-# @cross_origin()
-def easy_midpoint(list_ranks, list_coordinates):
-    # NOTE: rank multiplier calculation here
-    midpoint_lat = 0.0
-    midpoint_lng = 0.0
-    weights = 0.0
-
-    # calculates weighted center mean
-    for i in range(0, len(list_ranks)):
-        midpoint_lat += list_coordinates[i][0] * (
-            all_ranks[i] * 0.2 + 0.8
-        )  # NOTE: weight multiplier to be discussed how much it should affect
-        midpoint_lng += list_coordinates[i][1] * (list_ranks[i] * 0.2 + 0.8)
-        weights = weights + list_ranks[i] * 0.2 + 0.8
-
-    midpoint_lat = midpoint_lat / weights  # average of coordinates lat
-    midpoint_lng = midpoint_lng / weights  # average of coordinates lng
-    midpoint = {"lat": midpoint_lat, "lng": midpoint_lng}
-    print(f"Weighted midpoint: {midpoint}\n")
-
-    return midpoint
 
 
 def fuzzy_schools(origin):
@@ -375,3 +359,35 @@ def fuzzy_schools(origin):
         list_schools.append(response.json()["results"][i]["name"])
 
     return list_schools
+
+
+def determine_sale_price(location):
+    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver.get("https://www.google.com/")
+    inputElem = driver.find_element(By.CLASS_NAME, "a4bIc")
+    inputElem = inputElem.find_element(By.TAG_NAME, "input")
+    search_string = "Property24 trends" + location
+    inputElem.send_keys(search_string)
+    inputElem.send_keys(Keys.ENTER)
+    # print(driver.current_url)
+
+    websiteURL = driver.find_element(By.CLASS_NAME, "yuRUbf").get_attribute("innerHTML")
+    websiteURL = websiteURL[(websiteURL.index('"') + 1) :]
+    websiteURL = websiteURL[0 : (websiteURL.index('"'))]
+    # print(websiteURL)
+    # driver.close()
+
+    # driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver.get(websiteURL)
+    content = driver.find_element(
+        By.XPATH,
+        '//div[@class="p24_results p24_areaTrends"]/div[1]/div[3]/div[1]/div[1]/div[1]/script[1]',
+    ).get_attribute("innerHTML")
+    content = content[(content.index(";") + 1) :]
+    content = content[(content.index(";") + 1) :]
+    importantIndex = content.index(";")
+    content = content[(importantIndex - 20) : importantIndex - 7]
+    numeric_filter = filter(str.isdigit, content)
+    numeric_string = "".join(numeric_filter)
+    print("\nThe average price in " + location + " is R" + numeric_string)
+    return numeric_string
