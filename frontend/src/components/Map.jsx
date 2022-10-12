@@ -9,7 +9,7 @@ import {
   InfoWindowF,
 } from "@react-google-maps/api";
 
-import InputTest from "./InputTest";
+import InputBox from "./InputBox";
 import "./map.css";
 
 const libraries = ["places"];

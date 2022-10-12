@@ -7,7 +7,7 @@ import { StandaloneSearchBox } from "@react-google-maps/api";
 
 import "./inputBox.css";
 
-const InputTest = forwardRef((props, ref) => {
+const InputBox = forwardRef((props, ref) => {
   const [rankText, setRankText] = useState("Importance");
   const [shouldShow, setShouldShow] = useState(false);
   const [fuzzy, setFuzzy] = useState(false);
@@ -136,4 +136,4 @@ const InputTest = forwardRef((props, ref) => {
   );
 });
 
-export default InputTest;
+export default InputBox;
