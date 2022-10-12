@@ -90,7 +90,7 @@
   font-size: 25px;
   display: flex;
   gap: 15px;
-  margin-top: 10px;
+  margin: 15px 0px;
 }
 
 .preference.options input[type="radio"] {
@@ -144,6 +144,7 @@
 }
 
 .table.output {
+  font-size: 22px;
   margin: 15px;
   border-radius: 7px;
   background-color: whitesmoke;
@@ -152,15 +153,20 @@
   width: 70%;
 }
 
-.table.output td, .table.output th {
+.table.output td,
+.table.output th {
   border-radius: 7px solid #ddd;
   padding: 8px;
   width: 33%;
 }
 
-.table.output tr:nth-child(even){background-color: #f2f2f2;}
+.table.output tr:nth-child(2n) {
+  background-color: #f2f2f2;
+}
 
-.table.output tr:hover {background-color: #ddd;}
+.table.output tr:hover {
+  background-color: #ddd;
+}
 
 .table.output th {
   padding-top: 12px;

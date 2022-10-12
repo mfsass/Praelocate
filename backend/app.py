@@ -10,7 +10,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.chrome.options import Options
 
 app = Flask(__name__)
 CORS(app)
@@ -342,6 +342,7 @@ def calculate_midpoint(list_json):
         "totalDistance": sum(optimized_location[2]),
         "midpoint": {"lat": optimized_location[5][0], "lng": optimized_location[5][1]},
         "schools": list_schools,
+        "median": average_sale_price
     }
 
 
@@ -376,7 +377,10 @@ def fuzzy_schools(origin):
 
 
 def determine_sale_price(location):
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    options = Options()
+    options.headless = True
+
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     driver.get("https://www.google.com/")
     inputElem = driver.find_element(By.CLASS_NAME, "a4bIc")
     inputElem = inputElem.find_element(By.TAG_NAME, "input")
