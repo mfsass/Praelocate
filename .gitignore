@@ -9,4 +9,8 @@ __pycache__
 */venv
 backend/output.txt
 backend/api-key.txt
+backend/selenium
+backend/selenium.egg-info
+backend/dist
+backend/build
 .gitsecret/keys/random_seed/

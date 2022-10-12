@@ -229,7 +229,7 @@ function Map() {
       tempLocations = [...locations];
     }
 
-    if (tempLocations.length == 0) {
+    if (tempLocations.length === 0) {
       console.log("Not enough locations");
       return;
     }

@@ -59,7 +59,12 @@ def newMidpoint():
             mode="driving",
             departure_time=time_object,
         )
-        print(result)
+
+        # only keep the suburb split after 2nd of comma
+        # print(result[0]["legs"][0]["start_address"])
+        suburb = result[0]["legs"][0]["start_address"].split(",")[1]
+        # print(f"Suburb: {suburb}")
+
         distance = int(result[0]["legs"][0]["distance"]["value"])
         duration = int(
             result[0]["legs"][0]["duration_in_traffic"]["value"]
@@ -74,12 +79,15 @@ def newMidpoint():
 
     # calculate best schools
     list_schools = fuzzy_schools(origin_tuple)
+    average_price = determine_sale_price(suburb)
+    print(f"Price: {average_price} for {suburb}")
 
     return {
         "allCoordinates": coordinates,
         "allDistances": list_distances,
         "allTimes": list_times,
         "schools": list_schools,
+        "median": average_price,
     }
 
 
@@ -104,14 +112,12 @@ def locations():
     # print(request.json)
 
     radius = request.json["radius"]
-    optimize_preference = (
-        request.json["preference"] if "optimize" in request.json else "time"
-    )
+    optimize_preference = request.json["preference"]
     isFuzzy = request.json["isFuzzy"] == "true"
 
-    no_locations = len(request.json)
+    # no_locations = len(request.json)
     # NOTE: if optimize_preference is given subtract 1 from no_locations
-    no_locations = no_locations - 1 if "optimize" in request.json else no_locations
+    # no_locations = no_locations - 1 if "optimize" in request.json else no_locations
 
     list_json = []
     locations = request.json["locations"]
@@ -210,7 +216,7 @@ def calculate_midpoint(list_json):
 
             location_string = "location_from_mid" + str(j)
 
-            print(f"{location_string}:")
+            # print(f"{location_string}:")
 
             # calculates distance and time
             for i in range(len(list_json)):
@@ -221,7 +227,7 @@ def calculate_midpoint(list_json):
                     datetime.today() + timedelta(days=1), time_object
                 )
                 # print(time_object)
-                print((coordinates[i][0], coordinates[i][1]))
+                # print((coordinates[i][0], coordinates[i][1]))
                 directions_result = gmaps.directions(
                     origin=origin_tuple,
                     destination=(coordinates[i][0], coordinates[i][1]),
@@ -238,15 +244,18 @@ def calculate_midpoint(list_json):
                     directions_result[0]["legs"][0]["duration_in_traffic"]["value"]
                     # directions_result[0]["legs"][0]["duration"]["value"]
                 )
+                # print(directions_result[0]["legs"][0]["end_address"])
+                suburb = directions_result[0]["legs"][0]["end_address"].split(",")[1]
+                # print(suburb)
 
                 all_distance.append(round((distance / 1000), 2))
                 all_time.append(round((duration / 60), 2))
                 average_distance += distance
                 average_time += duration
 
-                print(
-                    f"Distance from midpoint to loc{i+1}: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
-                )
+                # print(
+                #     f"Distance from midpoint to loc{i+1}: {round((distance/1000),2)}km, Duration: {round((duration/60),2)} minutes"
+                # )
 
                 multiplier = (all_ranks[i] * -0.2) + 1.5
                 multipliers_added = multipliers_added + multiplier
@@ -269,13 +278,13 @@ def calculate_midpoint(list_json):
                 ]
             )
 
-            print(
-                f"Average distance: {average_distance}km, Average time: {average_time} minutes"
-            )
+            # print(
+            #     f"Average distance: {average_distance}km, Average time: {average_time} minutes"
+            # )
 
-            print(f"Midpoint: {origin_tuple}")
-            print(f"Total distance: {round(sum(all_distance),2)} kms")
-            print(f"Total time: {round(sum(all_time),2)} minutes \n")
+            # print(f"Midpoint: {origin_tuple}")
+            # print(f"Total distance: {round(sum(all_distance),2)} kms")
+            # print(f"Total time: {round(sum(all_time),2)} minutes \n")
 
         except:
             return jsonify("Unsuccessful request...")
@@ -320,11 +329,16 @@ def calculate_midpoint(list_json):
         optimized_location[5][1],
     )
     list_schools = fuzzy_schools(origin_tuple)
+    list_hospitals = fuzzy_hospitals(origin_tuple)
+    print("\n------Hospitals------")
+    # print list(school)
+    for i in range(len(list_hospitals)):
+        print(list_hospitals[i])
+    print("-------------------\n")
 
     # Average Price
-    location_name = "Constantia"
-    average_sale_price = determine_sale_price(location_name)
-    print(f"Average sale price: R{average_sale_price}")
+    average_sale_price = determine_sale_price(suburb)
+    # print(f"Average sale price: R{average_sale_price}")
 
     return {
         "avgDistance": optimized_location[0],
@@ -336,12 +350,13 @@ def calculate_midpoint(list_json):
         "totalDistance": sum(optimized_location[2]),
         "midpoint": {"lat": optimized_location[5][0], "lng": optimized_location[5][1]},
         "schools": list_schools,
-        "median": average_sale_price
+        "median": average_sale_price,
+        "hospitals": list_hospitals,
     }
 
 
 def fuzzy_schools(origin):
-    print(radius)
+    # print(radius)
     url = (
         "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
         + str(origin[0])
@@ -368,6 +383,36 @@ def fuzzy_schools(origin):
         list_schools.append(response.json()["results"][i]["name"])
 
     return list_schools
+
+
+def fuzzy_hospitals(origin):
+    # print(radius)
+    url = (
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
+        + str(origin[0])
+        + "%2C"
+        + str(origin[1])
+        + "&radius="
+        + str(radius * 5000)
+        + "&type=hospital&keyword=hospital&key="
+        + key
+        # rank by prominence
+    )
+
+    payload = {}
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+    # calculate length of Response
+    length = len(response.json()["results"])
+
+    # return name of schools in list_schools
+    list_hospitals = []
+
+    for i in range(0, length):
+        list_hospitals.append(response.json()["results"][i]["name"])
+
+    return list_hospitals
 
 
 def determine_sale_price(location):
