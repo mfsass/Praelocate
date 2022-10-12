@@ -4,6 +4,13 @@ import googlemaps
 from flask import Flask, jsonify, request
 from flask_cors import cross_origin, CORS
 import math
+from operator import indexOf
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.keys import Keys
+
 
 app = Flask(__name__)
 CORS(app)
@@ -254,6 +261,10 @@ def calculate_midpoint(list_json):
     print(optimized_location)
     print("-------------------")
 
+    #Average Price
+    location_name = "Constantia, Cape Town"
+    average_sale_price = determine_sale_price(location_name)
+
     return {
         "avgDistance": optimized_location[0],
         "avgTime": optimized_location[1],
@@ -267,3 +278,31 @@ def calculate_midpoint(list_json):
             "lng": optimized_location[5][1]
         }
     }
+
+def determine_sale_price(location):
+    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver.get("https://www.google.com/")
+    inputElem = driver.find_element(By.CLASS_NAME, "a4bIc")
+    inputElem = inputElem.find_element(By.TAG_NAME, "input")
+    search_string = "Property24 trends" + location
+    inputElem.send_keys(search_string)
+    inputElem.send_keys(Keys.ENTER)
+    #print(driver.current_url)
+
+    websiteURL = driver.find_element(By.CLASS_NAME, "yuRUbf").get_attribute("innerHTML")
+    websiteURL = websiteURL[(websiteURL.index("\"")+1):]
+    websiteURL = websiteURL[0:(websiteURL.index("\""))]
+    #print(websiteURL)
+    #driver.close()
+
+    #driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver.get(websiteURL)
+    content = driver.find_element(By.XPATH,"//div[@class=\"p24_results p24_areaTrends\"]/div[1]/div[3]/div[1]/div[1]/div[1]/script[1]").get_attribute("innerHTML")
+    content = content[(content.index(";")+1):]
+    content = content[(content.index(";")+1):]
+    importantIndex = content.index(";")
+    content = content[(importantIndex-20):importantIndex-7]
+    numeric_filter = filter(str.isdigit, content)
+    numeric_string = "".join(numeric_filter)
+    print("\nThe average price in " + location + " is R" + numeric_string)
+    return numeric_string
