@@ -59,7 +59,11 @@ def newMidpoint():
             mode="driving",
             departure_time=time_object,
         )
-        print(result)
+
+        # only keep the suburb split after 2nd of comma
+        suburb = result[0]["legs"][0]["start_address"].split(",")[2]
+        # print(f"Suburb: {suburb}")
+
         distance = int(result[0]["legs"][0]["distance"]["value"])
         duration = int(
             result[0]["legs"][0]["duration_in_traffic"]["value"]
@@ -74,6 +78,8 @@ def newMidpoint():
 
     # calculate best schools
     list_schools = fuzzy_schools(origin_tuple)
+    average_price = determine_sale_price(suburb)
+    print(f"Price: {average_price} for {suburb}")
 
     return {
         "allCoordinates": coordinates,
@@ -104,14 +110,12 @@ def locations():
     # print(request.json)
 
     radius = request.json["radius"]
-    optimize_preference = (
-        request.json["preference"] if "optimize" in request.json else "time"
-    )
+    optimize_preference = request.json["preference"]
     isFuzzy = request.json["isFuzzy"] == "true"
 
-    no_locations = len(request.json)
+    # no_locations = len(request.json)
     # NOTE: if optimize_preference is given subtract 1 from no_locations
-    no_locations = no_locations - 1 if "optimize" in request.json else no_locations
+    # no_locations = no_locations - 1 if "optimize" in request.json else no_locations
 
     list_json = []
     locations = request.json["locations"]
@@ -238,6 +242,9 @@ def calculate_midpoint(list_json):
                     directions_result[0]["legs"][0]["duration_in_traffic"]["value"]
                     # directions_result[0]["legs"][0]["duration"]["value"]
                 )
+                # print(directions_result)
+                suburb = directions_result[0]["legs"][0]["end_address"].split(",")[1]
+                print(suburb)
 
                 all_distance.append(round((distance / 1000), 2))
                 all_time.append(round((duration / 60), 2))
@@ -322,8 +329,7 @@ def calculate_midpoint(list_json):
     list_schools = fuzzy_schools(origin_tuple)
 
     # Average Price
-    location_name = "Constantia"
-    average_sale_price = determine_sale_price(location_name)
+    average_sale_price = determine_sale_price(suburb)
     print(f"Average sale price: R{average_sale_price}")
 
     return {
