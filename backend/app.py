@@ -422,7 +422,7 @@ def find_suburb(origin):
         area_list = result[0]["legs"][0]["start_address"].split(", ")
         print(area_list)
         if area_list.count("South Africa") > 0:
-            suburb = result[0]["legs"][0]["start_address"].split(",")[1]
+            suburb = result[0]["legs"][0]["start_address"].split(", ")[1]
             price1 = int(determine_sale_price(suburb))
         else:
             return " *Feature only available in South Africa* "

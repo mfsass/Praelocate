@@ -46,7 +46,7 @@ class TestApp(unittest.TestCase):
             "Mediclinic Cape Gate Hospital & Mediclinic Cape Gate Day Clinic",
             "Strand Mediclinic Private Hospital-ER",
         ],
-        "median": " ( Welgevallen Experiment Farm) R2000000",
+        "median": " (Welgevallen Experiment Farm) R2000000",
         "midpoint": {"lat": -33.9421670541999, "lng": 18.86680107142857},
         "schools": [
             "Paul Roos Gimnasium",
