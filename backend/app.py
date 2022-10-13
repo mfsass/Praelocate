@@ -79,8 +79,8 @@ def newMidpoint():
 
     # calculate best schools
     list_schools = fuzzy_schools(origin_tuple)
-    average_price = determine_sale_price(suburb)
-    print(f"Price: {average_price} for {suburb}")
+    average_price = find_suburb(origin_tuple)
+    print(f"Price: {average_price}")
 
     return {
         "allCoordinates": coordinates,
@@ -245,7 +245,7 @@ def calculate_midpoint(list_json):
                     # directions_result[0]["legs"][0]["duration"]["value"]
                 )
                 # print(directions_result[0]["legs"][0]["end_address"])
-                suburb = directions_result[0]["legs"][0]["end_address"].split(",")[1]
+                # suburb = directions_result[0]["legs"][0]["end_address"].split(",")[1]
                 # print(suburb)
 
                 all_distance.append(round((distance / 1000), 2))
@@ -317,6 +317,11 @@ def calculate_midpoint(list_json):
     print(optimized_location)
 
     school = fuzzy_schools(optimized_location[5])
+    list_schools = fuzzy_schools(origin_tuple)
+    list_hospitals = fuzzy_hospitals(origin_tuple)
+
+    # Median Price
+    average_sale_price = find_suburb(origin_tuple)
 
     print("\n------Schools------")
     # print list(school)
@@ -328,17 +333,12 @@ def calculate_midpoint(list_json):
         optimized_location[5][0],
         optimized_location[5][1],
     )
-    list_schools = fuzzy_schools(origin_tuple)
-    list_hospitals = fuzzy_hospitals(origin_tuple)
+
     print("\n------Hospitals------")
     # print list(school)
     for i in range(len(list_hospitals)):
         print(list_hospitals[i])
     print("-------------------\n")
-
-    # Average Price
-    average_sale_price = determine_sale_price(suburb)
-    # print(f"Average sale price: R{average_sale_price}")
 
     return {
         "avgDistance": optimized_location[0],
@@ -362,9 +362,7 @@ def fuzzy_schools(origin):
         + str(origin[0])
         + "%2C"
         + str(origin[1])
-        + "&radius="
-        + str(radius * 5000)
-        + "&type=school&keyword=highschool&key="
+        + "&rankby=distance&keyword=school|high school|primary school&key="
         + key
         # rank by prominence
     )
@@ -385,6 +383,55 @@ def fuzzy_schools(origin):
     return list_schools
 
 
+def find_suburb(origin):
+    price1 = 0
+    price2 = 0
+    try:
+        url = (
+            "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
+            + str(origin[0])
+            + "%2C"
+            + str(origin[1])
+            + "&radius=2000&type=restaurant|fuel&key="
+            + key
+        )
+
+        payload = {}
+        headers = {}
+
+        response = requests.request("GET", url, headers=headers, data=payload)
+        # print area
+        response = response.json()["results"][0]["vicinity"].split(",")[0]
+        price2 = int(determine_sale_price(response))
+    except:
+        price2 = -1
+
+    try:
+        result = gmaps.directions(
+            origin=origin,
+            destination=(origin[0], origin[1] + 0.001),
+            mode="driving",
+        )
+
+        # only keep the suburb split after 2nd of comma
+        # print(result[0]["legs"][0]["start_address"])
+        suburb = result[0]["legs"][0]["start_address"].split(",")[1]
+
+        price1 = int(determine_sale_price(suburb))
+    except:
+        price1 = -1
+
+    if (price1 == -1) and (price2 == -1):
+        return "- Price Not Found -"
+
+    if price1 > price2:
+        print(f"Suburb: {suburb}")
+        return "R" + str(price1)
+
+    print(f"Suburb: {response}")
+    return "R" + str(price2)
+
+
 def fuzzy_hospitals(origin):
     # print(radius)
     url = (
@@ -392,9 +439,7 @@ def fuzzy_hospitals(origin):
         + str(origin[0])
         + "%2C"
         + str(origin[1])
-        + "&radius="
-        + str(radius * 5000)
-        + "&type=hospital&keyword=hospital&key="
+        + "&rankby=distance&type=hospital&keyword=hospital&key="
         + key
         # rank by prominence
     )
@@ -416,41 +461,35 @@ def fuzzy_hospitals(origin):
 
 
 def determine_sale_price(location):
-    try:
-        options = Options()
-        options.headless = True
+    options = Options()
+    options.headless = True
 
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-        driver.get("https://www.google.com/")
-        inputElem = driver.find_element(By.CLASS_NAME, "a4bIc")
-        inputElem = inputElem.find_element(By.TAG_NAME, "input")
-        search_string = "Property24 trends" + location
-        inputElem.send_keys(search_string)
-        inputElem.send_keys(Keys.ENTER)
-        # print(driver.current_url)
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    driver.get("https://www.google.com/")
+    inputElem = driver.find_element(By.CLASS_NAME, "a4bIc")
+    inputElem = inputElem.find_element(By.TAG_NAME, "input")
+    search_string = "Property24 trends" + location
+    inputElem.send_keys(search_string)
+    inputElem.send_keys(Keys.ENTER)
+    # print(driver.current_url)
 
-        websiteURL = driver.find_element(By.CLASS_NAME, "yuRUbf").get_attribute(
-            "innerHTML"
-        )
-        websiteURL = websiteURL[(websiteURL.index('"') + 1) :]
-        websiteURL = websiteURL[0 : (websiteURL.index('"'))]
-        # print(websiteURL)
-        # driver.close()
+    websiteURL = driver.find_element(By.CLASS_NAME, "yuRUbf").get_attribute("innerHTML")
+    websiteURL = websiteURL[(websiteURL.index('"') + 1) :]
+    websiteURL = websiteURL[0 : (websiteURL.index('"'))]
+    # print(websiteURL)
+    # driver.close()
 
-        # driver = webdriver.Chrome(ChromeDriverManager().install())
-        driver.get(websiteURL)
-        content = driver.find_element(
-            By.XPATH,
-            '//div[@class="p24_results p24_areaTrends"]/div[1]/div[3]/div[1]/div[1]/div[1]/script[1]',
-        ).get_attribute("innerHTML")
-        content = content[(content.index(";") + 1) :]
-        content = content[(content.index(";") + 1) :]
-        importantIndex = content.index(";")
-        content = content[(importantIndex - 20) : importantIndex - 7]
-        numeric_filter = filter(str.isdigit, content)
-        numeric_string = "".join(numeric_filter)
-        print("\nThe average price in" + location + " is R" + numeric_string)
-        return numeric_string
-    except Exception as e:
-        print("Error: ", e)
-        return "- No price found -"
+    # driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver.get(websiteURL)
+    content = driver.find_element(
+        By.XPATH,
+        '//div[@class="p24_results p24_areaTrends"]/div[1]/div[3]/div[1]/div[1]/div[1]/script[1]',
+    ).get_attribute("innerHTML")
+    content = content[(content.index(";") + 1) :]
+    content = content[(content.index(";") + 1) :]
+    importantIndex = content.index(";")
+    content = content[(importantIndex - 20) : importantIndex - 7]
+    numeric_filter = filter(str.isdigit, content)
+    numeric_string = "".join(numeric_filter)
+    print("\nThe average price in " + location + " is R" + numeric_string)
+    return numeric_string

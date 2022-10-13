@@ -486,7 +486,7 @@ function Map() {
                   </tbody>
                 </table>
                 {medPrice !== 0 && (
-                  <span>Median price in neighbourhood: R{medPrice}</span>
+                  <span>Median price in neighbourhood: {medPrice}</span>
                 )}
               </div>
             )}
