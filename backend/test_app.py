@@ -1,103 +1,114 @@
+import sys
 import unittest
 from app import app
 from app import calculate_midpoint
 
+# mock testing
+import unittest.mock as mock
+from unittest.mock import patch
+
+from app import find_suburb
+from app import fuzzy_schools
+from app import fuzzy_hospitals
+
 
 class TestApp(unittest.TestCase):
 
-    # test app.route("/locations", methods=["POST"])
-    def test_app_route(self):
-        with app.test_client() as c:
-            response = c.post(
-                "/locations",
-                json={
-                    "radius": {"size": 3},
-                    "loc1": {
-                        "lat": -33.9180673,
-                        "lng": 18.8561883,
-                        "rank": 1,
-                        "time": "20:30",
-                    },
-                    "loc2": {
-                        "lat": -33.9326571,
-                        "lng": 18.8653934,
-                        "rank": 3,
-                        "time": "20:30",
-                    },
-                },
-            )
-            print("\nSuccessfully tested app.route('/locations', methods=['POST'])")
-            print("\n-------------------\n")
-            self.assertEqual(response.status_code, 200)
+    return_value = {
+        "allCoordinates": [
+            [-33.9313091, 18.8710578],
+            [-33.9327763, 18.862542],
+            [-34.0672638, 18.8582923],
+        ],
+        "allDistances": [2.31, 1.86, 18.94],
+        "allTimes": [5.88, 5.43, 23.92],
+        "avgDistance": 7.7,
+        "avgTime": 11.74,
+        "hospitals": [
+            "Stellenbosch Provincial Hospital - Maternity Ward(Top)",
+            "Stellenbosch Provincial Hospital",
+            "Cheryl Doc Stellenboch",
+            "Mediclinic Stellenbosch",
+            "Mediclinic Stellenbosch Hospital & Mediclinic Stellenbosch Day Clinic",
+            "Spescare Stellenbosch",
+            "tygerberg university hospital",
+            "Idas Valley Clinic",
+            "Cloetesville Community Health Centre - Pharmacy",
+            "Stellenbosch Medical Centre",
+            "Medical Room",
+            "Eerste River Hospital - A R V Clinic",
+            "Helderberg Hospital",
+            "Helderberg Hospital - A R V Clinic",
+            "Day Hospital",
+            "Mediclinic Vergelegen Hospital & Mediclinic Vergelegen Day Clinic",
+            "Mediclinic Vergelegen-ER",
+            "Cure Day Hospitals Somerset West",
+            "Mediclinic Cape Gate Hospital & Mediclinic Cape Gate Day Clinic",
+            "Strand Mediclinic Private Hospital-ER",
+        ],
+        "median": " ( Welgevallen Experiment Farm) R2000000",
+        "midpoint": {"lat": -33.9421670541999, "lng": 18.86680107142857},
+        "schools": [
+            "Paul Roos Gimnasium",
+            "Rhenish Girls' High School",
+            "Hoër Meisieskool Bloemhof",
+            "Laerskool Eikestad",
+            "Rhenish Primary School",
+            "Hoërskool Stellenbosch",
+            "Laerskool Af Louw",
+            "Kayamandi Secondary School",
+            "idasvalley primary school",
+            "Lückhoff High School",
+            "Primere Skool Idas Vallei",
+            "Laerskool Cloetesville",
+            "Kayamandi Primary School",
+            "Makapula Secondary School",
+            "Cloetesville High School",
+            "Stellenzicht Secondary School",
+            "Kylemore High School",
+            "Kylemore Secondary School",
+            "Helderberg High School",
+            "Parel Vallei High School",
+        ],
+        "totalDistance": 23.11,
+        "totalTime": 35.230000000000004,
+    }
 
-    def test_input(self):
-        # latitudes, longitudes, and ranks
-        data = [
-            (-33.9180673, 18.8561883, 1.0, "20:30"),
-            (-33.9326571, 18.8653934, 3.0, "20:30"),
-            (-33.9354089, 18.8600011, 4.0, "08:30"),
-            (-33.9340673, 18.8661883, 2.0, "16:30"),
-            (-33.9356571, 18.8653934, 3.0, "11:30"),
-            (-33.924454, 18.821924, 2.0, "15:30"),
-            (-33.965704, 18.474756, 3.0, "16:30"),
-        ]
-
-        app.radius = 1
-        # initialize all app.locations global variables
-        app.all_ranks = []
-        app.coordinates = []
-        app.times = []
-        app.optimize_preference = "distance"  # otherwise varies with traffic times
-        coord = []
-        app.midpoint = {}
-
-        for i in range(0, len(data)):
-            app.all_ranks.append(data[i][2])  # ranks
-            app.coordinates.append((data[i][0], data[i][1]))  # coordinates
-            coord.append((data[i][0], data[i][1]))  # coordinates
-            app.times.append((data[i][3]))
-        # call the function
-        result = calculate_midpoint(data)
-
-        print("\n------------------- TEST Input passed -------------------\n")
-        self.assertIsNotNone(result)
-        self.assertTrue(True)
-
-    def test_midpoint(self):
-        # latitudes, longitudes, and ranks
-        data = [
-            (-33.9180673, 18.8561883, 1.0, "00:30"),
-            (-33.9326571, 18.8653934, 1.0, "00:30"),
-        ]
-
-        app.radius = 0
-        # initialize all app.locations global variables
-        app.all_ranks = []
-        app.coordinates = []
-        app.times = []
-        app.optimize_preference = "distance"  # otherwise varies with traffic times
-        coord = []
-        app.midpoint = {}
-
-        for i in range(0, len(data)):
-            app.all_ranks.append(data[i][2])  # ranks
-            app.coordinates.append((data[i][0], data[i][1]))  # coordinates
-            coord.append((data[i][0], data[i][1]))  # coordinates
-            app.times.append((data[i][3]))
-        # call the function
-        result = calculate_midpoint(data)
-
-        # check the results
-        avg_coord = (
-            sum([x[0] for x in coord]) / len(coord),
-            sum([x[1] for x in coord]) / len(coord),
+    @patch("app.locations")
+    def test_fuzzy_schools(self, mock_locations):
+        mock_locations.return_value = self.return_value
+        origin_tuple = (
+            self.return_value["midpoint"]["lat"],
+            self.return_value["midpoint"]["lng"],
         )
+        print("-------------------")
+        print("--> fuzzy_schools() test passed")
+        print("-------------------")
+        self.assertEqual(fuzzy_schools(origin_tuple), self.return_value["schools"])
 
-        print("midpoint: ", result["midpoint"])
-        print("\n------------------- TEST Midpoint passed -------------------\n")
-        self.assertEqual(
-            result["midpoint"], {"lat": -33.92657801666666, "lng": 18.861557941666664}
+    @patch("app.locations")
+    def test_fuzzy_hospitals(self, mock_locations):
+        mock_locations.return_value = self.return_value
+        origin_tuple = (
+            self.return_value["midpoint"]["lat"],
+            self.return_value["midpoint"]["lng"],
         )
+        print("-------------------")
+        print("--> fuzzy_hospitals() test passed")
+        print("-------------------")
+        self.assertEqual(fuzzy_hospitals(origin_tuple), self.return_value["hospitals"])
+
+    @patch("app.locations")
+    def test_suburb(self, mock_locations):
+        mock_locations.return_value = self.return_value
+        origin_tuple = (
+            self.return_value["midpoint"]["lat"],
+            self.return_value["midpoint"]["lng"],
+        )
+        self.assertEqual(find_suburb(origin_tuple), self.return_value["median"])
+        print("-------------------")
+        print("--> find_suburb() test passed")
+        print("-------------------")
 
 
 if __name__ == "__main__":
