@@ -401,8 +401,15 @@ def find_suburb(origin):
 
         response = requests.request("GET", url, headers=headers, data=payload)
         # print area
-        response = response.json()["results"][0]["vicinity"].split(",")[0]
+        area_list = response.json()["results"][0]["vicinity"].split(", ")
+        # check if south africa is contained in area
+        print(area_list)
+        price2 = -1
+
+        response = area_list[len(area_list) - 2]
+        print(response)
         price2 = int(determine_sale_price(response))
+
     except:
         price2 = -1
 
@@ -413,23 +420,25 @@ def find_suburb(origin):
             mode="driving",
         )
 
-        # only keep the suburb split after 2nd of comma
-        # print(result[0]["legs"][0]["start_address"])
-        suburb = result[0]["legs"][0]["start_address"].split(",")[1]
-
-        price1 = int(determine_sale_price(suburb))
+        area_list = result[0]["legs"][0]["start_address"].split(", ")
+        print(area_list)
+        if area_list.count("South Africa") > 0:
+            suburb = result[0]["legs"][0]["start_address"].split(",")[1]
+            price1 = int(determine_sale_price(suburb))
+        else:
+            return " *Feature only available in South Africa* "
     except:
         price1 = -1
 
     if (price1 == -1) and (price2 == -1):
-        return "- Price Not Found -"
+        return " Price Not Found"
 
     if price1 > price2:
         print(f"Suburb: {suburb}")
-        return "R" + str(price1)
+        return " (" + suburb + ") R" + str(price1)
 
     print(f"Suburb: {response}")
-    return "R" + str(price2)
+    return " (" + response + ") R" + str(price2)
 
 
 def fuzzy_hospitals(origin):
