@@ -493,7 +493,7 @@ function Map() {
                 )}
               </div>
             )}
-            {shouldShowLocations && isFuzzy && schools && (
+            {shouldShowLocations && schools && (
               <div className="table output">
                 <table className="table schools">
                   <thead>
@@ -571,7 +571,7 @@ function Map() {
             center={center}
             zoom={zoom}
           >
-            {shouldShowLocations && (
+            {shouldShowLocations && locations && (
               <div>
                 {locations.map((item) => {
                   if (item.shouldShow) {
