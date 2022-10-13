@@ -79,6 +79,7 @@ def newMidpoint():
 
     # calculate best schools
     list_schools = fuzzy_schools(origin_tuple)
+    list_hospitals = fuzzy_hospitals(origin_tuple)
     average_price = find_suburb(origin_tuple)
     print(f"Price: {average_price}")
 
@@ -87,6 +88,7 @@ def newMidpoint():
         "allDistances": list_distances,
         "allTimes": list_times,
         "schools": list_schools,
+        "hospitals": list_hospitals,
         "median": average_price,
     }
 

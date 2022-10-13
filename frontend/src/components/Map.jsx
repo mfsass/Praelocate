@@ -382,6 +382,9 @@ function Map() {
       if (isFuzzy) {
         setSchools(info.schools.splice(0, 6));
       }
+      if (shouldHospital) {
+        setHospitals(info.hospitals.splice(0, 2));
+      }
       setMedPrice(info.median);
       setAllCoordinates(info.allCoordinates);
       setTableData(info);
