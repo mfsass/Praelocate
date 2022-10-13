@@ -30,7 +30,7 @@ except:
 
 @app.route("/newMidpoint", methods=["POST"])
 @cross_origin()
-def newMidpoint():
+def new_midpoint():
     # recalculates distances and times from midpoint to coordinates
     # returns new midpoint and new distances and times
     data = request.get_json()
@@ -317,8 +317,10 @@ def calculate_midpoint(list_json):
         f"Optimized location{index} [based on {optimize_preference}] \nDetails: Avg distance, Avg time, All distances, All times, Avg time weighted, Origin"
     )
     print(optimized_location)
-
-    school = fuzzy_schools(optimized_location[5])
+    origin_tuple = (
+        optimized_location[5][0],
+        optimized_location[5][1],
+    )
     list_schools = fuzzy_schools(origin_tuple)
     list_hospitals = fuzzy_hospitals(origin_tuple)
 
@@ -327,14 +329,9 @@ def calculate_midpoint(list_json):
 
     print("\n------Schools------")
     # print list(school)
-    for i in range(len(school)):
-        print(school[i])
+    for i in range(len(list_schools)):
+        print(list_schools[i])
     print("-------------------\n")
-
-    origin_tuple = (
-        optimized_location[5][0],
-        optimized_location[5][1],
-    )
 
     print("\n------Hospitals------")
     # print list(school)
@@ -364,7 +361,7 @@ def fuzzy_schools(origin):
         + str(origin[0])
         + "%2C"
         + str(origin[1])
-        + "&rankby=distance&keyword=school|high school|primary school&key="
+        + "&rankby=distance&keyword=high school|primary school&key="
         + key
         # rank by prominence
     )
@@ -394,7 +391,7 @@ def find_suburb(origin):
             + str(origin[0])
             + "%2C"
             + str(origin[1])
-            + "&radius=2000&type=restaurant|fuel&key="
+            + "&radius=1000&type=restaurant|fuel&key="
             + key
         )
 
@@ -450,7 +447,7 @@ def fuzzy_hospitals(origin):
         + str(origin[0])
         + "%2C"
         + str(origin[1])
-        + "&rankby=distance&type=hospital&keyword=hospital&key="
+        + "&rankby=distance&type=hospital&keyword=hospital|clinic&key="
         + key
         # rank by prominence
     )
