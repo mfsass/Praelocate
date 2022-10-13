@@ -28,6 +28,26 @@
   height: 100vh;
 }
 
+.locations.add {
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+}
+
+.locations.add button {
+  width: 75px;
+  height: 30px;
+  border-radius: 7px;
+  background: var(--button);
+  border: none;
+  color: white;
+  font-size: 20px;
+}
+
+.locations.add button:hover {
+  background: var(--button-hover);
+}
+
 .locations.showPoint,
 .locations.getPoint {
   width: 100%;
@@ -70,7 +90,7 @@
   font-size: 25px;
   display: flex;
   gap: 15px;
-  margin-top: 10px;
+  margin: 15px 0px;
 }
 
 .preference.options input[type="radio"] {
@@ -121,4 +141,37 @@
 .customSlider-thumb:hover,
 .customSlider-thumb:active {
   box-shadow: 0 0 0 5px var(--active);
+}
+
+.table.output {
+  font-size: 22px;
+  margin: 15px;
+  border-radius: 7px;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  padding: 30px 30px 20px 30px;
+  width: 70%;
+}
+
+.table.output td,
+.table.output th {
+  border-radius: 7px solid #ddd;
+  padding: 8px;
+  width: 33%;
+}
+
+.table.output tr:nth-child(2n) {
+  background-color: #f2f2f2;
+}
+
+.table.output tr:hover {
+  background-color: #ddd;
+}
+
+.table.output th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #106a6d;
+  color: white;
 }

@@ -10,6 +10,7 @@ import {
 } from "@react-google-maps/api";
 
 import InputBox from "./InputBox";
+import Spinner from "./Spinner";
 import "./map.css";
 
 const libraries = ["places"];
@@ -17,18 +18,6 @@ const libraries = ["places"];
 const containerStyle = {
   width: "100%",
   height: "100%",
-};
-
-const inputStyle = {
-  boxSizing: `border-box`,
-  border: `1px solid transparent`,
-  width: `100%`,
-  padding: `0 12px`,
-  borderRadius: `7px`,
-  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-  fontSize: `14px`,
-  outline: `none`,
-  textOverflow: `ellipses`,
 };
 
 const options = {
@@ -45,82 +34,33 @@ Geocode.setApiKey(API_KEY);
 Geocode.setRegion("za");
 
 function Map() {
-  const [location1, setLocation1] = useState(null);
-  const [location2, setLocation2] = useState(null);
-  const [location3, setLocation3] = useState(null);
-  const [location4, setLocation4] = useState(null);
-  const [location5, setLocation5] = useState(null);
-  const [location6, setLocation6] = useState(null);
-
-  const location1Str = useRef();
-  const location2Str = useRef();
-  const location3Str = useRef();
-  const location4Str = useRef();
-  const location5Str = useRef();
-  const location6Str = useRef();
-
-  const location1Time = useRef();
-  const location2Time = useRef();
-  const location3Time = useRef();
-  const location4Time = useRef();
-  const location5Time = useRef();
-  const location6Time = useRef();
-
-  const location1Ref = useRef({
-    locationStr: location1Str,
-    locationTime: location1Time,
-  });
-  const location2Ref = useRef({
-    locationStr: location2Str,
-    locationTime: location2Time,
-  });
-  const location3Ref = useRef({
-    locationStr: location3Str,
-    locationTime: location3Time,
-  });
-  const location4Ref = useRef({
-    locationStr: location4Str,
-    locationTime: location4Time,
-  });
-  const location5Ref = useRef({
-    locationStr: location5Str,
-    locationTime: location5Time,
-  });
-  const location6Ref = useRef({
-    locationStr: location6Str,
-    locationTime: location6Time,
-  });
-
-  const [rank1, setRank1] = useState(0);
-  const [rank2, setRank2] = useState(0);
-  const [rank3, setRank3] = useState(0);
-  const [rank4, setRank4] = useState(0);
-  const [rank5, setRank5] = useState(0);
-  const [rank6, setRank6] = useState(0);
-  const [location1Label, setLocation1Label] = useState("");
-  const [location2Label, setLocation2Label] = useState("");
-  const [location3Label, setLocation3Label] = useState("");
-  const [location4Label, setLocation4Label] = useState("");
-  const [location5Label, setLocation5Label] = useState("");
-  const [location6Label, setLocation6Label] = useState("");
-
+  const titleRefs = useRef([]);
+  const stringRefs = useRef([]);
+  const timeRefs = useRef([]);
+  const [locations, setLocations] = useState([]);
+  const [inputs, setInputs] = useState([]);
+  const [count, setCount] = useState(0);
+  const [ranks, setRanks] = useState(Array(20).fill(-1));
+  const [infoWindows, setInfoWindows] = useState([]);
+  const [schools, setSchools] = useState([]);
+  const [hospitals, setHospitals] = useState([]);
+  const [medPrice, setMedPrice] = useState(0);
+  const [isFuzzy, setIsFuzzy] = useState(false);
+  const [shouldHospital, setShouldHospital] = useState(false);
   const [sliderValue, setSliderValue] = useState(1);
   const [preference, setPreference] = useState("time");
+  const [zoom, setZoom] = useState(14);
   const [center, setCenter] = useState({
     lat: -33.9328,
     lng: 18.8644,
   });
 
   const [submitting, setSubmitting] = useState(false);
-  const [infoWindowOpen1, setInfoWindowOpen1] = useState(false);
-  const [infoWindowOpen2, setInfoWindowOpen2] = useState(false);
-  const [infoWindowOpen3, setInfoWindowOpen3] = useState(false);
-  const [infoWindowOpen4, setInfoWindowOpen4] = useState(false);
-  const [infoWindowOpen5, setInfoWindowOpen5] = useState(false);
-  const [infoWindowOpen6, setInfoWindowOpen6] = useState(false);
   const [shouldShowLocations, setShouldShowLocations] = useState(false);
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
+  const [tableData, setTableData] = useState([]);
+  const [locationLabels, setLocationLabels] = useState([]);
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -134,61 +74,137 @@ function Map() {
     event.target.style["background-color"] = tempColor;
   };
 
+  const addInput = () => {
+    console.log(`Count: ${count}`);
+
+    setLocations([
+      ...locations,
+      {
+        id: count,
+        coordinates: {
+          lat: 0,
+          lng: 0,
+        },
+        title: "",
+        label: "",
+        time: "12:00",
+        shouldShow: false,
+        rank: -1,
+      },
+    ]);
+
+    // Adds new refs for the input components
+    let lastTitleRef = (ref0) => titleRefs.current.push(ref0);
+    let lastStringRef = (ref1) => stringRefs.current.push(ref1);
+    let lastTimeRef = (ref2) => timeRefs.current.push(ref2);
+
+    setInputs((state) => [
+      ...state,
+      <InputBox
+        ref={{
+          locationTitle: lastTitleRef,
+          locationStr: lastStringRef,
+          locationTime: lastTimeRef,
+        }}
+        changeRank={changeRank}
+        name={count}
+        setIsFuzzy={setIsFuzzy}
+      />,
+    ]);
+
+    setInfoWindows([...infoWindows, false]);
+
+    setCount(count + 1);
+  };
+
+  /*
+    Called by the child
+    !** important **! does not have the state of the parent
+  */
+  const changeRank = (index, value) => {
+    console.log(`Changing rank ${index} to ${value}`);
+    setRanks(
+      ranks.map((item, i) => {
+        if (i === index) {
+          console.log("Changing");
+          item = value;
+          return item;
+        } else {
+          console.log("Not changing");
+          return item;
+        }
+      })
+    );
+  };
+
+  /**
+   * Saves all the values and requests the coordinates from the google maps API
+   */
   const handleSave = (event) => {
     event.preventDefault();
 
-    const locations = [
-      {
-        string: location1Str,
-        function: setLocation1,
-        labelFunction: setLocation1Label,
-      },
-      {
-        string: location2Str,
-        function: setLocation2,
-        labelFunction: setLocation2Label,
-      },
-      {
-        string: location3Str,
-        function: setLocation3,
-        labelFunction: setLocation3Label,
-      },
-      {
-        string: location4Str,
-        function: setLocation4,
-        labelFunction: setLocation4Label,
-      },
-      {
-        string: location5Str,
-        function: setLocation5,
-        labelFunction: setLocation5Label,
-      },
-      {
-        string: location6Str,
-        function: setLocation6,
-        labelFunction: setLocation6Label,
-      },
-    ];
-    locations.map((entry) => {
+    stringRefs.current.forEach(async (string, index) => {
       try {
-        console.log(`Trying: ${entry.string.current.value}`);
+        console.log(`Trying: ${string.value}`);
       } catch (error) {
-        console.log(`aborting: ${entry}`);
-        return undefined;
+        console.log(`Aborting: ${string}`);
       }
-      const temp = entry.string.current.value;
-      entry.labelFunction(temp.substring(0, temp.indexOf(",")));
-      return getGeoFromText(entry.string.current.value, entry.function);
+
+      if (
+        titleRefs.current[index].value.toLowerCase().includes("school") &&
+        isFuzzy
+      ) {
+        console.log("Running school");
+
+        let tempList = {
+          ...locations,
+        };
+        tempList[index].title = titleRefs.current[index].value;
+        return setLocations(tempList);
+      }
+
+      console.log("Not running school");
+      getGeoFromText(string.value, index).then((response) => {
+        console.log(`Response: ${response.index}`);
+        const index2 = response.index;
+        const timeValue = timeRefs.current[index2].value;
+        const tempLocation = {
+          ...locations[index2],
+          coordinates: response.coordinates,
+          label: getLabel(stringRefs.current[index2].value),
+          shouldShow: true,
+          rank: ranks[index2] > 0 ? ranks[index2] : 1,
+          time: timeValue !== "" ? timeValue : "12:00",
+          title: titleRefs.current[index2].value,
+        };
+
+        setLocations(
+          locations.map((item, i) => {
+            if (i === index2) {
+              locations[i] = tempLocation;
+              return locations[i];
+            } else return locations[i];
+          })
+        );
+      });
     });
 
     changeColor(event);
   };
 
-  const getGeoFromText = (text, changeLocation) => {
+  const getLabel = (value) => {
+    return value.substring(0, value.indexOf(","));
+  };
+
+  const getGeoFromText = async (text, index) => {
+    console.log(`Trying geo ${index}`);
     if (text) {
-      Geocode.fromAddress(text).then(
+      return await Geocode.fromAddress(text).then(
         (response) => {
-          changeLocation(() => response.results[0].geometry.location);
+          return {
+            index: index,
+            coordinates: response.results[0].geometry.location,
+          };
         },
         (error) => {
           console.error(error);
@@ -201,86 +217,31 @@ function Map() {
     e.preventDefault();
     setSubmitting(true);
 
+    let tempLocations = [];
+    if (isFuzzy) {
+      Object.keys(locations).forEach((key) => {
+        console.log(locations[key]);
+        if (!locations[key].title.toLowerCase().includes("school")) {
+          tempLocations.push(locations[key]);
+        }
+      });
+    } else {
+      tempLocations = [...locations];
+    }
+
+    if (tempLocations.length === 0) {
+      console.log("Not enough locations");
+      return;
+    }
+    console.log("Templocations");
+    console.log(tempLocations);
+
     let data = {
-      radius: {
-        size: sliderValue,
-      },
-    };
-
-    if (location1) {
-      const tempTime = location1Time.current.value
-        ? location1Time.current.value
-        : "12:00";
-      data.loc1 = {
-        lat: location1.lat,
-        lng: location1.lng,
-        rank: rank1,
-        time: tempTime,
-      };
-    }
-
-    if (location2) {
-      const tempTime = location2Time.current.value
-        ? location2Time.current.value
-        : "12:00";
-      data.loc2 = {
-        lat: location2.lat,
-        lng: location2.lng,
-        rank: rank2,
-        time: tempTime,
-      };
-    }
-
-    if (location3) {
-      const tempTime = location3Time.current.value
-        ? location3Time.current.value
-        : "12:00";
-      data.loc3 = {
-        lat: location3.lat,
-        lng: location3.lng,
-        rank: rank3,
-        time: tempTime,
-      };
-    }
-
-    if (location4) {
-      const tempTime = location4Time.current.value
-        ? location4Time.current.value
-        : "12:00";
-      data.loc4 = {
-        lat: location4.lat,
-        lng: location4.lng,
-        rank: rank4,
-        time: tempTime,
-      };
-    }
-
-    if (location5) {
-      const tempTime = location5Time.current.value
-        ? location5Time.current.value
-        : "12:00";
-      data.loc5 = {
-        lat: location5.lat,
-        lng: location5.lng,
-        rank: rank5,
-        time: tempTime,
-      };
-    }
-
-    if (location6) {
-      const tempTime = location6Time.current.value
-        ? location6Time.current.value
-        : "12:00";
-      data.loc6 = {
-        lat: location6.lat,
-        lng: location6.lng,
-        rank: rank6,
-        time: tempTime,
-      };
-    }
-
-    data.optimize = {
+      locations: tempLocations,
+      radius: sliderValue,
       preference: preference,
+      hospitals: shouldHospital,
+      isFuzzy: isFuzzy,
     };
 
     console.log(JSON.stringify(data));
@@ -298,77 +259,137 @@ function Map() {
       let info = await fetchFunc();
       console.log(info);
 
-      if (info.allDistances.length >= 1) {
-        setLocation1Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[0]} | Time: ${info.allTimes[0]}`
-        );
+      let tempLabels = [];
+
+      locations.map((item) => {
+        let index = info.allCoordinates.findIndex(
+          (coor) => coor[0] === item.coordinates.lat
+        ); // makes sure to map the correct distance and times to the correct location
+        if (index >= 0) {
+          tempLabels.push(getLabel(stringRefs.current[item.id].value));
+          item.label = (
+            <span>
+              <b>{item.title}</b>
+              <br />
+              <i>{getLabel(stringRefs.current[item.id].value)}</i> <br />
+              Distance: {info.allDistances[index]} km
+              <br />
+              Time: {info.allTimes[index]} min
+            </span>
+          );
+        }
+        return item;
+      });
+
+      setLocationLabels(tempLabels);
+
+      setTableData(info);
+      if (isFuzzy) {
+        setSchools(info.schools.splice(0, 6));
       }
-      if (info.allDistances.length >= 2) {
-        setLocation2Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[1]} | Time: ${info.allTimes[1]}`
-        );
-      }
-      if (info.allDistances.length >= 3) {
-        setLocation3Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[2]} | Time: ${info.allTimes[2]}`
-        );
-      }
-      if (info.allDistances.length >= 4) {
-        setLocation4Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[3]} | Time: ${info.allTimes[3]}`
-        );
-      }
-      if (info.allDistances.length >= 5) {
-        setLocation5Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[4]} | Time: ${info.allTimes[4]}`
-        );
-      }
-      if (info.allDistances.length >= 6) {
-        setLocation6Label(
-          (previousData) =>
-            `${previousData} | Distance: ${info.allDistances[5]} | Time: ${info.allTimes[5]}`
-        );
+      if (shouldHospital) {
+        setHospitals(info.hospitals.splice(0, 2));
       }
 
+      setZoom(15 - sliderValue);
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
         midpoint: info.midpoint,
       }));
+      setMedPrice(info.median);
       setCenter(info.midpoint);
       setSubmitting(false);
     })();
     setShouldShowLocations(true);
   };
 
-  const getRank = (value, name) => {
-    switch (name) {
-      case "loc1":
-        setRank1(value);
-        break;
-      case "loc2":
-        setRank2(value);
-        break;
-      case "loc3":
-        setRank3(value);
-        break;
-      case "loc4":
-        setRank4(value);
-        break;
-      case "loc5":
-        setRank5(value);
-        break;
-      case "loc6":
-        setRank6(value);
-        break;
-      default:
-        console.log("Unhandled");
+  /**
+   * Debug utility
+   */
+  const getValues = () => {
+    console.log("*** Title refs: ***");
+    console.log(titleRefs.current);
+    titleRefs.current.forEach((ref, index) => {
+      console.log(`Title value [${index}]: ${ref.value}`);
+    });
+
+    console.log("*** String refs: ***");
+    console.log(stringRefs.current);
+    stringRefs.current.forEach((ref, index) => {
+      console.log(`Input value [${index}]: ${ref.value}`);
+    });
+
+    console.log("*** Time refs: ***");
+    console.log(timeRefs.current);
+    timeRefs.current.forEach((ref, index) => {
+      console.log(`Time value [${index}]: ${ref.value}`);
+    });
+
+    console.log("*** Info windows: ***");
+    console.log(infoWindows);
+
+    console.log("*** Ranks: ***");
+    console.log(ranks);
+    console.log("*** Locations: ***");
+    console.log(locations);
+
+    console.log(`*** Is fuzzy? ${isFuzzy} ***`);
+  };
+
+  const newMidpoint = (e) => {
+    setSubmitting(true);
+    const { latLng } = e;
+    let data = {
+      midpoint: {
+        lat: latLng.lat(),
+        lng: latLng.lng(),
+      },
+    };
+    console.log(JSON.stringify(data));
+    const requestOpt = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+    async function fetchFunc() {
+      return await fetch("/newMidpoint", requestOpt)
+        .then((response) => response.json())
+        .catch((error) => console.log(error));
     }
+    (async () => {
+      let info = await fetchFunc();
+      console.log(info);
+      locations.map((item) => {
+        let index = info.allCoordinates.findIndex(
+          (coor) => coor[0] === item.coordinates.lat
+        ); // makes sure to map the correct distance and times to the correct location
+        if (index >= 0) {
+          item.label = (
+            <span>
+              <b>{item.title}</b>
+              <br />
+              <i>{getLabel(stringRefs.current[item.id].value)}</i> <br />
+              Distance: {info.allDistances[index]} km
+              <br />
+              Time: {info.allTimes[index]} min
+            </span>
+          );
+        }
+        return item;
+      });
+
+      if (isFuzzy) {
+        setSchools(info.schools.splice(0, 6));
+      }
+      if (shouldHospital) {
+        setHospitals(info.hospitals.splice(0, 2));
+      }
+      setMedPrice(info.median);
+      setAllCoordinates(info.allCoordinates);
+      setTableData(info);
+      setSubmitting(false);
+    })();
   };
 
   return (
@@ -376,65 +397,22 @@ function Map() {
       <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
         <div className="locations">
           <form className="locations form" onSubmit={handleSubmit}>
-            <InputBox
-              label="Work"
-              name="loc1"
-              inputStyle={inputStyle}
-              ref={location1Ref}
-              placeholder={"e.g. Praelexis"}
-              getRank={getRank}
-              rank={rank1}
-            />
-
-            <InputBox
-              label="Work 2"
-              name="loc2"
-              inputStyle={inputStyle}
-              ref={location2Ref}
-              placeholder={"e.g. Stellenbosch University"}
-              getRank={getRank}
-              rank={rank2}
-            />
-
-            <InputBox
-              label="School"
-              name="loc3"
-              inputStyle={inputStyle}
-              ref={location3Ref}
-              placeholder={"e.g. Paul Roos"}
-              getRank={getRank}
-              rank={rank3}
-            />
-
-            <InputBox
-              label="Mall"
-              name="loc4"
-              inputStyle={inputStyle}
-              ref={location4Ref}
-              placeholder={"e.g. Eikestad Mall"}
-              getRank={getRank}
-              rank={rank4}
-            />
-
-            <InputBox
-              label="Gym"
-              name="loc5"
-              inputStyle={inputStyle}
-              ref={location5Ref}
-              placeholder={"e.g. Virgin Active Stellenbosch"}
-              getRank={getRank}
-              rank={rank5}
-            />
-
-            <InputBox
-              label="Park"
-              name="loc6"
-              inputStyle={inputStyle}
-              ref={location6Ref}
-              placeholder={"e.g. Uniepark"}
-              getRank={getRank}
-              rank={rank6}
-            />
+            {inputs.map((input, index) => {
+              return (
+                <div className="box" key={index}>
+                  {input}
+                </div>
+              );
+            })}
+            <div className="locations add">
+              <label>Add a location</label>
+              <button type="button" onClick={addInput}>
+                +
+              </button>
+              <button type="button" onClick={getValues}>
+                GET
+              </button>
+            </div>
 
             <div className="locations slider">
               <div>Output radius:</div>
@@ -456,6 +434,21 @@ function Map() {
             </div>
 
             <div className="locations preference">
+              <div>Search for hospitals: </div>
+              <div className="preference options">
+                <label>Yes</label>
+                <input
+                  type="radio"
+                  name="hospital"
+                  onClick={() => setShouldHospital(true)}
+                ></input>
+                <label>No</label>
+                <input
+                  type="radio"
+                  name="hospital"
+                  onClick={() => setShouldHospital(false)}
+                ></input>
+              </div>
               <div>Calculation preference: </div>
               <div className="preference options">
                 <label>Distance</label>
@@ -472,6 +465,76 @@ function Map() {
                 />
               </div>
             </div>
+
+            {shouldShowLocations && tableData && (
+              <div className="table output">
+                <table className="table labels">
+                  <thead>
+                    <tr>
+                      <th>Location</th>
+                      <th>Distance (km)</th>
+                      <th>Time (min)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {locationLabels.map((location, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{location}</td>
+                          <td>{tableData.allDistances[index]}</td>
+                          <td>{tableData.allTimes[index]}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                {medPrice !== 0 && (
+                  <span>Median price in neighbourhood: {medPrice}</span>
+                )}
+              </div>
+            )}
+            {shouldShowLocations && schools && (
+              <div className="table output">
+                <table className="table schools">
+                  <thead>
+                    <tr>
+                      <th>Schools (nearest, ascending)</th>
+                      {/* <th>Distance (kms)</th>
+                      <th>Time(mins)</th> */}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {schools.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{item}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {shouldShowLocations && shouldHospital && hospitals && (
+              <div className="table output">
+                <table className="table labels">
+                  <thead>
+                    <tr>
+                      <th>Hospitals (nearest, ascending)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {hospitals.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{item}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
             <div className="box button">
               <button
@@ -499,96 +562,48 @@ function Map() {
               </button>
             </div>
           </form>
-          {submitting && <span>Submitting ... </span>}
-
-          {/* {allCoordinates.midpoint && (
-            <span>
-              Midpoint:
-              {allCoordinates.midpoint.lat},{allCoordinates.midpoint.lng}
-            </span>
-          )} */}
+          {submitting && <Spinner type="spinner" />}
         </div>
 
         <div className="googleMap">
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={14}
+            zoom={zoom}
           >
-            {shouldShowLocations && (
+            {shouldShowLocations && locations && (
               <div>
-                <MarkerF
-                  title={"location1"}
-                  position={location1}
-                  icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                  onClick={() => setInfoWindowOpen1(true)}
-                >
-                  {infoWindowOpen1 && (
-                    <InfoWindowF onCloseClick={() => setInfoWindowOpen1(false)}>
-                      <div>{location1Label}</div>
-                    </InfoWindowF>
-                  )}
-                </MarkerF>
-                <MarkerF
-                  title={"location2"}
-                  position={location2}
-                  icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                  onClick={() => setInfoWindowOpen2(true)}
-                >
-                  {infoWindowOpen2 && (
-                    <InfoWindowF onCloseClick={() => setInfoWindowOpen2(false)}>
-                      <div>{location2Label}</div>
-                    </InfoWindowF>
-                  )}
-                </MarkerF>
-                <MarkerF
-                  title={"location3"}
-                  position={location3}
-                  icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                  onClick={() => setInfoWindowOpen3(true)}
-                >
-                  {infoWindowOpen3 && (
-                    <InfoWindowF onCloseClick={() => setInfoWindowOpen3(false)}>
-                      <div>{location3Label}</div>
-                    </InfoWindowF>
-                  )}
-                </MarkerF>
-                <MarkerF
-                  title={"location4"}
-                  position={location4}
-                  icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                  onClick={() => setInfoWindowOpen4(true)}
-                >
-                  {infoWindowOpen4 && (
-                    <InfoWindowF onCloseClick={() => setInfoWindowOpen4(false)}>
-                      <div>{location4Label}</div>
-                    </InfoWindowF>
-                  )}
-                </MarkerF>
-                <MarkerF
-                  title={"location5"}
-                  position={location5}
-                  icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                  onClick={() => setInfoWindowOpen5(true)}
-                >
-                  {infoWindowOpen5 && (
-                    <InfoWindowF onCloseClick={() => setInfoWindowOpen5(false)}>
-                      <div>{location5Label}</div>
-                    </InfoWindowF>
-                  )}
-                </MarkerF>
-                <MarkerF
-                  title={"location6"}
-                  position={location6}
-                  icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
-                  onClick={() => setInfoWindowOpen6(true)}
-                >
-                  {infoWindowOpen6 && (
-                    <InfoWindowF onCloseClick={() => setInfoWindowOpen6(false)}>
-                      <div>{location6Label}</div>
-                    </InfoWindowF>
-                  )}
-                </MarkerF>
+                {locations.map((item) => {
+                  if (item.shouldShow) {
+                    return (
+                      <MarkerF
+                        key={item.id}
+                        title={item.id}
+                        position={item.coordinates}
+                        icon={
+                          "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                        }
+                        onClick={() => {
+                          const tempArr = [...infoWindows];
+                          tempArr[item.id] = true;
+                          setInfoWindows(tempArr);
+                        }}
+                      >
+                        {infoWindows[item.id] && (
+                          <InfoWindowF
+                            onCloseClick={() => {
+                              const tempArr = [...infoWindows];
+                              tempArr[item.id] = false;
+                              setInfoWindows(tempArr);
+                            }}
+                          >
+                            <div>{item.label}</div>
+                          </InfoWindowF>
+                        )}
+                      </MarkerF>
+                    );
+                  }
+                })}
               </div>
             )}
             {shouldShowMidPoint && (
@@ -596,6 +611,8 @@ function Map() {
                 center={allCoordinates.midpoint}
                 radius={sliderValue * 1000}
                 options={options}
+                draggable={true}
+                onDragEnd={(e) => newMidpoint(e)}
               />
             )}
           </GoogleMap>
