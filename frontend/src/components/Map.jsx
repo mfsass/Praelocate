@@ -9,7 +9,8 @@ import {
   InfoWindowF,
 } from "@react-google-maps/api";
 
-import InputTest from "./InputTest";
+import InputBox from "./InputBox";
+import Spinner from "./Spinner";
 import "./map.css";
 
 const libraries = ["places"];
@@ -41,9 +42,14 @@ function Map() {
   const [count, setCount] = useState(0);
   const [ranks, setRanks] = useState(Array(20).fill(-1));
   const [infoWindows, setInfoWindows] = useState([]);
+  const [schools, setSchools] = useState([]);
+  const [hospitals, setHospitals] = useState([]);
+  const [medPrice, setMedPrice] = useState(0);
   const [isFuzzy, setIsFuzzy] = useState(false);
+  const [shouldHospital, setShouldHospital] = useState(false);
   const [sliderValue, setSliderValue] = useState(1);
   const [preference, setPreference] = useState("time");
+  const [zoom, setZoom] = useState(14);
   const [center, setCenter] = useState({
     lat: -33.9328,
     lng: 18.8644,
@@ -54,7 +60,7 @@ function Map() {
   const [shouldShowMidPoint, setShouldShowMidPoint] = useState(false);
   const [allCoordinates, setAllCoordinates] = useState([]);
   const [tableData, setTableData] = useState([]);
-  const [locationsLabels] = useState([]);
+  const [locationLabels, setLocationLabels] = useState([]);
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -94,7 +100,7 @@ function Map() {
 
     setInputs((state) => [
       ...state,
-      <InputTest
+      <InputBox
         ref={{
           locationTitle: lastTitleRef,
           locationStr: lastStringRef,
@@ -144,6 +150,20 @@ function Map() {
         console.log(`Aborting: ${string}`);
       }
 
+      if (
+        titleRefs.current[index].value.toLowerCase().includes("school") &&
+        isFuzzy
+      ) {
+        console.log("Running school");
+
+        let tempList = {
+          ...locations,
+        };
+        tempList[index].title = titleRefs.current[index].value;
+        return setLocations(tempList);
+      }
+
+      console.log("Not running school");
       getGeoFromText(string.value, index).then((response) => {
         console.log(`Response: ${response.index}`);
         const index2 = response.index;
@@ -208,13 +228,19 @@ function Map() {
     } else {
       tempLocations = [...locations];
     }
+
+    if (tempLocations.length === 0) {
+      console.log("Not enough locations");
+      return;
+    }
     console.log("Templocations");
     console.log(tempLocations);
 
     let data = {
       locations: tempLocations,
-      radius: { size: sliderValue },
-      optimize: { preference: preference },
+      radius: sliderValue,
+      preference: preference,
+      hospitals: shouldHospital,
       isFuzzy: isFuzzy,
     };
 
@@ -233,28 +259,45 @@ function Map() {
       let info = await fetchFunc();
       console.log(info);
 
+      let tempLabels = [];
+
       locations.map((item) => {
         let index = info.allCoordinates.findIndex(
           (coor) => coor[0] === item.coordinates.lat
         ); // makes sure to map the correct distance and times to the correct location
         if (index >= 0) {
-          locationsLabels.push(getLabel(stringRefs.current[item.id].value));
-          item.label = `${getLabel(
-            stringRefs.current[item.id].value
-          )} | Distance: ${info.allDistances[index]} | Time: ${
-            info.allTimes[index]
-          }`;
+          tempLabels.push(getLabel(stringRefs.current[item.id].value));
+          item.label = (
+            <span>
+              <b>{item.title}</b>
+              <br />
+              <i>{getLabel(stringRefs.current[item.id].value)}</i> <br />
+              Distance: {info.allDistances[index]} km
+              <br />
+              Time: {info.allTimes[index]} min
+            </span>
+          );
         }
         return item;
       });
 
-      setTableData(info);
+      setLocationLabels(tempLabels);
 
+      setTableData(info);
+      if (isFuzzy) {
+        setSchools(info.schools.splice(0, 6));
+      }
+      if (shouldHospital) {
+        setHospitals(info.hospitals.splice(0, 2));
+      }
+
+      setZoom(15 - sliderValue);
       setAllCoordinates(info.allCoordinates);
       setAllCoordinates((previousState) => ({
         ...previousState,
         midpoint: info.midpoint,
       }));
+      setMedPrice(info.median);
       setCenter(info.midpoint);
       setSubmitting(false);
     })();
@@ -322,15 +365,27 @@ function Map() {
           (coor) => coor[0] === item.coordinates.lat
         ); // makes sure to map the correct distance and times to the correct location
         if (index >= 0) {
-          item.label = `${getLabel(
-            stringRefs.current[item.id].value
-          )} | Distance: ${info.allDistances[index]} | Time: ${
-            info.allTimes[index]
-          }`;
+          item.label = (
+            <span>
+              <b>{item.title}</b>
+              <br />
+              <i>{getLabel(stringRefs.current[item.id].value)}</i> <br />
+              Distance: {info.allDistances[index]} km
+              <br />
+              Time: {info.allTimes[index]} min
+            </span>
+          );
         }
         return item;
       });
 
+      if (isFuzzy) {
+        setSchools(info.schools.splice(0, 6));
+      }
+      if (shouldHospital) {
+        setHospitals(info.hospitals.splice(0, 2));
+      }
+      setMedPrice(info.median);
       setAllCoordinates(info.allCoordinates);
       setTableData(info);
       setSubmitting(false);
@@ -379,6 +434,21 @@ function Map() {
             </div>
 
             <div className="locations preference">
+              <div>Search for hospitals: </div>
+              <div className="preference options">
+                <label>Yes</label>
+                <input
+                  type="radio"
+                  name="hospital"
+                  onClick={() => setShouldHospital(true)}
+                ></input>
+                <label>No</label>
+                <input
+                  type="radio"
+                  name="hospital"
+                  onClick={() => setShouldHospital(false)}
+                ></input>
+              </div>
               <div>Calculation preference: </div>
               <div className="preference options">
                 <label>Distance</label>
@@ -396,41 +466,75 @@ function Map() {
               </div>
             </div>
 
-            <div className="table output">
-              <table className="table labels">
-                <thead>
-                  <tr>
-                    <th>Location</th>
-                    <th>Distance (kms)</th>
-                    <th>Time(mins)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {shouldShowLocations &&
-                    Object.keys(tableData).map((value, index) => {
+            {shouldShowLocations && tableData && (
+              <div className="table output">
+                <table className="table labels">
+                  <thead>
+                    <tr>
+                      <th>Location</th>
+                      <th>Distance (km)</th>
+                      <th>Time (min)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {locationLabels.map((location, index) => {
                       return (
-                        <tr>
-                          <td>{locationsLabels[index]}</td>
+                        <tr key={index}>
+                          <td>{location}</td>
                           <td>{tableData.allDistances[index]}</td>
                           <td>{tableData.allTimes[index]}</td>
                         </tr>
                       );
                     })}
-                </tbody>
-              </table>
-            </div>
-            <div className="table output">
-              <table className="table schools">
-                <thead>
-                  <tr>
-                    <th>Schools</th>
-                    <th>Distance (kms)</th>
-                    <th>Time(mins)</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </div>
+                  </tbody>
+                </table>
+                {medPrice !== 0 && (
+                  <span>Median price in neighbourhood: {medPrice}</span>
+                )}
+              </div>
+            )}
+            {shouldShowLocations && schools && (
+              <div className="table output">
+                <table className="table schools">
+                  <thead>
+                    <tr>
+                      <th>Schools (nearest, ascending)</th>
+                      {/* <th>Distance (kms)</th>
+                      <th>Time(mins)</th> */}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {schools.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{item}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {shouldShowLocations && shouldHospital && hospitals && (
+              <div className="table output">
+                <table className="table labels">
+                  <thead>
+                    <tr>
+                      <th>Hospitals (nearest, ascending)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {hospitals.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{item}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
             <div className="box button">
               <button
@@ -458,16 +562,16 @@ function Map() {
               </button>
             </div>
           </form>
-          {submitting && <span>Submitting ... </span>}
+          {submitting && <Spinner type="spinner" />}
         </div>
 
         <div className="googleMap">
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={14}
+            zoom={zoom}
           >
-            {shouldShowLocations && (
+            {shouldShowLocations && locations && (
               <div>
                 {locations.map((item) => {
                   if (item.shouldShow) {
