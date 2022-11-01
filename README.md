@@ -1,5 +1,8 @@
 # Praelocate
 
+![image](https://user-images.githubusercontent.com/100954643/199354912-b18be7f5-781f-4150-bd93-49348ddbfb81.png)
+
+
 ### _A home relocation tool_
 
 A web-app that would find the best location to find a house given certain significant locations as input.
