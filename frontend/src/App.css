@@ -1,7 +1,5 @@
-/* TODO: Add more CSS variables for consistent theming across the app */
 /* TODO: Implement dark mode color scheme */
 /* TODO: Add custom fonts for better typography */
-/* TODO: Create responsive breakpoints for mobile, tablet, desktop */
 /* TODO: Use more descriptive variable names */
 
 :root {
@@ -10,6 +8,11 @@
   --button-hover: #4a797e;
   --input-fill: #E1E1E1;
   --active: #236F74;
+
+  /* Responsive breakpoints */
+  --mobile: 768px;
+  --tablet: 1024px;
+  --desktop: 1440px;
 }
 
 /* TODO: Make responsive for smaller screens */
@@ -133,6 +136,78 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .App {
+    font-size: 14pt;
+  }
+
+  .header {
+    font-size: 16pt;
+    min-height: 80vh;
+    padding: 20px;
+  }
+
+  .header h1 {
+    font-size: 28pt;
+    top: -40px;
+  }
+
+  .header h2 {
+    font-size: 18pt;
+  }
+
+  .header img {
+    height: 150px;
+  }
+
+  .header p {
+    font-size: 14pt;
+    padding: 0 20px;
+  }
+
+  .App-logo {
+    height: 30vmin;
+  }
+
+  .settings-button {
+    width: 45px;
+    height: 45px;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+  }
+
+  .fakeButton {
+    font-size: 14pt;
+    padding: 12px 24px;
+  }
+
+  .body {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .App {
+    font-size: 12pt;
+  }
+
+  .header h1 {
+    font-size: 24pt;
+  }
+
+  .header h2 {
+    font-size: 16pt;
+  }
+
+  .settings-button {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
 }
 
 /* #53E9FF -> main color */

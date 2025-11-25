@@ -1,8 +1,6 @@
-/* TODO: Add responsive layout for mobile (stack vertically) */
 /* TODO: Improve spacing and margins for better visual hierarchy */
 /* TODO: Add smooth transitions and animations */
 /* TODO: Create reusable utility classes */
-/* TODO: Use CSS Grid instead of Flexbox for more complex layouts */
 
 /* Alert messages */
 .alert {
@@ -76,7 +74,6 @@
 
 
 /* child 1 */
-/* TODO: Make width responsive (100% on mobile) */
 /* TODO: Add scrollbar styling for better UX */
 .locations {
   display: flex;
@@ -213,7 +210,6 @@
   box-shadow: 0 0 0 5px var(--active);
 }
 
-/* TODO: Make table responsive (horizontal scroll on mobile) */
 /* TODO: Improve table styling with better borders and spacing */
 /* TODO: Add alternating row colors that work with dark mode */
 /* TODO: Add export button styling for CSV/PDF export */
@@ -225,6 +221,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   padding: 30px 30px 20px 30px;
   width: 70%;
+  overflow-x: auto;
 }
 
 .table.output td,
@@ -248,4 +245,118 @@
   text-align: center;
   background-color: #106a6d;
   color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .map {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .locations {
+    width: 100%;
+    min-height: 50vh;
+  }
+
+  .googleMap {
+    width: 100%;
+    min-height: 50vh;
+  }
+
+  .table.output {
+    width: 90%;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .alert {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    margin: 8px;
+  }
+
+  .alert-icon {
+    font-size: 1rem;
+  }
+
+  .locations {
+    width: 100%;
+    margin: 5px;
+  }
+
+  .googleMap {
+    min-height: 400px;
+  }
+
+  .locations.button {
+    width: 90%;
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  .locations.slider {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .customSlider {
+    width: 90%;
+  }
+
+  .table.output {
+    width: 95%;
+    font-size: 16px;
+    padding: 20px 15px;
+    margin: 10px;
+  }
+
+  .table.output td,
+  .table.output th {
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .preference.options {
+    font-size: 20px;
+    flex-wrap: wrap;
+  }
+
+  .locations.preference {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .alert {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  .locations.button {
+    width: 95%;
+    font-size: 16px;
+  }
+
+  .table.output {
+    width: 98%;
+    font-size: 14px;
+    padding: 15px 10px;
+  }
+
+  .table.output td,
+  .table.output th {
+    padding: 4px;
+    font-size: 12px;
+  }
+
+  .preference.options {
+    font-size: 18px;
+  }
+
+  .locations.add button {
+    width: 60px;
+    font-size: 18px;
+  }
 }

@@ -281,6 +281,87 @@
   color: #856404;
 }
 
-/* TODO: Add media queries for tablets and mobile */
 /* TODO: Improve accessibility (ARIA labels, keyboard navigation) */
 /* TODO: Add loading state for API key validation */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .api-setup-container {
+    padding: 15px;
+  }
+
+  .api-setup-wrapper {
+    padding: 30px 20px;
+    max-width: 100%;
+  }
+
+  .logo-section h1 {
+    font-size: 2rem;
+  }
+
+  .logo-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .setup-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .setup-description {
+    font-size: 0.9rem;
+  }
+
+  .api-input {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+
+  .submit-button,
+  .cancel-button,
+  .reset-button {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .instructions-content h3 {
+    font-size: 1rem;
+  }
+
+  .instructions-content {
+    padding: 15px;
+    font-size: 0.85rem;
+  }
+
+  .note {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .api-setup-wrapper {
+    padding: 25px 15px;
+  }
+
+  .logo-section h1 {
+    font-size: 1.75rem;
+  }
+
+  .logo-section h2 {
+    font-size: 1.1rem;
+  }
+
+  .setup-logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .submit-button,
+  .cancel-button {
+    font-size: 0.95rem;
+  }
+}
