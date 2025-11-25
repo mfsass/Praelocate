@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 import ReactSlider from "react-slider";
 import Geocode from "react-geocode";
 import {
@@ -698,5 +699,9 @@ function Map({ apiKey }) {
     </div>
   );
 }
+
+Map.propTypes = {
+  apiKey: PropTypes.string.isRequired,
+};
 
 export default Map;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import "./apiKeySetup.css";
 
 // TODO: Add a "test API key" button that validates the key before saving
@@ -183,5 +184,16 @@ function ApiKeySetup({ onApiKeySet, onCancel, existingKey }) {
     </div>
   );
 }
+
+ApiKeySetup.propTypes = {
+  onApiKeySet: PropTypes.func.isRequired,
+  onCancel: PropTypes.func,
+  existingKey: PropTypes.string,
+};
+
+ApiKeySetup.defaultProps = {
+  onCancel: null,
+  existingKey: null,
+};
 
 export default ApiKeySetup;

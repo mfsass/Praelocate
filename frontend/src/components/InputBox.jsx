@@ -2,13 +2,13 @@ import React from "react";
 import { forwardRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 import { StandaloneSearchBox } from "@react-google-maps/api";
 
 import "./inputBox.css";
 
 // TODO: Refactor to use object destructuring for props
-// TODO: Add PropTypes or TypeScript for type safety
 // TODO: Replace radio buttons with a more intuitive slider or star rating
 // TODO: Add delete/remove button for individual location inputs
 // TODO: Improve accessibility (ARIA labels, keyboard navigation)
@@ -148,5 +148,11 @@ const InputBox = forwardRef((props, ref) => {
     </>
   );
 });
+
+InputBox.propTypes = {
+  changeRank: PropTypes.func.isRequired,
+  name: PropTypes.number.isRequired,
+  setIsFuzzy: PropTypes.func.isRequired,
+};
 
 export default InputBox;

@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import spinnericon from "./site-spinner.png";
 
 import "./spinner.css";
 
+// TODO: Refactor to use object destructuring for props
 function Spinner(props) {
   return (
     <>
@@ -19,5 +21,9 @@ function Spinner(props) {
     </>
   );
 }
+
+Spinner.propTypes = {
+  type: PropTypes.oneOf(["spinner", "balls"]).isRequired,
+};
 
 export default Spinner;
