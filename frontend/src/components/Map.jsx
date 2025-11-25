@@ -424,14 +424,21 @@ function Map({ apiKey }) {
               );
             })}
             <div className="locations add">
-              <label>Add a location</label>
-              <button type="button" onClick={addInput}>
+              <label id="add-location-label">Add a location</label>
+              <button
+                type="button"
+                onClick={addInput}
+                aria-label="Add new location"
+                aria-describedby="add-location-label"
+              >
                 +
               </button>
             </div>
 
             <div className="locations slider">
-              <div>Output radius:</div>
+              <label htmlFor="radius-slider" id="radius-label">
+                Output radius:
+              </label>
 
               <ReactSlider
                 className="customSlider"
@@ -444,42 +451,66 @@ function Map({ apiKey }) {
                 defaultValue={1}
                 value={sliderValue}
                 onChange={(value) => setSliderValue(value)}
+                ariaLabel="Select search radius in kilometers"
+                ariaValueText={`${sliderValue} kilometers`}
               />
 
-              <div> {sliderValue} km </div>
+              <div aria-live="polite" aria-atomic="true">
+                {sliderValue} km
+              </div>
             </div>
 
             <div className="locations preference">
-              <div>Search for hospitals: </div>
-              <div className="preference options">
-                <label>Yes</label>
-                <input
-                  type="radio"
-                  name="hospital"
-                  onClick={() => setShouldHospital(true)}
-                ></input>
-                <label>No</label>
-                <input
-                  type="radio"
-                  name="hospital"
-                  onClick={() => setShouldHospital(false)}
-                ></input>
-              </div>
-              <div>Calculation preference: </div>
-              <div className="preference options">
-                <label>Distance</label>
-                <input
-                  type="radio"
-                  name="preference"
-                  onClick={() => setPreference("distance")}
-                />
-                <label>Time</label>
-                <input
-                  type="radio"
-                  name="preference"
-                  onClick={() => setPreference("time")}
-                />
-              </div>
+              <fieldset>
+                <legend>Search for hospitals:</legend>
+                <div className="preference options">
+                  <label htmlFor="hospital-yes">
+                    <input
+                      id="hospital-yes"
+                      type="radio"
+                      name="hospital"
+                      onClick={() => setShouldHospital(true)}
+                      aria-label="Include hospitals in search"
+                    />
+                    Yes
+                  </label>
+                  <label htmlFor="hospital-no">
+                    <input
+                      id="hospital-no"
+                      type="radio"
+                      name="hospital"
+                      onClick={() => setShouldHospital(false)}
+                      aria-label="Do not include hospitals"
+                    />
+                    No
+                  </label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Calculation preference:</legend>
+                <div className="preference options">
+                  <label htmlFor="pref-distance">
+                    <input
+                      id="pref-distance"
+                      type="radio"
+                      name="preference"
+                      onClick={() => setPreference("distance")}
+                      aria-label="Optimize for distance"
+                    />
+                    Distance
+                  </label>
+                  <label htmlFor="pref-time">
+                    <input
+                      id="pref-time"
+                      type="radio"
+                      name="preference"
+                      onClick={() => setPreference("time")}
+                      aria-label="Optimize for time"
+                    />
+                    Time
+                  </label>
+                </div>
+              </fieldset>
             </div>
 
             {shouldShowLocations && tableData && (
@@ -559,6 +590,7 @@ function Map({ apiKey }) {
                 onClick={(event) => {
                   handleSave(event);
                 }}
+                aria-label="Save all location inputs"
               >
                 Save
               </button>
@@ -566,15 +598,19 @@ function Map({ apiKey }) {
                 className="locations button"
                 type="submit"
                 onClick={changeColor}
+                aria-label="Submit and calculate optimal location"
+                disabled={submitting}
               >
-                Submit
+                {submitting ? "Calculating..." : "Submit"}
               </button>
               <button
                 className="locations button"
                 type="button"
                 onClick={toggleShow}
+                aria-label="Toggle midpoint visibility on map"
+                aria-pressed={shouldShowMidPoint}
               >
-                Show point
+                {shouldShowMidPoint ? "Hide point" : "Show point"}
               </button>
             </div>
           </form>

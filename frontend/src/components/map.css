@@ -153,11 +153,30 @@
   display: inline-flexbox;
 }
 
+.locations.preference fieldset {
+  border: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.locations.preference legend {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
 .preference.options {
   font-size: 25px;
   display: flex;
   gap: 15px;
   margin: 15px 0px;
+}
+
+.preference.options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
 }
 
 .preference.options input[type="radio"] {
