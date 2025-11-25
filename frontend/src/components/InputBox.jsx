@@ -5,6 +5,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 import { StandaloneSearchBox } from "@react-google-maps/api";
+import { RANK_LABELS } from "../constants";
 
 import "./inputBox.css";
 
@@ -13,11 +14,10 @@ import "./inputBox.css";
 // TODO: Add delete/remove button for individual location inputs
 // TODO: Improve accessibility (ARIA labels, keyboard navigation)
 // TODO: Add validation for required fields with visual feedback
-// TODO: Extract magic strings into constants
 // TODO: Improve component documentation
 
 const InputBox = forwardRef((props, ref) => {
-  const [rankText, setRankText] = useState("Importance");
+  const [rankText, setRankText] = useState(RANK_LABELS[0]);
   const [shouldShow, setShouldShow] = useState(false);
   const [fuzzy, setFuzzy] = useState(false);
   const [title, setTitle] = useState("");
@@ -25,31 +25,10 @@ const InputBox = forwardRef((props, ref) => {
 
   const { locationTitle, locationStr, locationTime } = ref;
 
-  // TODO: Extract rank labels into a configuration object or enum
-  // TODO: Consider using a mapping object instead of switch statement
+  // Update rank text based on rank value using constants
   useEffect(() => {
-    if (rank > 0) {
-      switch (rank) {
-        case 1:
-          setRankText("Not important");
-          break;
-        case 2:
-          setRankText("Important");
-          break;
-        case 3:
-          setRankText("Very important");
-          break;
-        case 4:
-          setRankText("Integral");
-          break;
-        default:
-          setRankText("");
-          break;
-      }
-    } else {
-      setRankText("Importance");
-    }
-  }, [rank]); // Fixed: removed rankText from dependencies to prevent infinite loops
+    setRankText(RANK_LABELS[rank] || RANK_LABELS[0]);
+  }, [rank]);
 
   return (
     <>

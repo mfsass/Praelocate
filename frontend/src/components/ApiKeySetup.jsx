@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { API_KEY_MIN_LENGTH } from "../constants";
 import "./apiKeySetup.css";
 
 // TODO: Add a "test API key" button that validates the key before saving
@@ -19,7 +20,7 @@ function ApiKeySetup({ onApiKeySet, onCancel, existingKey }) {
       return "API key cannot be empty";
     }
 
-    if (trimmedKey.length < 20) {
+    if (trimmedKey.length < API_KEY_MIN_LENGTH) {
       return "API key seems too short. Please check and try again.";
     }
 

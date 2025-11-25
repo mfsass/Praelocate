@@ -12,30 +12,28 @@ import {
 
 import InputBox from "./InputBox";
 import Spinner from "./Spinner";
+import {
+  MAPS_LIBRARIES,
+  CIRCLE_OPTIONS,
+  DEFAULT_MAP_CENTER,
+  DEFAULT_ZOOM,
+  MAX_LOCATIONS,
+  DEFAULT_TIME,
+  SUCCESS_MESSAGE_DURATION,
+  DEFAULT_PREFERENCES,
+} from "../constants";
 import "./map.css";
 
 // TODO: Split this large component into smaller, manageable components
 // TODO: Extract business logic into custom hooks (useLocations, useMapData)
 // TODO: Add proper TypeScript types for better type safety
-// TODO: Implement proper error handling for API failures
-// TODO: Add loading states for geocoding operations
 // TODO: Optimize re-renders with useMemo and useCallback
 // TODO: Add unit tests for core functionality
 // TODO: Implement debouncing for API calls to reduce costs
 
-const libraries = ["places"];
-
 const containerStyle = {
   width: "100%",
   height: "100%",
-};
-
-const options = {
-  strokeColor: "#5982E2",
-  strokeOpacity: 0.8,
-  strokeWeight: 2,
-  fillColor: "#5982E2",
-  fillOpacity: 0.35,
 };
 
 function Map({ apiKey }) {
@@ -52,7 +50,7 @@ function Map({ apiKey }) {
   const [locations, setLocations] = useState([]);
   const [inputs, setInputs] = useState([]);
   const [count, setCount] = useState(0);
-  const [ranks, setRanks] = useState(Array(20).fill(-1));
+  const [ranks, setRanks] = useState(Array(MAX_LOCATIONS).fill(-1));
   const [infoWindows, setInfoWindows] = useState([]);
   const [schools, setSchools] = useState([]);
   const [hospitals, setHospitals] = useState([]);
@@ -60,12 +58,9 @@ function Map({ apiKey }) {
   const [isFuzzy, setIsFuzzy] = useState(false);
   const [shouldHospital, setShouldHospital] = useState(false);
   const [sliderValue, setSliderValue] = useState(1);
-  const [preference, setPreference] = useState("time");
-  const [zoom, setZoom] = useState(14);
-  const [center, setCenter] = useState({
-    lat: -33.9328,
-    lng: 18.8644,
-  });
+  const [preference, setPreference] = useState(DEFAULT_PREFERENCES.time);
+  const [zoom, setZoom] = useState(DEFAULT_ZOOM);
+  const [center, setCenter] = useState(DEFAULT_MAP_CENTER);
 
   const [submitting, setSubmitting] = useState(false);
   const [shouldShowLocations, setShouldShowLocations] = useState(false);
@@ -90,10 +85,7 @@ function Map({ apiKey }) {
 
   // TODO: Refactor this function to be more modular and testable
   // TODO: Add validation for maximum number of locations
-  // TODO: Remove console.log statements (use proper logging library)
   const addInput = () => {
-    console.log(`Count: ${count}`);
-
     setLocations([
       ...locations,
       {
@@ -104,7 +96,7 @@ function Map({ apiKey }) {
         },
         title: "",
         label: "",
-        time: "12:00",
+        time: DEFAULT_TIME,
         shouldShow: false,
         rank: -1,
       },
@@ -139,15 +131,12 @@ function Map({ apiKey }) {
     !** important **! does not have the state of the parent
   */
   const changeRank = (index, value) => {
-    console.log(`Changing rank ${index} to ${value}`);
     setRanks(
       ranks.map((item, i) => {
         if (i === index) {
-          console.log("Changing");
           item = value;
           return item;
         } else {
-          console.log("Not changing");
           return item;
         }
       })
@@ -165,18 +154,10 @@ function Map({ apiKey }) {
     event.preventDefault();
 
     stringRefs.current.forEach(async (string, index) => {
-      try {
-        console.log(`Trying: ${string.value}`);
-      } catch (error) {
-        console.log(`Aborting: ${string}`);
-      }
-
       if (
         titleRefs.current[index].value.toLowerCase().includes("school") &&
         isFuzzy
       ) {
-        console.log("Running school");
-
         let tempList = {
           ...locations,
         };
@@ -184,14 +165,11 @@ function Map({ apiKey }) {
         return setLocations(tempList);
       }
 
-      console.log("Not running school");
       getGeoFromText(string.value, index).then((response) => {
         if (!response) {
           // Error already handled in getGeoFromText
           return;
         }
-
-        console.log(`Response: ${response.index}`);
         const index2 = response.index;
         const timeValue = timeRefs.current[index2].value;
         const tempLocation = {
@@ -225,7 +203,6 @@ function Map({ apiKey }) {
   };
 
   const getGeoFromText = async (text, index) => {
-    console.log(`Trying geo ${index}`);
     if (text) {
       try {
         const response = await Geocode.fromAddress(text);
@@ -237,6 +214,7 @@ function Map({ apiKey }) {
           coordinates: response.results[0].geometry.location,
         };
       } catch (error) {
+        // Keep error logging for debugging geocoding issues
         console.error(`Geocoding error for "${text}":`, error);
         setError(`Failed to geocode location: "${text}". Please check the address and try again.`);
         return null;
@@ -258,7 +236,6 @@ function Map({ apiKey }) {
     let tempLocations = [];
     if (isFuzzy) {
       Object.keys(locations).forEach((key) => {
-        console.log(locations[key]);
         if (!locations[key].title.toLowerCase().includes("school")) {
           tempLocations.push(locations[key]);
         }
@@ -272,8 +249,6 @@ function Map({ apiKey }) {
       setSubmitting(false);
       return;
     }
-    console.log("Templocations");
-    console.log(tempLocations);
 
     let data = {
       locations: tempLocations,
@@ -282,8 +257,6 @@ function Map({ apiKey }) {
       hospitals: shouldHospital,
       isFuzzy: isFuzzy,
     };
-
-    console.log(JSON.stringify(data));
     const requestOpt = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -304,7 +277,6 @@ function Map({ apiKey }) {
     (async () => {
       try {
         let info = await fetchFunc();
-        console.log(info);
 
         if (!info || !info.allCoordinates) {
           throw new Error("Invalid response from server");
@@ -353,8 +325,8 @@ function Map({ apiKey }) {
       setSubmitting(false);
       setSuccessMessage("Locations calculated successfully!");
 
-      // Clear success message after 3 seconds
-      setTimeout(() => setSuccessMessage(""), 3000);
+      // Clear success message after configured duration
+      setTimeout(() => setSuccessMessage(""), SUCCESS_MESSAGE_DURATION);
     } catch (error) {
       console.error("Error fetching locations:", error);
       setError(
@@ -367,38 +339,7 @@ function Map({ apiKey }) {
     setShouldShowLocations(true);
   };
 
-  /**
-   * Debug utility
-   */
-  const getValues = () => {
-    console.log("*** Title refs: ***");
-    console.log(titleRefs.current);
-    titleRefs.current.forEach((ref, index) => {
-      console.log(`Title value [${index}]: ${ref.value}`);
-    });
-
-    console.log("*** String refs: ***");
-    console.log(stringRefs.current);
-    stringRefs.current.forEach((ref, index) => {
-      console.log(`Input value [${index}]: ${ref.value}`);
-    });
-
-    console.log("*** Time refs: ***");
-    console.log(timeRefs.current);
-    timeRefs.current.forEach((ref, index) => {
-      console.log(`Time value [${index}]: ${ref.value}`);
-    });
-
-    console.log("*** Info windows: ***");
-    console.log(infoWindows);
-
-    console.log("*** Ranks: ***");
-    console.log(ranks);
-    console.log("*** Locations: ***");
-    console.log(locations);
-
-    console.log(`*** Is fuzzy? ${isFuzzy} ***`);
-  };
+  // Debug utility removed for production
 
   const newMidpoint = (e) => {
     setSubmitting(true);
@@ -457,7 +398,7 @@ function Map({ apiKey }) {
 
   return (
     <div className="map">
-      <LoadScript googleMapsApiKey={apiKey} libraries={libraries}>
+      <LoadScript googleMapsApiKey={apiKey} libraries={MAPS_LIBRARIES}>
         <div className="locations">
           {error && (
             <div className="alert alert-error">
@@ -486,9 +427,6 @@ function Map({ apiKey }) {
               <label>Add a location</label>
               <button type="button" onClick={addInput}>
                 +
-              </button>
-              <button type="button" onClick={getValues}>
-                GET
               </button>
             </div>
 
@@ -688,7 +626,7 @@ function Map({ apiKey }) {
               <CircleF
                 center={allCoordinates.midpoint}
                 radius={sliderValue * 1000}
-                options={options}
+                options={CIRCLE_OPTIONS}
                 draggable={true}
                 onDragEnd={(e) => newMidpoint(e)}
               />
