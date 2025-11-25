@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactSlider from "react-slider";
 import Geocode from "react-geocode";
 import {
@@ -12,6 +12,15 @@ import {
 import InputBox from "./InputBox";
 import Spinner from "./Spinner";
 import "./map.css";
+
+// TODO: Split this large component into smaller, manageable components
+// TODO: Extract business logic into custom hooks (useLocations, useMapData)
+// TODO: Add proper TypeScript types for better type safety
+// TODO: Implement proper error handling for API failures
+// TODO: Add loading states for geocoding operations
+// TODO: Optimize re-renders with useMemo and useCallback
+// TODO: Add unit tests for core functionality
+// TODO: Implement debouncing for API calls to reduce costs
 
 const libraries = ["places"];
 
@@ -28,12 +37,14 @@ const options = {
   fillOpacity: 0.35,
 };
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-
-Geocode.setApiKey(API_KEY);
-Geocode.setRegion("za");
-
-function Map() {
+function Map({ apiKey }) {
+  // Initialize Geocode with the provided API key
+  useEffect(() => {
+    if (apiKey) {
+      Geocode.setApiKey(apiKey);
+      Geocode.setRegion("za"); // TODO: Make region configurable based on user location
+    }
+  }, [apiKey]);
   const titleRefs = useRef([]);
   const stringRefs = useRef([]);
   const timeRefs = useRef([]);
@@ -74,6 +85,9 @@ function Map() {
     event.target.style["background-color"] = tempColor;
   };
 
+  // TODO: Refactor this function to be more modular and testable
+  // TODO: Add validation for maximum number of locations
+  // TODO: Remove console.log statements (use proper logging library)
   const addInput = () => {
     console.log(`Count: ${count}`);
 
@@ -139,6 +153,10 @@ function Map() {
 
   /**
    * Saves all the values and requests the coordinates from the google maps API
+   * TODO: Add validation before saving (check for empty fields)
+   * TODO: Show user feedback (success/error messages)
+   * TODO: Handle API rate limiting gracefully
+   * TODO: Add cancel/reset functionality
    */
   const handleSave = (event) => {
     event.preventDefault();
@@ -213,6 +231,11 @@ function Map() {
     }
   };
 
+  // TODO: Refactor this large function into smaller, focused functions
+  // TODO: Add proper error handling and user notifications
+  // TODO: Implement loading states for each async operation
+  // TODO: Add request cancellation support (AbortController)
+  // TODO: Cache results to avoid repeated API calls
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -229,6 +252,7 @@ function Map() {
       tempLocations = [...locations];
     }
 
+    // TODO: Show proper error message to user instead of just logging
     if (tempLocations.length === 0) {
       console.log("Not enough locations");
       return;
@@ -394,7 +418,7 @@ function Map() {
 
   return (
     <div className="map">
-      <LoadScript googleMapsApiKey={API_KEY} libraries={libraries}>
+      <LoadScript googleMapsApiKey={apiKey} libraries={libraries}>
         <div className="locations">
           <form className="locations form" onSubmit={handleSubmit}>
             {inputs.map((input, index) => {

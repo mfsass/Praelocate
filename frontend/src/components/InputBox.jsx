@@ -7,6 +7,15 @@ import { StandaloneSearchBox } from "@react-google-maps/api";
 
 import "./inputBox.css";
 
+// TODO: Refactor to use object destructuring for props
+// TODO: Add PropTypes or TypeScript for type safety
+// TODO: Replace radio buttons with a more intuitive slider or star rating
+// TODO: Add delete/remove button for individual location inputs
+// TODO: Improve accessibility (ARIA labels, keyboard navigation)
+// TODO: Add validation for required fields with visual feedback
+// TODO: Extract magic strings into constants
+// TODO: Improve component documentation
+
 const InputBox = forwardRef((props, ref) => {
   const [rankText, setRankText] = useState("Importance");
   const [shouldShow, setShouldShow] = useState(false);
@@ -16,6 +25,9 @@ const InputBox = forwardRef((props, ref) => {
 
   const { locationTitle, locationStr, locationTime } = ref;
 
+  // TODO: Extract rank labels into a configuration object or enum
+  // TODO: Fix dependency array (rankText shouldn't be a dependency)
+  // TODO: Consider using a mapping object instead of switch statement
   useEffect(() => {
     if (rank > 0) {
       switch (rank) {

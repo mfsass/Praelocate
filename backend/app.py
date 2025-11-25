@@ -1,3 +1,14 @@
+# TODO: Add proper error handling throughout the application
+# TODO: Implement request validation using Flask-RESTful or Marshmallow
+# TODO: Add API rate limiting to prevent abuse
+# TODO: Move configuration to separate config file
+# TODO: Add logging instead of print statements (use Python logging module)
+# TODO: Add unit tests and integration tests
+# TODO: Implement caching for API responses (Redis/Memcached)
+# TODO: Add API documentation (Swagger/OpenAPI)
+# TODO: Consider using environment variables for sensitive data
+# TODO: Replace selenium with more efficient scraping method or API
+
 from datetime import datetime, timedelta
 import json
 import googlemaps
@@ -16,7 +27,9 @@ app = Flask(__name__)
 CORS(app)
 # app.run(debug=True)
 
-
+# TODO: Move API key to environment variable for security
+# TODO: Add proper error handling for missing API key file
+# TODO: Validate API key format before attempting to use it
 # top secret
 with open("api-key.txt") as api_file:
     key = api_file.readline()
@@ -24,6 +37,8 @@ with open("api-key.txt") as api_file:
 try:
     gmaps = googlemaps.Client(key=key)
 except:
+    # TODO: Use proper logging instead of print
+    # TODO: Provide more specific error message
     print("Invalid api key")
     exit(0)
 
@@ -31,6 +46,10 @@ except:
 @app.route("/newMidpoint", methods=["POST"])
 @cross_origin()
 def new_midpoint():
+    # TODO: Add request validation to ensure all required fields are present
+    # TODO: Handle invalid coordinates gracefully
+    # TODO: Add response status codes (200, 400, 500)
+    # TODO: Refactor to use async/await for better performance
     # recalculates distances and times from midpoint to coordinates
     # returns new midpoint and new distances and times
     data = request.get_json()
@@ -96,6 +115,11 @@ def new_midpoint():
 @app.route("/locations", methods=["POST"])
 @cross_origin()
 def locations():
+    # TODO: Refactor to avoid using global variables (use class or function parameters)
+    # TODO: Add input validation for all request parameters
+    # TODO: Add proper error handling with try-except blocks
+    # TODO: Return proper HTTP status codes
+    # TODO: Add request logging for debugging
     # reset all variables
     global coordinates
     global all_coordinates
@@ -137,6 +161,11 @@ def locations():
     return calculate_midpoint(list_json)
 
 
+# TODO: Extract this into a separate module/class for better organization
+# TODO: Add type hints for better code clarity
+# TODO: Optimize the distance calculation algorithm
+# TODO: Add unit tests for edge cases (empty list, single location, etc.)
+# TODO: Consider using numpy for better performance with coordinates
 def calculate_midpoint(list_json):
 
     for i in range(0, len(list_json)):
@@ -145,6 +174,7 @@ def calculate_midpoint(list_json):
         times.append((list_json[i][3]))  # time
 
     # NOTE: rank multiplier calculation here
+    # TODO: Extract magic numbers into named constants
     midpoint_lat = 0.0
     midpoint_lng = 0.0
     weights = 0.0

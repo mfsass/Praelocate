@@ -1,0 +1,187 @@
+/* TODO: Make responsive for mobile devices */
+/* TODO: Add smooth transitions and animations */
+/* TODO: Improve color scheme to match main app theme */
+/* TODO: Add dark mode support */
+
+.api-setup-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.api-setup-wrapper {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 100%;
+  padding: 40px;
+  text-align: center;
+}
+
+.logo-section {
+  margin-bottom: 30px;
+}
+
+.setup-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+}
+
+.logo-section h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.logo-section h2 {
+  font-size: 1.5rem;
+  color: #666;
+  margin: 5px 0;
+  font-weight: normal;
+}
+
+.setup-content {
+  text-align: left;
+}
+
+.setup-description {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.api-form {
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.api-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.api-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+.instructions-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.toggle-instructions {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #333;
+  transition: background 0.3s ease;
+  width: 100%;
+}
+
+.toggle-instructions:hover {
+  background: #e8e8e8;
+}
+
+.instructions-content {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.instructions-content h3 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.instructions-content ol {
+  margin-left: 20px;
+  line-height: 1.8;
+  color: #555;
+}
+
+.instructions-content ol li {
+  margin-bottom: 10px;
+}
+
+.instructions-content ul {
+  margin-left: 20px;
+  margin-top: 5px;
+  list-style-type: circle;
+}
+
+.instructions-content a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.instructions-content a:hover {
+  text-decoration: underline;
+}
+
+.note {
+  margin-top: 15px;
+  padding: 10px;
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #856404;
+}
+
+/* TODO: Add media queries for tablets and mobile */
+/* TODO: Improve accessibility (ARIA labels, keyboard navigation) */
+/* TODO: Add loading state for API key validation */

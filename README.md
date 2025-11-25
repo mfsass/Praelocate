@@ -5,6 +5,12 @@ A web-app that would find the best location to find a house given certain signif
 
 ![image](https://user-images.githubusercontent.com/100954643/199354912-b18be7f5-781f-4150-bd93-49348ddbfb81.png)
 
+## 🚀 New Features
+
+**Easy Setup**: On first launch, you'll be guided through a simple setup page where you can enter your Google Maps API key. No more configuration files needed - just paste your key and start using the app!
+
+**User-Friendly**: The API key is stored locally in your browser, so you only need to enter it once. Anyone can now use this tool with their own Google Maps API key.
+
 ## Authors:
 
 - Jacques le Roux
@@ -22,6 +28,7 @@ A web-app that would find the best location to find a house given certain signif
 
 - Python 3.x
 - NodeJS
+- Google Maps API Key (see setup instructions below)
 
 ## Environment setup:
 
@@ -79,6 +86,24 @@ Run:
 2. Start the react app:
 
    `$ npm start`
+
+## Getting a Google Maps API Key:
+
+When you first open the application, you'll see a setup page asking for your Google Maps API key.
+
+### Steps to get your API key:
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/google/maps-apis)
+2. Create a new project or select an existing one
+3. Enable the following APIs:
+   - Maps JavaScript API
+   - Geocoding API
+   - Places API
+   - Distance Matrix API
+4. Go to "Credentials" and create an API key
+5. Copy the API key and paste it in the setup page
+
+**Note**: Your API key is stored locally in your browser and is never sent to any server except Google's APIs.
 
 ## Workflow:
 

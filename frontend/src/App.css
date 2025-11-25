@@ -1,3 +1,9 @@
+/* TODO: Add more CSS variables for consistent theming across the app */
+/* TODO: Implement dark mode color scheme */
+/* TODO: Add custom fonts for better typography */
+/* TODO: Create responsive breakpoints for mobile, tablet, desktop */
+/* TODO: Use more descriptive variable names */
+
 :root {
   --background-light: #F0F8F9;
   --button: #6B8F92;
@@ -6,6 +12,9 @@
   --active: #236F74;
 }
 
+/* TODO: Make responsive for smaller screens */
+/* TODO: Add loading animation class */
+/* TODO: Improve overall layout structure */
 .App {
   text-align: center;
   height: 100%;
