@@ -72,6 +72,8 @@ function Map({ apiKey }) {
   const [allCoordinates, setAllCoordinates] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [locationLabels, setLocationLabels] = useState([]);
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const toggleShow = (event) => {
     if (allCoordinates.midpoint) {
@@ -183,6 +185,11 @@ function Map({ apiKey }) {
 
       console.log("Not running school");
       getGeoFromText(string.value, index).then((response) => {
+        if (!response) {
+          // Error already handled in getGeoFromText
+          return;
+        }
+
         console.log(`Response: ${response.index}`);
         const index2 = response.index;
         const timeValue = timeRefs.current[index2].value;
@@ -204,6 +211,8 @@ function Map({ apiKey }) {
             } else return locations[i];
           })
         );
+      }).catch((error) => {
+        console.error("Error saving location:", error);
       });
     });
 
@@ -217,28 +226,33 @@ function Map({ apiKey }) {
   const getGeoFromText = async (text, index) => {
     console.log(`Trying geo ${index}`);
     if (text) {
-      return await Geocode.fromAddress(text).then(
-        (response) => {
-          return {
-            index: index,
-            coordinates: response.results[0].geometry.location,
-          };
-        },
-        (error) => {
-          console.error(error);
+      try {
+        const response = await Geocode.fromAddress(text);
+        if (!response.results || response.results.length === 0) {
+          throw new Error(`No results found for: ${text}`);
         }
-      );
+        return {
+          index: index,
+          coordinates: response.results[0].geometry.location,
+        };
+      } catch (error) {
+        console.error(`Geocoding error for "${text}":`, error);
+        setError(`Failed to geocode location: "${text}". Please check the address and try again.`);
+        return null;
+      }
     }
+    return null;
   };
 
   // TODO: Refactor this large function into smaller, focused functions
-  // TODO: Add proper error handling and user notifications
   // TODO: Implement loading states for each async operation
   // TODO: Add request cancellation support (AbortController)
   // TODO: Cache results to avoid repeated API calls
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitting(true);
+    setError("");
+    setSuccessMessage("");
 
     let tempLocations = [];
     if (isFuzzy) {
@@ -252,9 +266,9 @@ function Map({ apiKey }) {
       tempLocations = [...locations];
     }
 
-    // TODO: Show proper error message to user instead of just logging
     if (tempLocations.length === 0) {
-      console.log("Not enough locations");
+      setError("Please add at least one location before submitting.");
+      setSubmitting(false);
       return;
     }
     console.log("Templocations");
@@ -276,12 +290,24 @@ function Map({ apiKey }) {
     };
     async function fetchFunc() {
       return await fetch("/locations", requestOpt)
-        .then((response) => response.json())
-        .catch((error) => console.log(error));
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+          }
+          return response.json();
+        })
+        .catch((error) => {
+          throw error;
+        });
     }
     (async () => {
-      let info = await fetchFunc();
-      console.log(info);
+      try {
+        let info = await fetchFunc();
+        console.log(info);
+
+        if (!info || !info.allCoordinates) {
+          throw new Error("Invalid response from server");
+        }
 
       let tempLabels = [];
 
@@ -324,6 +350,18 @@ function Map({ apiKey }) {
       setMedPrice(info.median);
       setCenter(info.midpoint);
       setSubmitting(false);
+      setSuccessMessage("Locations calculated successfully!");
+
+      // Clear success message after 3 seconds
+      setTimeout(() => setSuccessMessage(""), 3000);
+    } catch (error) {
+      console.error("Error fetching locations:", error);
+      setError(
+        error.message ||
+        "Failed to calculate locations. Please check your internet connection and try again."
+      );
+      setSubmitting(false);
+    }
     })();
     setShouldShowLocations(true);
   };
@@ -420,6 +458,21 @@ function Map({ apiKey }) {
     <div className="map">
       <LoadScript googleMapsApiKey={apiKey} libraries={libraries}>
         <div className="locations">
+          {error && (
+            <div className="alert alert-error">
+              <span className="alert-icon">⚠</span>
+              {error}
+              <button className="alert-close" onClick={() => setError("")}>
+                ×
+              </button>
+            </div>
+          )}
+          {successMessage && (
+            <div className="alert alert-success">
+              <span className="alert-icon">✓</span>
+              {successMessage}
+            </div>
+          )}
           <form className="locations form" onSubmit={handleSubmit}>
             {inputs.map((input, index) => {
               return (

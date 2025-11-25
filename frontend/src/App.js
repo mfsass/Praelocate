@@ -3,7 +3,6 @@ import Map from "./components/Map";
 import ApiKeySetup from "./components/ApiKeySetup";
 import "./App.css";
 
-// TODO: Add a settings icon to allow users to change API key later
 // TODO: Improve the transition between setup and main app
 // TODO: Add error boundary for better error handling
 // TODO: Consider adding a splash screen/loading animation
@@ -13,6 +12,7 @@ function App() {
   const ref = useRef();
   const [apiKey, setApiKey] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     // Check if API key exists in localStorage on mount
@@ -29,6 +29,15 @@ function App() {
 
   const handleApiKeySet = (key) => {
     setApiKey(key);
+    setShowSettings(false);
+  };
+
+  const handleResetApiKey = () => {
+    if (window.confirm("Are you sure you want to reset your API key? You'll need to enter it again.")) {
+      localStorage.removeItem("googleMapsApiKey");
+      setApiKey(null);
+      setShowSettings(false);
+    }
   };
 
   // Show loading state briefly while checking localStorage
@@ -36,14 +45,27 @@ function App() {
     return <div className="App">Loading...</div>;
   }
 
-  // Show setup page if no API key
-  if (!apiKey) {
-    return <ApiKeySetup onApiKeySet={handleApiKeySet} />;
+  // Show setup page if no API key or if settings is open
+  if (!apiKey || showSettings) {
+    return <ApiKeySetup
+      onApiKeySet={handleApiKeySet}
+      onCancel={apiKey && showSettings ? () => setShowSettings(false) : null}
+      existingKey={showSettings ? apiKey : null}
+    />;
   }
 
   // Show main app once API key is set
   return (
     <div className="App">
+      <button
+        className="settings-button"
+        onClick={() => setShowSettings(true)}
+        title="Change API Key"
+        aria-label="Settings"
+      >
+        ⚙
+      </button>
+
       <div className="header" onClick={handleClick}>
         <div className="header wrapper" ref={ref}>
           <div className="logo">

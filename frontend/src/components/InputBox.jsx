@@ -26,7 +26,6 @@ const InputBox = forwardRef((props, ref) => {
   const { locationTitle, locationStr, locationTime } = ref;
 
   // TODO: Extract rank labels into a configuration object or enum
-  // TODO: Fix dependency array (rankText shouldn't be a dependency)
   // TODO: Consider using a mapping object instead of switch statement
   useEffect(() => {
     if (rank > 0) {
@@ -47,8 +46,10 @@ const InputBox = forwardRef((props, ref) => {
           setRankText("");
           break;
       }
+    } else {
+      setRankText("Importance");
     }
-  }, [rankText, rank]);
+  }, [rank]); // Fixed: removed rankText from dependencies to prevent infinite loops
 
   return (
     <>

@@ -20,6 +20,36 @@
   height: 100%;
   min-height: 100%;
   font-size: 16pt;
+  position: relative;
+}
+
+.settings-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--button);
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-button:hover {
+  background: var(--button);
+  transform: rotate(90deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.settings-button:active {
+  transform: rotate(90deg) scale(0.95);
 }
 
 .App-logo {

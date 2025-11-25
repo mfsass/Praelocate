@@ -1,24 +1,69 @@
 import React, { useState } from "react";
 import "./apiKeySetup.css";
 
-// TODO: Add better validation for API key format
 // TODO: Add a "test API key" button that validates the key before saving
-// TODO: Add a link to Google Cloud Console for getting an API key
-// TODO: Implement error handling for invalid API keys
-// TODO: Add visual feedback for successful API key storage
-// TODO: Consider adding a way to clear/reset the API key from settings
 
-function ApiKeySetup({ onApiKeySet }) {
-  const [apiKey, setApiKey] = useState("");
+function ApiKeySetup({ onApiKeySet, onCancel, existingKey }) {
+  const [apiKey, setApiKey] = useState(existingKey || "");
   const [showInstructions, setShowInstructions] = useState(false);
+  const [error, setError] = useState("");
+  const [isValidating, setIsValidating] = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
 
-  const handleSubmit = (e) => {
+  const validateApiKey = (key) => {
+    // Basic validation: Google API keys typically start with "AIza" and are 39 characters
+    const trimmedKey = key.trim();
+
+    if (!trimmedKey) {
+      return "API key cannot be empty";
+    }
+
+    if (trimmedKey.length < 20) {
+      return "API key seems too short. Please check and try again.";
+    }
+
+    if (!/^[A-Za-z0-9_-]+$/.test(trimmedKey)) {
+      return "API key contains invalid characters";
+    }
+
+    return null;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
-    if (apiKey.trim()) {
+    // Validate the API key format
+    const validationError = validateApiKey(apiKey);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    setIsValidating(true);
+
+    try {
       // Store API key in localStorage
-      localStorage.setItem("googleMapsApiKey", apiKey.trim());
-      onApiKeySet(apiKey.trim());
+      const trimmedKey = apiKey.trim();
+      localStorage.setItem("googleMapsApiKey", trimmedKey);
+
+      // Small delay to show feedback
+      setTimeout(() => {
+        onApiKeySet(trimmedKey);
+      }, 500);
+    } catch (err) {
+      setError("Failed to save API key. Please try again.");
+      setIsValidating(false);
+    }
+  };
+
+  const handleReset = () => {
+    if (window.confirm("Are you sure you want to clear your API key? You'll need to enter a new one.")) {
+      localStorage.removeItem("googleMapsApiKey");
+      setApiKey("");
+      if (onCancel) {
+        onCancel(); // This will trigger re-render to show setup page without existing key
+      }
     }
   };
 
@@ -32,7 +77,7 @@ function ApiKeySetup({ onApiKeySet }) {
             alt="logo"
           />
           <h1>PRAELOCATE</h1>
-          <h2>Setup Required</h2>
+          <h2>{existingKey ? "Change API Key" : "Setup Required"}</h2>
         </div>
 
         <div className="setup-content">
@@ -48,16 +93,47 @@ function ApiKeySetup({ onApiKeySet }) {
                 type="text"
                 id="apiKey"
                 value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
+                onChange={(e) => {
+                  setApiKey(e.target.value);
+                  setError(""); // Clear error on input change
+                }}
                 placeholder="Enter your API key here"
-                className="api-input"
+                className={`api-input ${error ? "error" : ""}`}
                 required
+                disabled={isValidating}
               />
+              {error && <div className="error-message">{error}</div>}
             </div>
 
-            <button type="submit" className="submit-button">
-              Continue
-            </button>
+            <div className="button-group">
+              <button
+                type="submit"
+                className="submit-button"
+                disabled={isValidating || !apiKey.trim()}
+              >
+                {isValidating ? "Validating..." : existingKey ? "Update" : "Continue"}
+              </button>
+              {onCancel && (
+                <button
+                  type="button"
+                  className="cancel-button"
+                  onClick={onCancel}
+                  disabled={isValidating}
+                >
+                  Cancel
+                </button>
+              )}
+            </div>
+            {existingKey && (
+              <button
+                type="button"
+                className="reset-button"
+                onClick={handleReset}
+                disabled={isValidating}
+              >
+                Clear API Key
+              </button>
+            )}
           </form>
 
           <div className="instructions-section">
