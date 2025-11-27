@@ -1,0 +1,1656 @@
+2025-11-26 08:35:39,654 - praelocate - INFO - API key loaded from file
+2025-11-26 08:35:39,655 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 08:35:39,656 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 08:35:40,759 - praelocate - INFO - API key loaded from file
+2025-11-26 08:35:40,760 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 08:35:40,761 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 08:36:13,278 - praelocate - INFO - API key loaded from file
+2025-11-26 08:36:13,279 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 08:36:13,280 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 08:36:13,983 - praelocate - INFO - API key loaded from file
+2025-11-26 08:36:13,983 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 08:36:13,985 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 08:36:56,322 - praelocate - INFO - API key loaded from file
+2025-11-26 08:36:56,325 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 08:36:56,327 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 08:36:56,993 - praelocate - INFO - API key loaded from file
+2025-11-26 08:36:56,993 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 08:36:56,995 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 08:44:46,352 - praelocate - INFO - Processing 2 locations with radius=6.0km, optimize=time
+2025-11-26 08:44:46,358 - praelocate - DEBUG - Parsed locations: [(-33.9666423, 18.8298515, 1.0, '08:00'), (0.0, 0.0, -1.0, '12:00')]
+2025-11-26 08:44:46,358 - praelocate - ERROR - Unexpected error: float division by zero
+Traceback (most recent call last):
+  File "C:\Users\markussass\OneDrive - StratHost Office 365\Documents\Praelocate\Praelocate\backend\app.py", line 161, in decorated_function
+    return f(*args, **kwargs)
+  File "C:\Users\markussass\OneDrive - StratHost Office 365\Documents\Praelocate\Praelocate\backend\app.py", line 426, in locations
+    return calculate_midpoint(list_json)
+  File "C:\Users\markussass\OneDrive - StratHost Office 365\Documents\Praelocate\Praelocate\backend\app.py", line 466, in calculate_midpoint
+    midpoint_lat /= total_weight
+ZeroDivisionError: float division by zero
+2025-11-26 09:06:10,129 - praelocate - INFO - API key loaded from file
+2025-11-26 09:06:10,130 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 09:06:10,131 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 09:06:10,862 - praelocate - INFO - API key loaded from file
+2025-11-26 09:06:10,862 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 09:06:10,863 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 09:09:23,922 - praelocate - INFO - API key loaded from file
+2025-11-26 09:09:23,923 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 09:09:23,925 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 09:09:24,918 - praelocate - INFO - API key loaded from file
+2025-11-26 09:09:24,919 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 09:09:24,920 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 09:29:14,319 - praelocate - INFO - Processing 2 locations with radius=1.0km, optimize=time
+2025-11-26 09:29:14,319 - praelocate - DEBUG - Skipping location with invalid rank: -1.0
+2025-11-26 09:29:14,320 - praelocate - DEBUG - Parsed 1 valid locations: [(-33.9666423, 18.8298515, 4.0, '08:00')]
+2025-11-26 09:29:14,320 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.9666423, 'lng': 18.8298515}
+2025-11-26 09:29:14,320 - praelocate - DEBUG - Processing candidate point 0: (-33.9666423, 18.8298515)
+2025-11-26 09:29:15,400 - praelocate - DEBUG - Processing candidate point 1: (-33.9666423, 18.840683121200012)
+2025-11-26 09:29:15,678 - praelocate - DEBUG - Processing candidate point 2: (-33.9666423, 18.81901987879999)
+2025-11-26 09:29:15,987 - praelocate - DEBUG - Processing candidate point 3: (-33.95765895419989, 18.8298515)
+2025-11-26 09:29:16,446 - praelocate - DEBUG - Processing candidate point 4: (-33.9756256458001, 18.8298515)
+2025-11-26 09:29:16,782 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 09:29:16,782 - praelocate - DEBUG - Optimized result: {'average_distance': 0.0, 'average_time': 0.0, 'all_distances': [0.0], 'all_times': [0.0], 'weighted_time': 0.0, 'origin': (-33.9666423, 18.8298515)}
+2025-11-26 09:29:17,945 - praelocate - DEBUG - Found 0 schools near (-33.9666423, 18.8298515)
+2025-11-26 09:29:19,513 - praelocate - DEBUG - Found 20 hospitals near (-33.9666423, 18.8298515)
+2025-11-26 09:29:20,506 - praelocate - DEBUG - Area list from places: ['Protea Hotel by Marriott', '35 Techno Avenue', 'Techno Park', 'Stellenbosch']
+2025-11-26 09:29:36,895 - praelocate - ERROR - Error determining sale price for Techno Park: Message: unknown error: cannot find Chrome binary
+Stacktrace:
+Backtrace:
+	GetHandleVerifier [0x0115A813+48355]
+	(No symbol) [0x010EC4B1]
+	(No symbol) [0x00FF5358]
+	(No symbol) [0x01011A9E]
+	(No symbol) [0x01010579]
+	(No symbol) [0x01040C55]
+	(No symbol) [0x0104093C]
+	(No symbol) [0x0103A536]
+	(No symbol) [0x010182DC]
+	(No symbol) [0x010193DD]
+	GetHandleVerifier [0x013BAABD+2539405]
+	GetHandleVerifier [0x013FA78F+2800735]
+	GetHandleVerifier [0x013F456C+2775612]
+	GetHandleVerifier [0x011E51E0+616112]
+	(No symbol) [0x010F5F8C]
+	(No symbol) [0x010F2328]
+	(No symbol) [0x010F240B]
+	(No symbol) [0x010E4FF7]
+	BaseThreadInitThunk [0x76385D49+25]
+	RtlInitializeExceptionChain [0x7781D6DB+107]
+	RtlGetAppContainerNamedObjectPath [0x7781D661+561]
+
+2025-11-26 09:29:36,896 - praelocate - WARNING - Could not get price for Techno Park: Message: unknown error: cannot find Chrome binary
+Stacktrace:
+Backtrace:
+	GetHandleVerifier [0x0115A813+48355]
+	(No symbol) [0x010EC4B1]
+	(No symbol) [0x00FF5358]
+	(No symbol) [0x01011A9E]
+	(No symbol) [0x01010579]
+	(No symbol) [0x01040C55]
+	(No symbol) [0x0104093C]
+	(No symbol) [0x0103A536]
+	(No symbol) [0x010182DC]
+	(No symbol) [0x010193DD]
+	GetHandleVerifier [0x013BAABD+2539405]
+	GetHandleVerifier [0x013FA78F+2800735]
+	GetHandleVerifier [0x013F456C+2775612]
+	GetHandleVerifier [0x011E51E0+616112]
+	(No symbol) [0x010F5F8C]
+	(No symbol) [0x010F2328]
+	(No symbol) [0x010F240B]
+	(No symbol) [0x010E4FF7]
+	BaseThreadInitThunk [0x76385D49+25]
+	RtlInitializeExceptionChain [0x7781D6DB+107]
+	RtlGetAppContainerNamedObjectPath [0x7781D661+561]
+
+2025-11-26 09:29:37,164 - praelocate - DEBUG - Area list from directions: ['1st Floor', 'Block F', 'Block G & H Capital Place', 'Neutron Rd', 'Techno Park', 'Stellenbosch', '7600', 'South Africa']
+2025-11-26 09:29:51,319 - praelocate - ERROR - Error determining sale price for Block F: Message: unknown error: cannot find Chrome binary
+Stacktrace:
+Backtrace:
+	GetHandleVerifier [0x007FA813+48355]
+	(No symbol) [0x0078C4B1]
+	(No symbol) [0x00695358]
+	(No symbol) [0x006B1A9E]
+	(No symbol) [0x006B0579]
+	(No symbol) [0x006E0C55]
+	(No symbol) [0x006E093C]
+	(No symbol) [0x006DA536]
+	(No symbol) [0x006B82DC]
+	(No symbol) [0x006B93DD]
+	GetHandleVerifier [0x00A5AABD+2539405]
+	GetHandleVerifier [0x00A9A78F+2800735]
+	GetHandleVerifier [0x00A9456C+2775612]
+	GetHandleVerifier [0x008851E0+616112]
+	(No symbol) [0x00795F8C]
+	(No symbol) [0x00792328]
+	(No symbol) [0x0079240B]
+	(No symbol) [0x00784FF7]
+	BaseThreadInitThunk [0x76385D49+25]
+	RtlInitializeExceptionChain [0x7781D6DB+107]
+	RtlGetAppContainerNamedObjectPath [0x7781D661+561]
+
+2025-11-26 09:29:51,320 - praelocate - WARNING - Could not get price for Block F: Message: unknown error: cannot find Chrome binary
+Stacktrace:
+Backtrace:
+	GetHandleVerifier [0x007FA813+48355]
+	(No symbol) [0x0078C4B1]
+	(No symbol) [0x00695358]
+	(No symbol) [0x006B1A9E]
+	(No symbol) [0x006B0579]
+	(No symbol) [0x006E0C55]
+	(No symbol) [0x006E093C]
+	(No symbol) [0x006DA536]
+	(No symbol) [0x006B82DC]
+	(No symbol) [0x006B93DD]
+	GetHandleVerifier [0x00A5AABD+2539405]
+	GetHandleVerifier [0x00A9A78F+2800735]
+	GetHandleVerifier [0x00A9456C+2775612]
+	GetHandleVerifier [0x008851E0+616112]
+	(No symbol) [0x00795F8C]
+	(No symbol) [0x00792328]
+	(No symbol) [0x0079240B]
+	(No symbol) [0x00784FF7]
+	BaseThreadInitThunk [0x76385D49+25]
+	RtlInitializeExceptionChain [0x7781D6DB+107]
+	RtlGetAppContainerNamedObjectPath [0x7781D661+561]
+
+2025-11-26 09:29:51,323 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 09:29:51,323 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 09:41:07,154 - praelocate - INFO - Processing 2 locations with radius=7.0km, optimize=time
+2025-11-26 09:41:07,155 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9666423, 18.8298515, 1.0, '08:00'), (-34.1062492, 18.8176446, 1.0, '08:00')]
+2025-11-26 09:41:07,155 - praelocate - INFO - Calculated weighted midpoint: {'lat': -34.03644575, 'lng': 18.82374805}
+2025-11-26 09:41:07,155 - praelocate - DEBUG - Processing candidate point 0: (-34.03644575, 18.82374805)
+2025-11-26 09:41:08,230 - praelocate - DEBUG - Processing candidate point 1: (-34.03644575, 18.89963173412068)
+2025-11-26 09:41:08,818 - praelocate - DEBUG - Processing candidate point 2: (-34.03644575, 18.74786436587932)
+2025-11-26 09:41:09,413 - praelocate - DEBUG - Processing candidate point 3: (-33.97356232939925, 18.82374805)
+2025-11-26 09:41:09,934 - praelocate - DEBUG - Processing candidate point 4: (-34.09932917060075, 18.82374805)
+2025-11-26 09:41:10,482 - praelocate - INFO - Optimized location 4 selected (based on time)
+2025-11-26 09:41:10,483 - praelocate - DEBUG - Optimized result: {'average_distance': 10.21, 'average_time': 15.1, 'all_distances': [19.06, 1.36], 'all_times': [26.47, 3.73], 'weighted_time': 15.1, 'origin': (-34.09932917060075, 18.82374805)}
+2025-11-26 09:41:11,612 - praelocate - DEBUG - Found 0 schools near (-34.09932917060075, 18.82374805)
+2025-11-26 09:41:12,880 - praelocate - DEBUG - Found 20 hospitals near (-34.09932917060075, 18.82374805)
+2025-11-26 09:41:14,683 - praelocate - DEBUG - Area list from places: ['Cape Town']
+2025-11-26 09:41:14,942 - praelocate - DEBUG - Area list from directions: ['56 Woltemade St', 'Strand', 'Cape Town', '7139', 'South Africa']
+2025-11-26 09:41:30,147 - praelocate - ERROR - Error determining sale price for Strand: Message: unknown error: cannot find Chrome binary
+Stacktrace:
+Backtrace:
+	GetHandleVerifier [0x0092A813+48355]
+	(No symbol) [0x008BC4B1]
+	(No symbol) [0x007C5358]
+	(No symbol) [0x007E1A9E]
+	(No symbol) [0x007E0579]
+	(No symbol) [0x00810C55]
+	(No symbol) [0x0081093C]
+	(No symbol) [0x0080A536]
+	(No symbol) [0x007E82DC]
+	(No symbol) [0x007E93DD]
+	GetHandleVerifier [0x00B8AABD+2539405]
+	GetHandleVerifier [0x00BCA78F+2800735]
+	GetHandleVerifier [0x00BC456C+2775612]
+	GetHandleVerifier [0x009B51E0+616112]
+	(No symbol) [0x008C5F8C]
+	(No symbol) [0x008C2328]
+	(No symbol) [0x008C240B]
+	(No symbol) [0x008B4FF7]
+	BaseThreadInitThunk [0x76385D49+25]
+	RtlInitializeExceptionChain [0x7781D6DB+107]
+	RtlGetAppContainerNamedObjectPath [0x7781D661+561]
+
+2025-11-26 09:41:30,248 - praelocate - WARNING - Could not get price for Strand: Message: unknown error: cannot find Chrome binary
+Stacktrace:
+Backtrace:
+	GetHandleVerifier [0x0092A813+48355]
+	(No symbol) [0x008BC4B1]
+	(No symbol) [0x007C5358]
+	(No symbol) [0x007E1A9E]
+	(No symbol) [0x007E0579]
+	(No symbol) [0x00810C55]
+	(No symbol) [0x0081093C]
+	(No symbol) [0x0080A536]
+	(No symbol) [0x007E82DC]
+	(No symbol) [0x007E93DD]
+	GetHandleVerifier [0x00B8AABD+2539405]
+	GetHandleVerifier [0x00BCA78F+2800735]
+	GetHandleVerifier [0x00BC456C+2775612]
+	GetHandleVerifier [0x009B51E0+616112]
+	(No symbol) [0x008C5F8C]
+	(No symbol) [0x008C2328]
+	(No symbol) [0x008C240B]
+	(No symbol) [0x008B4FF7]
+	BaseThreadInitThunk [0x76385D49+25]
+	RtlInitializeExceptionChain [0x7781D6DB+107]
+	RtlGetAppContainerNamedObjectPath [0x7781D661+561]
+
+2025-11-26 09:41:30,253 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 09:41:30,254 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 09:47:58,044 - praelocate - INFO - API key loaded from file
+2025-11-26 09:47:58,045 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 09:47:58,047 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 09:47:58,857 - praelocate - INFO - API key loaded from file
+2025-11-26 09:47:58,858 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 09:47:58,859 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 09:52:41,665 - praelocate - INFO - Processing 1 locations with radius=1.0km, optimize=time
+2025-11-26 09:52:41,666 - praelocate - DEBUG - Parsed 1 valid locations: [(-33.9666423, 18.8298515, 1.0, '08:00')]
+2025-11-26 09:52:41,666 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.9666423, 'lng': 18.8298515}
+2025-11-26 09:52:41,666 - praelocate - DEBUG - Processing candidate point 0: (-33.9666423, 18.8298515)
+2025-11-26 09:52:42,462 - praelocate - DEBUG - Processing candidate point 1: (-33.9666423, 18.840683121200012)
+2025-11-26 09:52:43,280 - praelocate - DEBUG - Processing candidate point 2: (-33.9666423, 18.81901987879999)
+2025-11-26 09:52:43,575 - praelocate - DEBUG - Processing candidate point 3: (-33.95765895419989, 18.8298515)
+2025-11-26 09:52:44,022 - praelocate - DEBUG - Processing candidate point 4: (-33.9756256458001, 18.8298515)
+2025-11-26 09:52:44,293 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 09:52:44,294 - praelocate - DEBUG - Optimized result: {'average_distance': 0.0, 'average_time': 0.0, 'all_distances': [0.0], 'all_times': [0.0], 'weighted_time': 0.0, 'origin': (-33.9666423, 18.8298515)}
+2025-11-26 09:52:45,304 - praelocate - DEBUG - Found 0 schools near (-33.9666423, 18.8298515)
+2025-11-26 09:52:46,890 - praelocate - DEBUG - Found 20 hospitals near (-33.9666423, 18.8298515)
+2025-11-26 09:52:47,745 - praelocate - DEBUG - Area list from places: ['Protea Hotel by Marriott', '35 Techno Avenue', 'Techno Park', 'Stellenbosch']
+2025-11-26 09:52:47,762 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 09:52:48,025 - praelocate - DEBUG - Area list from directions: ['1st Floor', 'Block F', 'Block G & H Capital Place', 'Neutron Rd', 'Techno Park', 'Stellenbosch', '7600', 'South Africa']
+2025-11-26 09:52:48,044 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 09:52:48,046 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 09:52:48,047 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 09:52:53,774 - praelocate - INFO - Processing 1 locations with radius=1.0km, optimize=time
+2025-11-26 09:52:53,775 - praelocate - DEBUG - Parsed 1 valid locations: [(-33.9666423, 18.8298515, 1.0, '08:00')]
+2025-11-26 09:52:53,775 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.9666423, 'lng': 18.8298515}
+2025-11-26 09:52:53,775 - praelocate - DEBUG - Processing candidate point 0: (-33.9666423, 18.8298515)
+2025-11-26 09:52:53,999 - praelocate - DEBUG - Processing candidate point 1: (-33.9666423, 18.840683121200012)
+2025-11-26 09:52:54,221 - praelocate - DEBUG - Processing candidate point 2: (-33.9666423, 18.81901987879999)
+2025-11-26 09:52:54,441 - praelocate - DEBUG - Processing candidate point 3: (-33.95765895419989, 18.8298515)
+2025-11-26 09:52:54,658 - praelocate - DEBUG - Processing candidate point 4: (-33.9756256458001, 18.8298515)
+2025-11-26 09:52:54,886 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 09:52:54,886 - praelocate - DEBUG - Optimized result: {'average_distance': 0.0, 'average_time': 0.0, 'all_distances': [0.0], 'all_times': [0.0], 'weighted_time': 0.0, 'origin': (-33.9666423, 18.8298515)}
+2025-11-26 09:52:56,019 - praelocate - DEBUG - Found 0 schools near (-33.9666423, 18.8298515)
+2025-11-26 09:52:57,795 - praelocate - DEBUG - Found 20 hospitals near (-33.9666423, 18.8298515)
+2025-11-26 09:52:58,639 - praelocate - DEBUG - Area list from places: ['Protea Hotel by Marriott', '35 Techno Avenue', 'Techno Park', 'Stellenbosch']
+2025-11-26 09:52:58,644 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 09:52:58,853 - praelocate - DEBUG - Area list from directions: ['1st Floor', 'Block F', 'Block G & H Capital Place', 'Neutron Rd', 'Techno Park', 'Stellenbosch', '7600', 'South Africa']
+2025-11-26 09:52:58,866 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 09:52:58,869 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 09:52:58,870 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 09:53:56,637 - praelocate - INFO - Processing 2 locations with radius=1.0km, optimize=time
+2025-11-26 09:53:56,638 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9666423, 18.8298515, 1.0, '08:00'), (-34.1062492, 18.8176446, 1.0, '08:00')]
+2025-11-26 09:53:56,638 - praelocate - INFO - Calculated weighted midpoint: {'lat': -34.03644575, 'lng': 18.82374805}
+2025-11-26 09:53:56,638 - praelocate - DEBUG - Processing candidate point 0: (-34.03644575, 18.82374805)
+2025-11-26 09:53:57,169 - praelocate - DEBUG - Processing candidate point 1: (-34.03644575, 18.834588576302952)
+2025-11-26 09:53:57,688 - praelocate - DEBUG - Processing candidate point 2: (-34.03644575, 18.812907523697046)
+2025-11-26 09:53:58,221 - praelocate - DEBUG - Processing candidate point 3: (-34.027462404199895, 18.82374805)
+2025-11-26 09:53:58,754 - praelocate - DEBUG - Processing candidate point 4: (-34.0454290958001, 18.82374805)
+2025-11-26 09:53:59,299 - praelocate - INFO - Optimized location 3 selected (based on time)
+2025-11-26 09:53:59,302 - praelocate - DEBUG - Optimized result: {'average_distance': 9.76, 'average_time': 14.03, 'all_distances': [9.28, 10.24], 'all_times': [13.33, 14.72], 'weighted_time': 14.03, 'origin': (-34.027462404199895, 18.82374805)}
+2025-11-26 09:54:00,411 - praelocate - DEBUG - Found 0 schools near (-34.027462404199895, 18.82374805)
+2025-11-26 09:54:01,968 - praelocate - DEBUG - Found 20 hospitals near (-34.027462404199895, 18.82374805)
+2025-11-26 09:54:03,092 - praelocate - DEBUG - Area list from places: ['Pink Valley Wines', 'Cordoba Road', 'Helderberg Rural', 'Stellenbosch']
+2025-11-26 09:54:03,111 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 09:54:03,356 - praelocate - DEBUG - Area list from directions: ['Unnamed Road', 'Somerset West', 'Raithby', '7130', 'South Africa']
+2025-11-26 09:54:03,373 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 09:54:03,376 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 09:54:03,376 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 10:03:13,799 - praelocate - INFO - API key loaded from file
+2025-11-26 10:03:13,799 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 10:03:13,801 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 10:03:14,596 - praelocate - INFO - API key loaded from file
+2025-11-26 10:03:14,597 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 10:03:14,599 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 10:05:58,158 - praelocate - INFO - Processing 2 locations with radius=6.0km, optimize=time
+2025-11-26 10:05:58,158 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9666423, 18.8298515, 1.0, '08:00'), (-34.1062492, 18.8176446, 1.0, '08:00')]
+2025-11-26 10:05:58,159 - praelocate - INFO - Calculated weighted midpoint: {'lat': -34.03644575, 'lng': 18.82374805}
+2025-11-26 10:05:58,159 - praelocate - DEBUG - Processing candidate point 0: (-34.03644575, 18.82374805)
+2025-11-26 10:05:59,399 - praelocate - DEBUG - Processing candidate point 1: (-34.03644575, 18.888791207817725)
+2025-11-26 10:06:00,010 - praelocate - DEBUG - Processing candidate point 2: (-34.03644575, 18.758704892182273)
+2025-11-26 10:06:00,636 - praelocate - DEBUG - Processing candidate point 3: (-33.982545675199354, 18.82374805)
+2025-11-26 10:06:01,207 - praelocate - DEBUG - Processing candidate point 4: (-34.09034582480064, 18.82374805)
+2025-11-26 10:06:01,731 - praelocate - INFO - Optimized location 4 selected (based on time)
+2025-11-26 10:06:01,731 - praelocate - DEBUG - Optimized result: {'average_distance': 9.96, 'average_time': 14.99, 'all_distances': [16.92, 3.0], 'all_times': [22.48, 7.5], 'weighted_time': 14.99, 'origin': (-34.09034582480064, 18.82374805)}
+2025-11-26 10:06:03,060 - praelocate - DEBUG - Found 0 schools near (-34.09034582480064, 18.82374805)
+2025-11-26 10:06:04,506 - praelocate - DEBUG - Found 20 hospitals near (-34.09034582480064, 18.82374805)
+2025-11-26 10:06:05,651 - praelocate - DEBUG - Area list from places: ['Shop 331', 'Centenary Drive', 'Firgrove Rural', 'Cape Town']
+2025-11-26 10:06:05,662 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 10:06:05,924 - praelocate - DEBUG - Area list from directions: ['5 De Beers Ave', 'Somerset West', 'Cape Town', '7100', 'South Africa']
+2025-11-26 10:06:05,938 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 10:06:05,940 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 10:06:05,940 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 10:06:28,468 - praelocate - INFO - Calculating new midpoint distances from (-34.05019283483346, 18.848204909531876)
+2025-11-26 10:06:29,025 - praelocate - INFO - Calculated distances: [17.43, 8.46]
+2025-11-26 10:06:29,026 - praelocate - INFO - Calculated times: [23.62, 17.0]
+2025-11-26 10:06:30,103 - praelocate - DEBUG - Found 0 schools near (-34.05019283483346, 18.848204909531876)
+2025-11-26 10:06:31,425 - praelocate - DEBUG - Found 20 hospitals near (-34.05019283483346, 18.848204909531876)
+2025-11-26 10:06:32,291 - praelocate - DEBUG - Area list from places: ['Helderberg Rural', "Sir Lowry's Pass"]
+2025-11-26 10:06:32,311 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 10:06:32,589 - praelocate - DEBUG - Area list from directions: ['11 Picasso Cl', 'Spanish Farm', 'Cape Town', '7130', 'South Africa']
+2025-11-26 10:06:32,611 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 10:06:32,616 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:29:21,701 - praelocate - INFO - API key loaded from file
+2025-11-26 15:29:21,702 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:29:21,703 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:29:22,429 - praelocate - INFO - API key loaded from file
+2025-11-26 15:29:22,430 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:29:22,431 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:34:46,664 - praelocate - INFO - API key loaded from file
+2025-11-26 15:34:46,665 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:34:46,666 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:34:47,515 - praelocate - INFO - API key loaded from file
+2025-11-26 15:34:47,516 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:34:47,517 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:36:37,736 - praelocate - INFO - API key loaded from file
+2025-11-26 15:36:37,737 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:36:37,738 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:36:38,486 - praelocate - INFO - API key loaded from file
+2025-11-26 15:36:38,486 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:36:38,487 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:41:08,242 - praelocate - INFO - API key loaded from file
+2025-11-26 15:41:08,242 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:41:08,244 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:41:17,159 - praelocate - INFO - API key loaded from file
+2025-11-26 15:41:17,160 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:41:17,178 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:41:17,179 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:41:17,179 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:41:17,179 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:41:18,411 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:41:19,140 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:41:19,773 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:41:20,394 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:41:21,021 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:41:21,022 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:41:21,999 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:41:23,533 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:41:24,546 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:41:24,558 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:41:24,847 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:41:24,864 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:41:24,866 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:41:24,866 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:41:24,871 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:41:24,872 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:41:24,872 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:41:24,872 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:41:25,325 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:41:25,762 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:41:26,226 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:41:26,690 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:41:27,144 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:41:27,145 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:41:28,074 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:41:29,018 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:41:30,035 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:41:30,043 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:41:30,274 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:41:30,280 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:41:30,281 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:41:30,282 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:41:30,283 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=distance
+2025-11-26 15:41:30,284 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:41:30,284 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:41:30,284 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:41:30,730 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:41:31,173 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:41:31,630 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:41:32,104 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:41:32,552 - praelocate - INFO - Optimized location 2 selected (based on distance)
+2025-11-26 15:41:32,554 - praelocate - DEBUG - Optimized result: {'average_distance': 24.41, 'average_time': 43.22, 'all_distances': [25.96, 22.86], 'all_times': [40.87, 45.57], 'weighted_time': 43.45, 'origin': (-33.92922, 18.631625701382116)}
+2025-11-26 15:41:33,504 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.631625701382116)
+2025-11-26 15:41:35,836 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.631625701382116)
+2025-11-26 15:41:36,699 - praelocate - DEBUG - Area list from places: ['Residence Way', 'Bellville', 'Cape Town']
+2025-11-26 15:41:36,709 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:41:36,966 - praelocate - DEBUG - Area list from directions: ['Residence', 'Boundary Rd', 'Bellville', 'Cape Town', '7493', 'South Africa']
+2025-11-26 15:41:36,977 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:41:36,979 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:41:36,979 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:41:36,981 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:41:36,981 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:41:36,981 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:41:36,982 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:41:37,466 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:41:37,921 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:41:38,381 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:41:38,837 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:41:39,287 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:41:39,287 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:41:40,564 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:41:41,550 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:41:42,781 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:41:42,796 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:41:43,016 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:41:43,028 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:41:43,049 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:41:43,049 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:41:43,052 - praelocate - WARNING - Validation error: Request body is required
+2025-11-26 15:41:43,054 - praelocate - WARNING - Validation error: Invalid preference value
+2025-11-26 15:41:43,056 - praelocate - WARNING - Validation error: 'locations' field is required
+2025-11-26 15:41:43,058 - praelocate - INFO - Processing 1 locations with radius=5.0km, optimize=time
+2025-11-26 15:41:43,058 - praelocate - DEBUG - Parsed 1 valid locations: [(-33.9321, 18.8602, 3.0, '08:00')]
+2025-11-26 15:41:43,058 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.9321, 'lng': 18.8602}
+2025-11-26 15:41:43,058 - praelocate - DEBUG - Processing candidate point 0: (-33.9321, 18.8602)
+2025-11-26 15:41:43,276 - praelocate - DEBUG - Processing candidate point 1: (-33.9321, 18.91433612925753)
+2025-11-26 15:41:43,572 - praelocate - DEBUG - Processing candidate point 2: (-33.9321, 18.806063870742467)
+2025-11-26 15:41:43,844 - praelocate - DEBUG - Processing candidate point 3: (-33.887183270999465, 18.8602)
+2025-11-26 15:41:44,112 - praelocate - DEBUG - Processing candidate point 4: (-33.97701672900053, 18.8602)
+2025-11-26 15:41:44,387 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:41:44,393 - praelocate - DEBUG - Optimized result: {'average_distance': 0.0, 'average_time': 0.13, 'all_distances': [0.0], 'all_times': [0.13], 'weighted_time': 0.13, 'origin': (-33.9321, 18.8602)}
+2025-11-26 15:41:45,361 - praelocate - DEBUG - Found 0 schools near (-33.9321, 18.8602)
+2025-11-26 15:41:46,660 - praelocate - DEBUG - Found 20 hospitals near (-33.9321, 18.8602)
+2025-11-26 15:41:47,765 - praelocate - DEBUG - Area list from places: ['33 Church Street', 'Stellenbosch Central', 'Stellenbosch']
+2025-11-26 15:41:47,782 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:41:48,046 - praelocate - DEBUG - Area list from directions: ['Cnr Andringa & Merriman', 'Stellenbosch Central', 'Stellenbosch', '7600', 'South Africa']
+2025-11-26 15:41:48,063 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:41:48,065 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:41:48,066 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:41:48,072 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:41:48,073 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:41:48,073 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:41:48,073 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:41:48,705 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:41:49,391 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:41:50,063 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:41:50,690 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:41:51,272 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:41:51,273 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:41:52,303 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:41:53,302 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:41:54,257 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:41:54,264 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:41:54,475 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:41:54,482 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:41:54,486 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:41:54,487 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:41:54,497 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:41:54,497 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:41:54,497 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:41:54,498 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:41:54,956 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:41:55,407 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:41:55,861 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:41:56,323 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:41:56,773 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:41:56,774 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:41:57,883 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:41:59,053 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:42:00,882 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:42:00,893 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:01,132 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:42:01,145 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:01,148 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:42:01,148 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:42:01,150 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:42:01,150 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:42:01,150 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:42:01,150 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:42:01,604 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:42:02,066 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:42:02,519 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:42:02,967 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:42:03,431 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:42:03,432 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:42:04,354 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:42:05,509 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:42:06,826 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:42:06,838 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:07,070 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:42:07,076 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:07,080 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:42:07,081 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:42:07,082 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:42:07,082 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:42:07,082 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:42:07,082 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:42:07,564 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:42:08,041 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:42:08,505 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:42:08,963 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:42:09,426 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:42:09,427 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:42:10,835 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:42:12,008 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:42:13,195 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:42:13,213 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:13,426 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:42:13,443 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:13,445 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:42:13,446 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:42:13,447 - praelocate - INFO - Calculating new midpoint distances from (-33.93, 18.6)
+2025-11-26 15:42:14,080 - praelocate - INFO - Calculated distances: [27.91, 21.36]
+2025-11-26 15:42:14,080 - praelocate - INFO - Calculated times: [41.27, 41.65]
+2025-11-26 15:42:15,823 - praelocate - DEBUG - Found 0 schools near (-33.93, 18.6)
+2025-11-26 15:42:17,338 - praelocate - DEBUG - Found 20 hospitals near (-33.93, 18.6)
+2025-11-26 15:42:18,200 - praelocate - DEBUG - Area list from places: ['19 Tekstiel Street', 'Parow Industrial', 'Cape Town']
+2025-11-26 15:42:18,217 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:18,482 - praelocate - DEBUG - Area list from directions: ['15 Laventel Rd', 'Ravensmead', 'Cape Town', '7504', 'South Africa']
+2025-11-26 15:42:18,499 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:18,501 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:42:18,505 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:42:18,505 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:42:18,505 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:42:18,505 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:42:19,131 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:42:19,748 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:42:20,377 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:42:20,957 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:42:21,557 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:42:21,558 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:42:22,715 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:42:23,996 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:42:25,110 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:42:25,121 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:25,332 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:42:25,349 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:25,351 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:42:25,351 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:42:25,354 - praelocate - WARNING - Validation error: 'midpoint' field is required
+2025-11-26 15:42:25,356 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:42:25,356 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:42:25,357 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:42:25,357 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:42:25,818 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:42:26,268 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:42:26,717 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:42:27,167 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:42:27,627 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:42:27,627 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:42:28,549 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:42:30,332 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:42:31,134 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:42:31,147 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:31,369 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:42:31,386 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:31,388 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:42:31,389 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:42:31,391 - praelocate - INFO - Calculating new midpoint distances from (-33.93, 18.6)
+2025-11-26 15:42:31,845 - praelocate - INFO - Calculated distances: [27.91, 21.36]
+2025-11-26 15:42:31,846 - praelocate - INFO - Calculated times: [41.27, 41.65]
+2025-11-26 15:42:32,802 - praelocate - DEBUG - Found 0 schools near (-33.93, 18.6)
+2025-11-26 15:42:33,773 - praelocate - DEBUG - Found 20 hospitals near (-33.93, 18.6)
+2025-11-26 15:42:34,567 - praelocate - DEBUG - Area list from places: ['19 Tekstiel Street', 'Parow Industrial', 'Cape Town']
+2025-11-26 15:42:34,582 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:34,794 - praelocate - DEBUG - Area list from directions: ['15 Laventel Rd', 'Ravensmead', 'Cape Town', '7504', 'South Africa']
+2025-11-26 15:42:34,812 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:34,815 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:42:34,817 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:42:34,819 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9, 18.4, 2.0, '08:00'), (-34.0, 18.8, 2.0, '09:00')]
+2025-11-26 15:42:34,820 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.95, 'lng': 18.6}
+2025-11-26 15:42:34,821 - praelocate - DEBUG - Processing candidate point 0: (-33.95, 18.6)
+2025-11-26 15:42:35,661 - praelocate - DEBUG - Processing candidate point 1: (-33.95, 18.654147513036317)
+2025-11-26 15:42:36,553 - praelocate - DEBUG - Processing candidate point 2: (-33.95, 18.545852486963685)
+2025-11-26 15:42:37,455 - praelocate - DEBUG - Processing candidate point 3: (-33.90508327099947, 18.6)
+2025-11-26 15:42:38,289 - praelocate - DEBUG - Processing candidate point 4: (-33.994916729000536, 18.6)
+2025-11-26 15:42:39,153 - praelocate - INFO - Optimized location 2 selected (based on time)
+2025-11-26 15:42:39,153 - praelocate - DEBUG - Optimized result: {'average_distance': 26.05, 'average_time': 41.65, 'all_distances': [18.42, 33.68], 'all_times': [52.78, 30.52], 'weighted_time': 41.65, 'origin': (-33.95, 18.545852486963685)}
+2025-11-26 15:42:40,304 - praelocate - DEBUG - Found 0 schools near (-33.95, 18.545852486963685)
+2025-11-26 15:42:41,767 - praelocate - DEBUG - Found 20 hospitals near (-33.95, 18.545852486963685)
+2025-11-26 15:42:42,855 - praelocate - DEBUG - Area list from places: ['Jakkalsvlei Ave', 'Als Road', 'Kaapstad']
+2025-11-26 15:42:42,867 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:43,139 - praelocate - DEBUG - Area list from directions: ['14 Candlewood St', 'Bonteheuwel', 'Cape Town', '7764', 'South Africa']
+2025-11-26 15:42:43,146 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:43,148 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:42:43,148 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:42:43,153 - praelocate - INFO - Processing 3 locations with radius=5.0km, optimize=time
+2025-11-26 15:42:43,154 - praelocate - DEBUG - Parsed 3 valid locations: [(-33.9, 18.4, 2.0, '08:00'), (-33.95, 18.6, 3.0, '09:00'), (-34.0, 18.8, 2.0, '10:00')]
+2025-11-26 15:42:43,154 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.95, 'lng': 18.599999999999998}
+2025-11-26 15:42:43,154 - praelocate - DEBUG - Processing candidate point 0: (-33.95, 18.599999999999998)
+2025-11-26 15:42:44,086 - praelocate - DEBUG - Processing candidate point 1: (-33.95, 18.654147513036314)
+2025-11-26 15:42:45,113 - praelocate - DEBUG - Processing candidate point 2: (-33.95, 18.545852486963682)
+2025-11-26 15:42:46,088 - praelocate - DEBUG - Processing candidate point 3: (-33.90508327099947, 18.599999999999998)
+2025-11-26 15:42:47,136 - praelocate - DEBUG - Processing candidate point 4: (-33.994916729000536, 18.599999999999998)
+2025-11-26 15:42:48,100 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:42:49,276 - praelocate - DEBUG - Optimized result: {'average_distance': 16.75, 'average_time': 29.04, 'all_distances': [23.73, 0.0, 26.51], 'all_times': [57.0, 0.0, 30.12], 'weighted_time': 30.91, 'origin': (-33.95, 18.599999999999998)}
+2025-11-26 15:42:50,597 - praelocate - DEBUG - Found 0 schools near (-33.95, 18.599999999999998)
+2025-11-26 15:42:54,170 - praelocate - DEBUG - Found 20 hospitals near (-33.95, 18.599999999999998)
+2025-11-26 15:42:54,930 - praelocate - DEBUG - Area list from places: ['2 Reuben Kaye Road', 'Parow Industrial', 'Cape Town']
+2025-11-26 15:42:54,943 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:55,204 - praelocate - DEBUG - Area list from directions: ['4A Stellenbosch Rd', 'Matroosfontein', 'Cape Town', '7490', 'South Africa']
+2025-11-26 15:42:55,213 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:42:55,216 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:42:55,216 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:42:55,221 - praelocate - INFO - Processing 2 locations with radius=10.0km, optimize=time
+2025-11-26 15:42:55,221 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9, 18.4, 4.0, '08:00'), (-34.0, 18.8, 1.0, '09:00')]
+2025-11-26 15:42:55,221 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92, 'lng': 18.479999999999997}
+2025-11-26 15:42:55,222 - praelocate - DEBUG - Processing candidate point 0: (-33.92, 18.479999999999997)
+2025-11-26 15:42:55,973 - praelocate - DEBUG - Processing candidate point 1: (-33.92, 18.588256879561285)
+2025-11-26 15:42:56,924 - praelocate - DEBUG - Processing candidate point 2: (-33.92, 18.37174312043871)
+2025-11-26 15:42:57,736 - praelocate - DEBUG - Processing candidate point 3: (-33.830166541998935, 18.479999999999997)
+2025-11-26 15:42:58,627 - praelocate - DEBUG - Processing candidate point 4: (-34.00983345800107, 18.479999999999997)
+2025-11-26 15:42:59,429 - praelocate - INFO - Optimized location 2 selected (based on time)
+2025-11-26 15:42:59,430 - praelocate - DEBUG - Optimized result: {'average_distance': 27.87, 'average_time': 29.68, 'all_distances': [3.58, 52.16], 'all_times': [8.7, 50.67], 'weighted_time': 35.98, 'origin': (-33.92, 18.37174312043871)}
+2025-11-26 15:43:00,557 - praelocate - DEBUG - Found 0 schools near (-33.92, 18.37174312043871)
+2025-11-26 15:43:02,031 - praelocate - DEBUG - Found 20 hospitals near (-33.92, 18.37174312043871)
+2025-11-26 15:43:03,315 - praelocate - DEBUG - Area list from places: ['4 Alexander Road', 'Bantry Bay', 'Cape Town']
+2025-11-26 15:43:03,325 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:03,627 - praelocate - DEBUG - Area list from directions: ['319 Beach Rd', 'Sea Point', 'Cape Town', '8060', 'South Africa']
+2025-11-26 15:43:03,643 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:03,645 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:43:03,646 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:43:03,648 - praelocate - INFO - Processing 3 locations with radius=5.0km, optimize=time
+2025-11-26 15:43:03,648 - praelocate - DEBUG - Skipping location with invalid rank: 0.0
+2025-11-26 15:43:03,648 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.95, 18.6, 3.0, '09:00'), (-34.0, 18.8, 2.0, '10:00')]
+2025-11-26 15:43:03,648 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.970000000000006, 'lng': 18.68}
+2025-11-26 15:43:03,648 - praelocate - DEBUG - Processing candidate point 0: (-33.970000000000006, 18.68)
+2025-11-26 15:43:04,380 - praelocate - DEBUG - Processing candidate point 1: (-33.970000000000006, 18.734160244260803)
+2025-11-26 15:43:05,065 - praelocate - DEBUG - Processing candidate point 2: (-33.970000000000006, 18.625839755739197)
+2025-11-26 15:43:05,798 - praelocate - DEBUG - Processing candidate point 3: (-33.92508327099947, 18.68)
+2025-11-26 15:43:06,602 - praelocate - DEBUG - Processing candidate point 4: (-34.01491672900054, 18.68)
+2025-11-26 15:43:07,368 - praelocate - INFO - Optimized location 2 selected (based on time)
+2025-11-26 15:43:07,369 - praelocate - DEBUG - Optimized result: {'average_distance': 16.55, 'average_time': 17.19, 'all_distances': [4.61, 28.48], 'all_times': [5.95, 28.43], 'weighted_time': 18.32, 'origin': (-33.970000000000006, 18.625839755739197)}
+2025-11-26 15:43:08,300 - praelocate - DEBUG - Found 0 schools near (-33.970000000000006, 18.625839755739197)
+2025-11-26 15:43:09,565 - praelocate - DEBUG - Found 20 hospitals near (-33.970000000000006, 18.625839755739197)
+2025-11-26 15:43:10,398 - praelocate - DEBUG - Area list from places: ['International Airport', 'Cape Town']
+2025-11-26 15:43:10,405 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:10,657 - praelocate - DEBUG - Area list from directions: ['18 Ksour St', 'Matroosfontein', 'Cape Town', '7490', 'South Africa']
+2025-11-26 15:43:10,667 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:10,669 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:43:10,669 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:43:10,671 - praelocate - WARNING - Validation error: Location 1: Coordinates out of valid range
+2025-11-26 15:43:10,672 - praelocate - INFO - Processing 2 locations with radius=-5.0km, optimize=time
+2025-11-26 15:43:10,672 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9, 18.4, 2.0, '08:00'), (-33.95, 18.6, 3.0, '09:00')]
+2025-11-26 15:43:10,672 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.93, 'lng': 18.52}
+2025-11-26 15:43:10,672 - praelocate - DEBUG - Processing candidate point 0: (-33.93, 18.52)
+2025-11-26 15:43:11,303 - praelocate - DEBUG - Processing candidate point 1: (-33.93, 18.46586520560961)
+2025-11-26 15:43:11,868 - praelocate - DEBUG - Processing candidate point 2: (-33.93, 18.57413479439039)
+2025-11-26 15:43:12,538 - praelocate - DEBUG - Processing candidate point 3: (-33.97491672900053, 18.52)
+2025-11-26 15:43:13,160 - praelocate - DEBUG - Processing candidate point 4: (-33.885083270999466, 18.52)
+2025-11-26 15:43:13,781 - praelocate - INFO - Optimized location 1 selected (based on time)
+2025-11-26 15:43:13,782 - praelocate - DEBUG - Optimized result: {'average_distance': 11.82, 'average_time': 20.54, 'all_distances': [8.38, 15.27], 'all_times': [22.57, 18.52], 'weighted_time': 20.74, 'origin': (-33.93, 18.46586520560961)}
+2025-11-26 15:43:15,566 - praelocate - DEBUG - Found 0 schools near (-33.93, 18.46586520560961)
+2025-11-26 15:43:17,048 - praelocate - DEBUG - Found 20 hospitals near (-33.93, 18.46586520560961)
+2025-11-26 15:43:18,268 - praelocate - DEBUG - Area list from places: ['38 Lower Rochester Road', 'Observatory', 'Cape Town']
+2025-11-26 15:43:18,284 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:18,561 - praelocate - DEBUG - Area list from directions: ['4 Malta Rd', 'Salt River', 'Cape Town', '7925', 'South Africa']
+2025-11-26 15:43:18,577 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:18,580 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:43:18,580 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:43:18,583 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:43:18,586 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:43:18,587 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:43:18,587 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:43:19,354 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:43:19,971 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:43:20,612 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:43:21,212 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:43:21,795 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:43:21,796 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:43:22,838 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:43:24,239 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:43:25,481 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:43:25,497 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:25,724 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:43:25,740 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:25,742 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:43:25,743 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:43:25,745 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:43:25,746 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:43:25,746 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:43:25,746 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:43:26,202 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:43:26,642 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:43:27,097 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:43:27,569 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:43:28,026 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:43:28,026 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:43:28,991 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:43:30,757 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:43:32,169 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:43:32,186 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:32,396 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:43:32,414 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:32,417 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:43:32,419 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:43:32,423 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:43:32,423 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:43:32,423 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:43:32,423 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:43:32,885 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:43:33,342 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:43:33,779 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:43:34,237 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:43:34,702 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:43:34,704 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:43:35,618 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:43:36,544 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:43:37,462 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:43:37,477 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:37,692 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:43:37,705 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:37,706 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:43:37,706 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:43:37,708 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:43:37,708 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:43:37,708 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:43:37,709 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:43:38,158 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:43:38,613 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:43:39,063 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:43:39,525 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:43:40,001 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:43:40,002 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:43:41,026 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:43:41,955 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:43:43,107 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:43:43,125 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:43,339 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:43:43,355 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:43,357 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:43:43,357 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:43:43,359 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:43:43,359 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:43:43,359 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:43:43,360 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:43:43,798 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:43:44,245 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:43:44,708 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:43:45,171 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:43:45,611 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:43:45,611 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:43:46,610 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:43:48,376 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:43:49,317 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:43:49,323 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:49,538 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:43:49,555 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:43:49,557 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:43:49,558 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:44:27,966 - praelocate - INFO - API key loaded from file
+2025-11-26 15:44:27,967 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:44:27,978 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:44:27,978 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:44:27,978 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:44:27,978 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:44:29,641 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:44:30,268 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:44:30,907 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:44:31,502 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:44:32,070 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:44:32,070 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:44:33,314 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:44:34,636 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:44:36,412 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:44:36,422 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:44:36,649 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:44:36,662 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:44:36,665 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:44:36,665 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:44:36,668 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:44:36,668 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:44:36,668 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:44:36,668 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:44:37,106 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:44:37,558 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:44:38,013 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:44:38,466 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:44:38,930 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:44:38,931 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:44:39,946 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:44:40,960 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:44:42,740 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:44:42,752 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:44:42,973 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:44:42,989 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:44:42,991 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:44:42,992 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:44:42,995 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=distance
+2025-11-26 15:44:42,995 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:44:42,995 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:44:42,995 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:44:43,424 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:44:43,873 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:44:44,333 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:44:44,800 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:44:45,252 - praelocate - INFO - Optimized location 2 selected (based on distance)
+2025-11-26 15:44:45,252 - praelocate - DEBUG - Optimized result: {'average_distance': 24.41, 'average_time': 43.22, 'all_distances': [25.96, 22.86], 'all_times': [40.87, 45.57], 'weighted_time': 43.45, 'origin': (-33.92922, 18.631625701382116)}
+2025-11-26 15:44:46,265 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.631625701382116)
+2025-11-26 15:44:47,541 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.631625701382116)
+2025-11-26 15:44:48,267 - praelocate - DEBUG - Area list from places: ['Residence Way', 'Bellville', 'Cape Town']
+2025-11-26 15:44:48,284 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:44:48,509 - praelocate - DEBUG - Area list from directions: ['Residence', 'Boundary Rd', 'Bellville', 'Cape Town', '7493', 'South Africa']
+2025-11-26 15:44:48,528 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:44:48,530 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:44:48,531 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:44:48,535 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:44:48,535 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:44:48,535 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:44:48,536 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:44:48,999 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:44:49,446 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:44:49,890 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:44:50,340 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:44:50,791 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:44:50,791 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:44:51,745 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:44:52,714 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:44:54,023 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:44:54,041 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:44:54,254 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:44:54,259 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:44:54,261 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:44:54,262 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:44:54,269 - praelocate - WARNING - Validation error: Request body is required
+2025-11-26 15:44:54,270 - praelocate - WARNING - Validation error: Invalid preference value
+2025-11-26 15:44:54,272 - praelocate - WARNING - Validation error: 'locations' field is required
+2025-11-26 15:44:54,273 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 15:44:54,276 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:44:54,276 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:44:54,276 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:44:54,276 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:44:54,743 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:44:55,203 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:44:55,642 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:44:56,084 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:44:56,537 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:44:56,538 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:44:57,495 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:44:58,733 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:45:00,094 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:45:00,111 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:00,325 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:45:00,340 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:00,343 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:45:00,344 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:45:00,346 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:45:00,347 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:45:00,347 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:45:00,347 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:45:00,953 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:45:01,585 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:45:02,238 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:45:02,852 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:45:03,455 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:45:03,455 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:45:04,419 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:45:05,351 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:45:06,307 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:45:06,321 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:06,536 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:45:06,553 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:06,554 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:45:06,555 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:45:06,557 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:45:06,557 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:45:06,557 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:45:06,558 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:45:06,999 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:45:07,452 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:45:07,913 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:45:08,380 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:45:08,835 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:45:08,836 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:45:09,934 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:45:10,914 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:45:12,060 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:45:12,073 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:12,292 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:45:12,308 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:12,311 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:45:12,311 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:45:12,314 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:45:12,318 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:45:12,318 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:45:12,318 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:45:12,768 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:45:13,209 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:45:13,663 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:45:14,126 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:45:14,567 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:45:14,568 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:45:15,485 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:45:16,612 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:45:17,584 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:45:17,599 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:17,822 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:45:17,835 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:17,839 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:45:17,839 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:45:17,840 - praelocate - INFO - Calculating new midpoint distances from (-33.93, 18.6)
+2025-11-26 15:45:18,467 - praelocate - INFO - Calculated distances: [27.91, 21.36]
+2025-11-26 15:45:18,467 - praelocate - INFO - Calculated times: [41.27, 41.65]
+2025-11-26 15:45:19,636 - praelocate - DEBUG - Found 0 schools near (-33.93, 18.6)
+2025-11-26 15:45:20,908 - praelocate - DEBUG - Found 20 hospitals near (-33.93, 18.6)
+2025-11-26 15:45:21,745 - praelocate - DEBUG - Area list from places: ['19 Tekstiel Street', 'Parow Industrial', 'Cape Town']
+2025-11-26 15:45:21,761 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:21,984 - praelocate - DEBUG - Area list from directions: ['15 Laventel Rd', 'Ravensmead', 'Cape Town', '7504', 'South Africa']
+2025-11-26 15:45:22,001 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:22,004 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:45:22,007 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:45:22,008 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:45:22,008 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:45:22,008 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:45:22,463 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:45:22,902 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:45:23,361 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:45:23,802 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:45:24,262 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:45:24,263 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:45:25,246 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:45:26,502 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:45:27,466 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:45:27,478 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:27,700 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:45:27,716 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:27,719 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:45:27,719 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:45:27,721 - praelocate - WARNING - Validation error: 'midpoint' field is required
+2025-11-26 15:45:27,723 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:45:27,724 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:45:27,724 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:45:27,724 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:45:28,171 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:45:28,631 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:45:29,084 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:45:29,548 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:45:29,977 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:45:29,977 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:45:30,937 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:45:32,238 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:45:33,239 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:45:33,257 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:33,469 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:45:33,480 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:33,484 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:45:33,485 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:45:33,486 - praelocate - INFO - Calculating new midpoint distances from (-33.93, 18.6)
+2025-11-26 15:45:33,949 - praelocate - INFO - Calculated distances: [27.91, 21.36]
+2025-11-26 15:45:33,952 - praelocate - INFO - Calculated times: [41.27, 41.65]
+2025-11-26 15:45:34,934 - praelocate - DEBUG - Found 0 schools near (-33.93, 18.6)
+2025-11-26 15:45:35,897 - praelocate - DEBUG - Found 20 hospitals near (-33.93, 18.6)
+2025-11-26 15:45:36,705 - praelocate - DEBUG - Area list from places: ['19 Tekstiel Street', 'Parow Industrial', 'Cape Town']
+2025-11-26 15:45:36,723 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:36,938 - praelocate - DEBUG - Area list from directions: ['15 Laventel Rd', 'Ravensmead', 'Cape Town', '7504', 'South Africa']
+2025-11-26 15:45:36,955 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:36,957 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:45:36,959 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:45:36,960 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9, 18.4, 2.0, '08:00'), (-34.0, 18.8, 2.0, '09:00')]
+2025-11-26 15:45:36,960 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.95, 'lng': 18.6}
+2025-11-26 15:45:36,960 - praelocate - DEBUG - Processing candidate point 0: (-33.95, 18.6)
+2025-11-26 15:45:37,770 - praelocate - DEBUG - Processing candidate point 1: (-33.95, 18.654147513036317)
+2025-11-26 15:45:38,699 - praelocate - DEBUG - Processing candidate point 2: (-33.95, 18.545852486963685)
+2025-11-26 15:45:39,605 - praelocate - DEBUG - Processing candidate point 3: (-33.90508327099947, 18.6)
+2025-11-26 15:45:40,446 - praelocate - DEBUG - Processing candidate point 4: (-33.994916729000536, 18.6)
+2025-11-26 15:45:41,306 - praelocate - INFO - Optimized location 2 selected (based on time)
+2025-11-26 15:45:41,306 - praelocate - DEBUG - Optimized result: {'average_distance': 26.05, 'average_time': 41.65, 'all_distances': [18.42, 33.68], 'all_times': [52.78, 30.52], 'weighted_time': 41.65, 'origin': (-33.95, 18.545852486963685)}
+2025-11-26 15:45:42,293 - praelocate - DEBUG - Found 0 schools near (-33.95, 18.545852486963685)
+2025-11-26 15:45:43,612 - praelocate - DEBUG - Found 20 hospitals near (-33.95, 18.545852486963685)
+2025-11-26 15:45:44,585 - praelocate - DEBUG - Area list from places: ['Jakkalsvlei Ave', 'Als Road', 'Kaapstad']
+2025-11-26 15:45:44,601 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:44,817 - praelocate - DEBUG - Area list from directions: ['14 Candlewood St', 'Bonteheuwel', 'Cape Town', '7764', 'South Africa']
+2025-11-26 15:45:44,833 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:44,838 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:45:44,838 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:45:44,841 - praelocate - INFO - Processing 3 locations with radius=5.0km, optimize=time
+2025-11-26 15:45:44,842 - praelocate - DEBUG - Parsed 3 valid locations: [(-33.9, 18.4, 2.0, '08:00'), (-33.95, 18.6, 3.0, '09:00'), (-34.0, 18.8, 2.0, '10:00')]
+2025-11-26 15:45:44,842 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.95, 'lng': 18.599999999999998}
+2025-11-26 15:45:44,843 - praelocate - DEBUG - Processing candidate point 0: (-33.95, 18.599999999999998)
+2025-11-26 15:45:45,766 - praelocate - DEBUG - Processing candidate point 1: (-33.95, 18.654147513036314)
+2025-11-26 15:45:46,711 - praelocate - DEBUG - Processing candidate point 2: (-33.95, 18.545852486963682)
+2025-11-26 15:45:47,649 - praelocate - DEBUG - Processing candidate point 3: (-33.90508327099947, 18.599999999999998)
+2025-11-26 15:45:48,634 - praelocate - DEBUG - Processing candidate point 4: (-33.994916729000536, 18.599999999999998)
+2025-11-26 15:45:49,628 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:45:49,629 - praelocate - DEBUG - Optimized result: {'average_distance': 16.75, 'average_time': 29.04, 'all_distances': [23.73, 0.0, 26.51], 'all_times': [57.0, 0.0, 30.12], 'weighted_time': 30.91, 'origin': (-33.95, 18.599999999999998)}
+2025-11-26 15:45:50,517 - praelocate - DEBUG - Found 0 schools near (-33.95, 18.599999999999998)
+2025-11-26 15:45:52,087 - praelocate - DEBUG - Found 20 hospitals near (-33.95, 18.599999999999998)
+2025-11-26 15:45:52,808 - praelocate - DEBUG - Area list from places: ['2 Reuben Kaye Road', 'Parow Industrial', 'Cape Town']
+2025-11-26 15:45:52,826 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:53,060 - praelocate - DEBUG - Area list from directions: ['4A Stellenbosch Rd', 'Matroosfontein', 'Cape Town', '7490', 'South Africa']
+2025-11-26 15:45:53,071 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:45:53,072 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:45:53,072 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:45:53,074 - praelocate - INFO - Processing 2 locations with radius=10.0km, optimize=time
+2025-11-26 15:45:53,074 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9, 18.4, 4.0, '08:00'), (-34.0, 18.8, 1.0, '09:00')]
+2025-11-26 15:45:53,074 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92, 'lng': 18.479999999999997}
+2025-11-26 15:45:53,074 - praelocate - DEBUG - Processing candidate point 0: (-33.92, 18.479999999999997)
+2025-11-26 15:45:53,761 - praelocate - DEBUG - Processing candidate point 1: (-33.92, 18.588256879561285)
+2025-11-26 15:45:54,505 - praelocate - DEBUG - Processing candidate point 2: (-33.92, 18.37174312043871)
+2025-11-26 15:45:55,198 - praelocate - DEBUG - Processing candidate point 3: (-33.830166541998935, 18.479999999999997)
+2025-11-26 15:45:56,037 - praelocate - DEBUG - Processing candidate point 4: (-34.00983345800107, 18.479999999999997)
+2025-11-26 15:45:56,824 - praelocate - INFO - Optimized location 2 selected (based on time)
+2025-11-26 15:45:56,824 - praelocate - DEBUG - Optimized result: {'average_distance': 27.87, 'average_time': 29.68, 'all_distances': [3.58, 52.16], 'all_times': [8.7, 50.67], 'weighted_time': 35.98, 'origin': (-33.92, 18.37174312043871)}
+2025-11-26 15:45:57,828 - praelocate - DEBUG - Found 0 schools near (-33.92, 18.37174312043871)
+2025-11-26 15:45:59,617 - praelocate - DEBUG - Found 20 hospitals near (-33.92, 18.37174312043871)
+2025-11-26 15:46:00,611 - praelocate - DEBUG - Area list from places: ['4 Alexander Road', 'Bantry Bay', 'Cape Town']
+2025-11-26 15:46:00,620 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:00,832 - praelocate - DEBUG - Area list from directions: ['319 Beach Rd', 'Sea Point', 'Cape Town', '8060', 'South Africa']
+2025-11-26 15:46:00,843 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:00,846 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:46:00,848 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:46:00,850 - praelocate - INFO - Processing 3 locations with radius=5.0km, optimize=time
+2025-11-26 15:46:00,850 - praelocate - DEBUG - Skipping location with invalid rank: 0.0
+2025-11-26 15:46:00,850 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.95, 18.6, 3.0, '09:00'), (-34.0, 18.8, 2.0, '10:00')]
+2025-11-26 15:46:00,850 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.970000000000006, 'lng': 18.68}
+2025-11-26 15:46:00,851 - praelocate - DEBUG - Processing candidate point 0: (-33.970000000000006, 18.68)
+2025-11-26 15:46:01,554 - praelocate - DEBUG - Processing candidate point 1: (-33.970000000000006, 18.734160244260803)
+2025-11-26 15:46:02,339 - praelocate - DEBUG - Processing candidate point 2: (-33.970000000000006, 18.625839755739197)
+2025-11-26 15:46:03,102 - praelocate - DEBUG - Processing candidate point 3: (-33.92508327099947, 18.68)
+2025-11-26 15:46:03,876 - praelocate - DEBUG - Processing candidate point 4: (-34.01491672900054, 18.68)
+2025-11-26 15:46:04,602 - praelocate - INFO - Optimized location 2 selected (based on time)
+2025-11-26 15:46:04,602 - praelocate - DEBUG - Optimized result: {'average_distance': 16.55, 'average_time': 17.19, 'all_distances': [4.61, 28.48], 'all_times': [5.95, 28.43], 'weighted_time': 18.32, 'origin': (-33.970000000000006, 18.625839755739197)}
+2025-11-26 15:46:06,041 - praelocate - DEBUG - Found 0 schools near (-33.970000000000006, 18.625839755739197)
+2025-11-26 15:46:07,518 - praelocate - DEBUG - Found 20 hospitals near (-33.970000000000006, 18.625839755739197)
+2025-11-26 15:46:08,460 - praelocate - DEBUG - Area list from places: ['International Airport', 'Cape Town']
+2025-11-26 15:46:08,468 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:08,695 - praelocate - DEBUG - Area list from directions: ['18 Ksour St', 'Matroosfontein', 'Cape Town', '7490', 'South Africa']
+2025-11-26 15:46:08,707 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:08,709 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:46:08,710 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:46:08,712 - praelocate - WARNING - Validation error: Location 1: Coordinates out of valid range
+2025-11-26 15:46:08,716 - praelocate - INFO - Processing 2 locations with radius=-5.0km, optimize=time
+2025-11-26 15:46:08,717 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9, 18.4, 2.0, '08:00'), (-33.95, 18.6, 3.0, '09:00')]
+2025-11-26 15:46:08,717 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.93, 'lng': 18.52}
+2025-11-26 15:46:08,717 - praelocate - DEBUG - Processing candidate point 0: (-33.93, 18.52)
+2025-11-26 15:46:09,411 - praelocate - DEBUG - Processing candidate point 1: (-33.93, 18.46586520560961)
+2025-11-26 15:46:09,971 - praelocate - DEBUG - Processing candidate point 2: (-33.93, 18.57413479439039)
+2025-11-26 15:46:10,559 - praelocate - DEBUG - Processing candidate point 3: (-33.97491672900053, 18.52)
+2025-11-26 15:46:11,140 - praelocate - DEBUG - Processing candidate point 4: (-33.885083270999466, 18.52)
+2025-11-26 15:46:11,766 - praelocate - INFO - Optimized location 1 selected (based on time)
+2025-11-26 15:46:11,767 - praelocate - DEBUG - Optimized result: {'average_distance': 11.82, 'average_time': 20.54, 'all_distances': [8.38, 15.27], 'all_times': [22.57, 18.52], 'weighted_time': 20.74, 'origin': (-33.93, 18.46586520560961)}
+2025-11-26 15:46:12,762 - praelocate - DEBUG - Found 0 schools near (-33.93, 18.46586520560961)
+2025-11-26 15:46:14,065 - praelocate - DEBUG - Found 20 hospitals near (-33.93, 18.46586520560961)
+2025-11-26 15:46:15,315 - praelocate - DEBUG - Area list from places: ['38 Lower Rochester Road', 'Observatory', 'Cape Town']
+2025-11-26 15:46:15,324 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:15,549 - praelocate - DEBUG - Area list from directions: ['4 Malta Rd', 'Salt River', 'Cape Town', '7925', 'South Africa']
+2025-11-26 15:46:15,559 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:15,561 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:46:15,561 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:46:15,565 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:46:15,565 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:46:15,565 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:46:15,565 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:46:16,160 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:46:16,877 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:46:17,578 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:46:18,203 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:46:18,808 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:46:18,808 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:46:20,058 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:46:21,489 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:46:22,681 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:46:22,696 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:22,916 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:46:22,933 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:22,935 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:46:22,936 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:46:22,939 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:46:22,939 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:46:22,939 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:46:22,940 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:46:23,389 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:46:23,836 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:46:24,302 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:46:24,757 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:46:25,226 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:46:25,227 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:46:26,108 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:46:27,294 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:46:28,276 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:46:28,286 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:28,498 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:46:28,504 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:28,505 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:46:28,506 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:46:28,508 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:46:28,508 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:46:28,508 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:46:28,508 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:46:28,960 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:46:29,393 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:46:29,848 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:46:30,309 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:46:30,759 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:46:30,760 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:46:31,961 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:46:33,883 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:46:35,101 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:46:35,116 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:35,332 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:46:35,344 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:35,348 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:46:35,349 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:46:35,351 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:46:35,351 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:46:35,351 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:46:35,351 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:46:35,820 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:46:36,265 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:46:36,713 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:46:37,164 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:46:37,616 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:46:37,616 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:46:38,764 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:46:40,085 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:46:41,321 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:46:41,337 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:41,555 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:46:41,571 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:41,573 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:46:41,574 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:46:41,576 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 15:46:41,577 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9321, 18.8602, 3.0, '08:00'), (-33.9249, 18.4241, 2.0, '09:00')]
+2025-11-26 15:46:41,577 - praelocate - INFO - Calculated weighted midpoint: {'lat': -33.92922, 'lng': 18.68576}
+2025-11-26 15:46:41,577 - praelocate - DEBUG - Processing candidate point 0: (-33.92922, 18.68576)
+2025-11-26 15:46:42,040 - praelocate - DEBUG - Processing candidate point 1: (-33.92922, 18.73989429861788)
+2025-11-26 15:46:42,498 - praelocate - DEBUG - Processing candidate point 2: (-33.92922, 18.631625701382116)
+2025-11-26 15:46:42,949 - praelocate - DEBUG - Processing candidate point 3: (-33.88430327099947, 18.68576)
+2025-11-26 15:46:43,399 - praelocate - DEBUG - Processing candidate point 4: (-33.974136729000534, 18.68576)
+2025-11-26 15:46:43,854 - praelocate - INFO - Optimized location 0 selected (based on time)
+2025-11-26 15:46:43,855 - praelocate - DEBUG - Optimized result: {'average_distance': 27.92, 'average_time': 38.17, 'all_distances': [19.93, 35.91], 'all_times': [28.3, 48.05], 'weighted_time': 39.16, 'origin': (-33.92922, 18.68576)}
+2025-11-26 15:46:44,771 - praelocate - DEBUG - Found 0 schools near (-33.92922, 18.68576)
+2025-11-26 15:46:45,940 - praelocate - DEBUG - Found 20 hospitals near (-33.92922, 18.68576)
+2025-11-26 15:46:47,161 - praelocate - DEBUG - Area list from places: ['67 Van Riebeeck Road', 'Kuils River', 'Cape Town']
+2025-11-26 15:46:47,178 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:47,408 - praelocate - DEBUG - Area list from directions: ['23 Jakaranda St', 'Kuils River', 'Cape Town', '7580', 'South Africa']
+2025-11-26 15:46:47,416 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 15:46:47,421 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 15:46:47,421 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 15:49:49,360 - praelocate - INFO - API key loaded from file
+2025-11-26 15:49:49,361 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:49:49,362 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:49:50,059 - praelocate - INFO - API key loaded from file
+2025-11-26 15:49:50,060 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:49:50,061 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:51:53,628 - praelocate - INFO - API key loaded from file
+2025-11-26 15:51:53,632 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:51:53,633 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:51:54,680 - praelocate - INFO - API key loaded from file
+2025-11-26 15:51:54,681 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:51:54,682 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:54:16,484 - praelocate - INFO - API key loaded from file
+2025-11-26 15:54:16,485 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:54:16,486 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:54:17,215 - praelocate - INFO - API key loaded from file
+2025-11-26 15:54:17,215 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:54:17,217 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:56:30,036 - praelocate - INFO - API key loaded from file
+2025-11-26 15:56:30,037 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:56:30,038 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:56:30,850 - praelocate - INFO - API key loaded from file
+2025-11-26 15:56:30,851 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:56:30,852 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:56:37,436 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:56:37,448 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:56:37,456 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 15:56:37,466 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 15:56:37,474 - praelocate - WARNING - Validation error: Request body is required
+2025-11-26 15:56:37,481 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:56:37,489 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:56:37,496 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:56:37,504 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:56:37,511 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:56:37,518 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:56:47,868 - praelocate - INFO - API key loaded from file
+2025-11-26 15:56:47,869 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:56:47,870 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:56:48,576 - praelocate - INFO - API key loaded from file
+2025-11-26 15:56:48,577 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:56:48,578 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:57:16,101 - praelocate - INFO - API key loaded from file
+2025-11-26 15:57:16,102 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:57:16,103 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:57:16,949 - praelocate - INFO - API key loaded from file
+2025-11-26 15:57:16,950 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:57:16,951 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:58:02,082 - praelocate - INFO - API key loaded from file
+2025-11-26 15:58:02,082 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:58:02,083 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:58:02,858 - praelocate - INFO - API key loaded from file
+2025-11-26 15:58:02,859 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:58:02,860 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:59:37,556 - praelocate - INFO - API key loaded from file
+2025-11-26 15:59:37,557 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:59:37,558 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:59:38,279 - praelocate - INFO - API key loaded from file
+2025-11-26 15:59:38,279 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-26 15:59:38,282 - praelocate - INFO - Starting Praelocate API server...
+2025-11-26 15:59:45,882 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:59:45,890 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:59:45,900 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 15:59:45,913 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 15:59:45,922 - praelocate - WARNING - Validation error: Request body is required
+2025-11-26 15:59:45,930 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:59:45,937 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:59:45,944 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:59:45,954 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:59:45,963 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 15:59:45,974 - praelocate - WARNING - Validation error: Location 1: 'coordinates' field is required
+2025-11-26 16:02:19,883 - praelocate - WARNING - Validation error: Location 1: 'rank' field is required
+2025-11-26 16:02:19,924 - praelocate - WARNING - Validation error: Location 1: 'rank' field is required
+2025-11-26 16:02:19,953 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 16:02:20,014 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 16:02:20,030 - praelocate - WARNING - Validation error: Request body is required
+2025-11-26 16:02:20,044 - praelocate - WARNING - Validation error: Location 1: 'rank' field is required
+2025-11-26 16:02:20,065 - praelocate - WARNING - Validation error: Location 1: 'rank' field is required
+2025-11-26 16:02:20,079 - praelocate - WARNING - Validation error: Location 1: 'rank' field is required
+2025-11-26 16:02:20,092 - praelocate - WARNING - Validation error: Location 1: 'rank' field is required
+2025-11-26 16:02:20,102 - praelocate - WARNING - Validation error: Location 1: 'rank' field is required
+2025-11-26 16:02:20,117 - praelocate - WARNING - Validation error: Location 1: 'rank' field is required
+2025-11-26 16:04:36,034 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:04:36,035 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30')]
+2025-11-26 16:04:36,035 - praelocate - INFO - Calculated weighted midpoint: {'lat': -28.7777, 'lng': 24.839566666666666}
+2025-11-26 16:04:36,035 - praelocate - DEBUG - Processing candidate point 0: (-28.7777, 24.839566666666666)
+2025-11-26 16:04:36,040 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:37,287 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:37,745 - praelocate - DEBUG - Processing candidate point 1: (-28.7777, 24.890812565717873)
+2025-11-26 16:04:37,746 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:38,272 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:38,699 - praelocate - DEBUG - Processing candidate point 2: (-28.7777, 24.78832076761546)
+2025-11-26 16:04:38,699 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:39,255 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:39,682 - praelocate - DEBUG - Processing candidate point 3: (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:04:39,682 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:40,227 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:40,633 - praelocate - DEBUG - Processing candidate point 4: (-28.822616729000533, 24.839566666666666)
+2025-11-26 16:04:40,634 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:41,061 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:41,470 - praelocate - INFO - Optimized location 3 selected (based on time)
+2025-11-26 16:04:41,475 - praelocate - DEBUG - Optimized result: {'average_distance': 722.9, 'average_time': 496.53, 'all_distances': [960.6, 485.2], 'all_times': [671.13, 321.93], 'weighted_time': 511.08, 'origin': (-28.732783270999466, 24.839566666666666)}
+2025-11-26 16:04:42,472 - praelocate - DEBUG - Found 0 schools near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:04:44,604 - praelocate - DEBUG - Found 19 hospitals near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:04:46,434 - praelocate - DEBUG - Area list from directions: ['R64', 'South Africa']
+2025-11-26 16:04:46,445 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 16:04:46,446 - praelocate - INFO - Found 0 schools, 19 hospitals
+2025-11-26 16:04:46,447 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 16:04:46,459 - praelocate - INFO - Processing 3 locations with radius=5.0km, optimize=time
+2025-11-26 16:04:46,459 - praelocate - DEBUG - Parsed 3 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30'), (-29.8587, 31.0218, 3.0, '30')]
+2025-11-26 16:04:46,459 - praelocate - INFO - Calculated weighted midpoint: {'lat': -29.3182, 'lng': 27.93068333333333}
+2025-11-26 16:04:46,460 - praelocate - DEBUG - Processing candidate point 0: (-29.3182, 27.93068333333333)
+2025-11-26 16:04:46,460 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:47,098 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:47,493 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:48,031 - praelocate - DEBUG - Processing candidate point 1: (-29.3182, 27.982198437498102)
+2025-11-26 16:04:48,031 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:48,596 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:49,050 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:49,462 - praelocate - DEBUG - Processing candidate point 2: (-29.3182, 27.87916822916856)
+2025-11-26 16:04:49,462 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:50,339 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:50,760 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:51,172 - praelocate - DEBUG - Processing candidate point 3: (-29.273283270999467, 27.93068333333333)
+2025-11-26 16:04:51,172 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:51,922 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:52,404 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:52,839 - praelocate - DEBUG - Processing candidate point 4: (-29.363116729000534, 27.93068333333333)
+2025-11-26 16:04:52,839 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:53,346 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:53,724 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:54,161 - praelocate - INFO - Optimized location 2 selected (based on time)
+2025-11-26 16:04:54,162 - praelocate - DEBUG - Optimized result: {'average_distance': 720.45, 'average_time': 555.01, 'all_distances': [1154.11, 449.95, 557.3], 'all_times': [863.13, 358.18, 443.7], 'weighted_time': 580.43, 'origin': (-29.3182, 27.87916822916856)}
+2025-11-26 16:04:55,341 - praelocate - DEBUG - Found 0 schools near (-29.3182, 27.87916822916856)
+2025-11-26 16:04:57,426 - praelocate - DEBUG - Found 20 hospitals near (-29.3182, 27.87916822916856)
+2025-11-26 16:04:58,396 - praelocate - DEBUG - Area list from directions: ['Unnamed Road', 'Lesotho']
+2025-11-26 16:04:58,398 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 16:04:58,399 - praelocate - INFO - Median price: *Feature only available in South Africa*
+2025-11-26 16:04:58,411 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 16:04:58,424 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 16:04:58,433 - praelocate - WARNING - Validation error: Request body is required
+2025-11-26 16:04:58,443 - praelocate - WARNING - Validation error: Location 2: Coordinates out of valid range
+2025-11-26 16:04:58,450 - praelocate - WARNING - Validation error: Location 2: Coordinates out of valid range
+2025-11-26 16:04:58,464 - praelocate - WARNING - Validation error: Location 2: 'coordinates' field is required
+2025-11-26 16:04:58,474 - praelocate - WARNING - Validation error: Location 2: 'rank' field is required
+2025-11-26 16:04:58,480 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:04:58,480 - praelocate - DEBUG - Parsed 2 valid locations: [(0.0, 10.0, 1.0, '30'), (0.0, 20.0, 2.0, '30')]
+2025-11-26 16:04:58,480 - praelocate - INFO - Calculated weighted midpoint: {'lat': 0.0, 'lng': 16.666666666666668}
+2025-11-26 16:04:58,480 - praelocate - DEBUG - Processing candidate point 0: (0.0, 16.666666666666668)
+2025-11-26 16:04:58,480 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:58,750 - praelocate - WARNING - No route found - possible rate limiting
+2025-11-26 16:04:58,751 - praelocate - ERROR - External service error (Google Maps API): Too many requests - please wait and try again
+2025-11-26 16:04:58,765 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:04:58,768 - praelocate - DEBUG - Parsed 2 valid locations: [(40.7128, -74.006, 1.0, '30'), (-33.8688, 151.2093, 2.0, '30')]
+2025-11-26 16:04:58,768 - praelocate - INFO - Calculated weighted midpoint: {'lat': -9.008266666666666, 'lng': 76.13753333333334}
+2025-11-26 16:04:58,769 - praelocate - DEBUG - Processing candidate point 0: (-9.008266666666666, 76.13753333333334)
+2025-11-26 16:04:58,769 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:58,998 - praelocate - WARNING - No route found - possible rate limiting
+2025-11-26 16:04:58,999 - praelocate - ERROR - External service error (Google Maps API): Too many requests - please wait and try again
+2025-11-26 16:04:59,014 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:04:59,014 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30')]
+2025-11-26 16:04:59,014 - praelocate - INFO - Calculated weighted midpoint: {'lat': -28.7777, 'lng': 24.839566666666666}
+2025-11-26 16:04:59,014 - praelocate - DEBUG - Processing candidate point 0: (-28.7777, 24.839566666666666)
+2025-11-26 16:04:59,015 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:59,459 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:04:59,815 - praelocate - DEBUG - Processing candidate point 1: (-28.7777, 24.890812565717873)
+2025-11-26 16:04:59,815 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:00,315 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:00,663 - praelocate - DEBUG - Processing candidate point 2: (-28.7777, 24.78832076761546)
+2025-11-26 16:05:00,663 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:01,112 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:01,544 - praelocate - DEBUG - Processing candidate point 3: (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:05:01,545 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:01,947 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:02,364 - praelocate - DEBUG - Processing candidate point 4: (-28.822616729000533, 24.839566666666666)
+2025-11-26 16:05:02,364 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:02,776 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:03,125 - praelocate - INFO - Optimized location 3 selected (based on time)
+2025-11-26 16:05:03,125 - praelocate - DEBUG - Optimized result: {'average_distance': 722.9, 'average_time': 496.42, 'all_distances': [960.6, 485.2], 'all_times': [670.87, 321.97], 'weighted_time': 510.95, 'origin': (-28.732783270999466, 24.839566666666666)}
+2025-11-26 16:05:04,121 - praelocate - DEBUG - Found 0 schools near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:05:05,880 - praelocate - DEBUG - Found 19 hospitals near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:05:06,784 - praelocate - DEBUG - Area list from directions: ['R64', 'South Africa']
+2025-11-26 16:05:06,795 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 16:05:06,797 - praelocate - INFO - Found 0 schools, 19 hospitals
+2025-11-26 16:05:06,798 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 16:05:25,180 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:05:25,184 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30')]
+2025-11-26 16:05:25,185 - praelocate - INFO - Calculated weighted midpoint: {'lat': -28.7777, 'lng': 24.839566666666666}
+2025-11-26 16:05:25,187 - praelocate - DEBUG - Processing candidate point 0: (-28.7777, 24.839566666666666)
+2025-11-26 16:05:25,187 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:25,583 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:25,939 - praelocate - DEBUG - Processing candidate point 1: (-28.7777, 24.890812565717873)
+2025-11-26 16:05:25,939 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:26,471 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:26,845 - praelocate - DEBUG - Processing candidate point 2: (-28.7777, 24.78832076761546)
+2025-11-26 16:05:26,845 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:27,396 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:27,753 - praelocate - DEBUG - Processing candidate point 3: (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:05:27,753 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:28,182 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:28,521 - praelocate - DEBUG - Processing candidate point 4: (-28.822616729000533, 24.839566666666666)
+2025-11-26 16:05:28,521 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:28,895 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:05:29,280 - praelocate - INFO - Optimized location 3 selected (based on time)
+2025-11-26 16:05:29,280 - praelocate - DEBUG - Optimized result: {'average_distance': 722.9, 'average_time': 496.24, 'all_distances': [960.6, 485.2], 'all_times': [670.55, 321.93], 'weighted_time': 510.77, 'origin': (-28.732783270999466, 24.839566666666666)}
+2025-11-26 16:05:31,188 - praelocate - DEBUG - Found 0 schools near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:05:32,464 - praelocate - DEBUG - Found 19 hospitals near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:05:34,247 - praelocate - DEBUG - Area list from directions: ['R64', 'South Africa']
+2025-11-26 16:05:34,264 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 16:05:34,266 - praelocate - INFO - Found 0 schools, 19 hospitals
+2025-11-26 16:05:34,266 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 16:06:30,664 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:06:30,665 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30')]
+2025-11-26 16:06:30,665 - praelocate - INFO - Calculated weighted midpoint: {'lat': -28.7777, 'lng': 24.839566666666666}
+2025-11-26 16:06:30,669 - praelocate - DEBUG - Processing candidate point 0: (-28.7777, 24.839566666666666)
+2025-11-26 16:06:30,669 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:31,080 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:31,451 - praelocate - DEBUG - Processing candidate point 1: (-28.7777, 24.890812565717873)
+2025-11-26 16:06:31,452 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:31,957 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:32,305 - praelocate - DEBUG - Processing candidate point 2: (-28.7777, 24.78832076761546)
+2025-11-26 16:06:32,305 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:32,719 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:33,074 - praelocate - DEBUG - Processing candidate point 3: (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:06:33,074 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:33,576 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:33,953 - praelocate - DEBUG - Processing candidate point 4: (-28.822616729000533, 24.839566666666666)
+2025-11-26 16:06:33,954 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:34,396 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:34,758 - praelocate - INFO - Optimized location 3 selected (based on time)
+2025-11-26 16:06:34,758 - praelocate - DEBUG - Optimized result: {'average_distance': 722.9, 'average_time': 495.88, 'all_distances': [960.6, 485.2], 'all_times': [669.83, 321.92], 'weighted_time': 510.37, 'origin': (-28.732783270999466, 24.839566666666666)}
+2025-11-26 16:06:35,653 - praelocate - DEBUG - Found 0 schools near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:06:36,828 - praelocate - DEBUG - Found 19 hospitals near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:06:37,742 - praelocate - DEBUG - Area list from directions: ['R64', 'South Africa']
+2025-11-26 16:06:37,754 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 16:06:37,759 - praelocate - INFO - Found 0 schools, 19 hospitals
+2025-11-26 16:06:37,762 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 16:06:37,783 - praelocate - INFO - Processing 3 locations with radius=5.0km, optimize=time
+2025-11-26 16:06:37,793 - praelocate - DEBUG - Parsed 3 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30'), (-29.8587, 31.0218, 3.0, '30')]
+2025-11-26 16:06:37,793 - praelocate - INFO - Calculated weighted midpoint: {'lat': -29.3182, 'lng': 27.93068333333333}
+2025-11-26 16:06:37,802 - praelocate - DEBUG - Processing candidate point 0: (-29.3182, 27.93068333333333)
+2025-11-26 16:06:37,802 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:38,315 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:38,715 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:39,195 - praelocate - DEBUG - Processing candidate point 1: (-29.3182, 27.982198437498102)
+2025-11-26 16:06:39,196 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:39,674 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:40,065 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:40,440 - praelocate - DEBUG - Processing candidate point 2: (-29.3182, 27.87916822916856)
+2025-11-26 16:06:40,440 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:40,930 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:41,300 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:41,701 - praelocate - DEBUG - Processing candidate point 3: (-29.273283270999467, 27.93068333333333)
+2025-11-26 16:06:41,701 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:42,295 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:42,685 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:43,050 - praelocate - DEBUG - Processing candidate point 4: (-29.363116729000534, 27.93068333333333)
+2025-11-26 16:06:43,050 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:43,575 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:43,955 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:44,352 - praelocate - INFO - Optimized location 2 selected (based on time)
+2025-11-26 16:06:44,352 - praelocate - DEBUG - Optimized result: {'average_distance': 720.45, 'average_time': 554.58, 'all_distances': [1154.11, 449.95, 557.3], 'all_times': [862.72, 357.85, 443.17], 'weighted_time': 580.01, 'origin': (-29.3182, 27.87916822916856)}
+2025-11-26 16:06:45,430 - praelocate - DEBUG - Found 0 schools near (-29.3182, 27.87916822916856)
+2025-11-26 16:06:46,792 - praelocate - DEBUG - Found 19 hospitals near (-29.3182, 27.87916822916856)
+2025-11-26 16:06:47,713 - praelocate - DEBUG - Area list from directions: ['Unnamed Road', 'Lesotho']
+2025-11-26 16:06:47,716 - praelocate - INFO - Found 0 schools, 19 hospitals
+2025-11-26 16:06:47,717 - praelocate - INFO - Median price: *Feature only available in South Africa*
+2025-11-26 16:06:47,730 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 16:06:47,744 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 16:06:47,757 - praelocate - WARNING - Validation error: Request body is required
+2025-11-26 16:06:47,776 - praelocate - WARNING - Validation error: Location 2: Coordinates out of valid range
+2025-11-26 16:06:47,794 - praelocate - WARNING - Validation error: Location 2: Coordinates out of valid range
+2025-11-26 16:06:47,805 - praelocate - WARNING - Validation error: Location 2: 'coordinates' field is required
+2025-11-26 16:06:47,812 - praelocate - WARNING - Validation error: Location 2: 'rank' field is required
+2025-11-26 16:06:47,825 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:06:47,826 - praelocate - DEBUG - Parsed 2 valid locations: [(0.0, 10.0, 1.0, '30'), (0.0, 20.0, 2.0, '30')]
+2025-11-26 16:06:47,826 - praelocate - INFO - Calculated weighted midpoint: {'lat': 0.0, 'lng': 16.666666666666668}
+2025-11-26 16:06:47,826 - praelocate - DEBUG - Processing candidate point 0: (0.0, 16.666666666666668)
+2025-11-26 16:06:47,826 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:48,048 - praelocate - WARNING - No route found - possible rate limiting
+2025-11-26 16:06:48,059 - praelocate - ERROR - External service error (Google Maps API): Too many requests - please wait and try again
+2025-11-26 16:06:48,090 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:06:48,091 - praelocate - DEBUG - Parsed 2 valid locations: [(40.7128, -74.006, 1.0, '30'), (-33.8688, 151.2093, 2.0, '30')]
+2025-11-26 16:06:48,091 - praelocate - INFO - Calculated weighted midpoint: {'lat': -9.008266666666666, 'lng': 76.13753333333334}
+2025-11-26 16:06:48,091 - praelocate - DEBUG - Processing candidate point 0: (-9.008266666666666, 76.13753333333334)
+2025-11-26 16:06:48,091 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:48,301 - praelocate - WARNING - No route found - possible rate limiting
+2025-11-26 16:06:48,301 - praelocate - ERROR - External service error (Google Maps API): Too many requests - please wait and try again
+2025-11-26 16:06:48,312 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:06:48,313 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30')]
+2025-11-26 16:06:48,313 - praelocate - INFO - Calculated weighted midpoint: {'lat': -28.7777, 'lng': 24.839566666666666}
+2025-11-26 16:06:48,313 - praelocate - DEBUG - Processing candidate point 0: (-28.7777, 24.839566666666666)
+2025-11-26 16:06:48,313 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:48,802 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:49,161 - praelocate - DEBUG - Processing candidate point 1: (-28.7777, 24.890812565717873)
+2025-11-26 16:06:49,161 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:49,558 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:49,896 - praelocate - DEBUG - Processing candidate point 2: (-28.7777, 24.78832076761546)
+2025-11-26 16:06:49,896 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:50,324 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:50,698 - praelocate - DEBUG - Processing candidate point 3: (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:06:50,699 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:51,100 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:51,429 - praelocate - DEBUG - Processing candidate point 4: (-28.822616729000533, 24.839566666666666)
+2025-11-26 16:06:51,429 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:51,864 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:06:52,251 - praelocate - INFO - Optimized location 3 selected (based on time)
+2025-11-26 16:06:52,252 - praelocate - DEBUG - Optimized result: {'average_distance': 722.9, 'average_time': 495.82, 'all_distances': [960.6, 485.2], 'all_times': [669.73, 321.92], 'weighted_time': 510.32, 'origin': (-28.732783270999466, 24.839566666666666)}
+2025-11-26 16:06:53,250 - praelocate - DEBUG - Found 0 schools near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:06:54,327 - praelocate - DEBUG - Found 19 hospitals near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:06:56,094 - praelocate - DEBUG - Area list from directions: ['R64', 'South Africa']
+2025-11-26 16:06:56,107 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 16:06:56,110 - praelocate - INFO - Found 0 schools, 19 hospitals
+2025-11-26 16:06:56,110 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 16:07:19,486 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:07:19,488 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30')]
+2025-11-26 16:07:19,488 - praelocate - INFO - Calculated weighted midpoint: {'lat': -28.7777, 'lng': 24.839566666666666}
+2025-11-26 16:07:19,488 - praelocate - DEBUG - Processing candidate point 0: (-28.7777, 24.839566666666666)
+2025-11-26 16:07:19,488 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:19,885 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:20,263 - praelocate - DEBUG - Processing candidate point 1: (-28.7777, 24.890812565717873)
+2025-11-26 16:07:20,264 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:20,698 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:21,032 - praelocate - DEBUG - Processing candidate point 2: (-28.7777, 24.78832076761546)
+2025-11-26 16:07:21,032 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:21,424 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:21,815 - praelocate - DEBUG - Processing candidate point 3: (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:07:21,816 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:22,210 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:22,589 - praelocate - DEBUG - Processing candidate point 4: (-28.822616729000533, 24.839566666666666)
+2025-11-26 16:07:22,589 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:22,995 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:23,368 - praelocate - INFO - Optimized location 3 selected (based on time)
+2025-11-26 16:07:23,368 - praelocate - DEBUG - Optimized result: {'average_distance': 722.9, 'average_time': 495.68, 'all_distances': [960.6, 485.2], 'all_times': [669.5, 321.85], 'weighted_time': 510.16, 'origin': (-28.732783270999466, 24.839566666666666)}
+2025-11-26 16:07:25,768 - praelocate - DEBUG - Found 0 schools near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:07:26,815 - praelocate - DEBUG - Found 19 hospitals near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:07:27,734 - praelocate - DEBUG - Area list from directions: ['R64', 'South Africa']
+2025-11-26 16:07:27,749 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 16:07:27,751 - praelocate - INFO - Found 0 schools, 19 hospitals
+2025-11-26 16:07:27,752 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 16:07:27,763 - praelocate - INFO - Processing 3 locations with radius=5.0km, optimize=time
+2025-11-26 16:07:27,763 - praelocate - DEBUG - Parsed 3 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30'), (-29.8587, 31.0218, 3.0, '30')]
+2025-11-26 16:07:27,764 - praelocate - INFO - Calculated weighted midpoint: {'lat': -29.3182, 'lng': 27.93068333333333}
+2025-11-26 16:07:27,769 - praelocate - DEBUG - Processing candidate point 0: (-29.3182, 27.93068333333333)
+2025-11-26 16:07:27,769 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:28,289 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:28,672 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:29,084 - praelocate - DEBUG - Processing candidate point 1: (-29.3182, 27.982198437498102)
+2025-11-26 16:07:29,084 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:29,592 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:29,944 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:30,354 - praelocate - DEBUG - Processing candidate point 2: (-29.3182, 27.87916822916856)
+2025-11-26 16:07:30,355 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:30,801 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:31,167 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:31,622 - praelocate - DEBUG - Processing candidate point 3: (-29.273283270999467, 27.93068333333333)
+2025-11-26 16:07:31,622 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:32,154 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:32,537 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:32,934 - praelocate - DEBUG - Processing candidate point 4: (-29.363116729000534, 27.93068333333333)
+2025-11-26 16:07:32,934 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:33,419 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:33,787 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:34,244 - praelocate - INFO - Optimized location 2 selected (based on time)
+2025-11-26 16:07:34,245 - praelocate - DEBUG - Optimized result: {'average_distance': 720.45, 'average_time': 554.52, 'all_distances': [1154.11, 449.95, 557.3], 'all_times': [862.18, 357.98, 443.4], 'weighted_time': 579.9, 'origin': (-29.3182, 27.87916822916856)}
+2025-11-26 16:07:35,310 - praelocate - DEBUG - Found 0 schools near (-29.3182, 27.87916822916856)
+2025-11-26 16:07:36,534 - praelocate - DEBUG - Found 19 hospitals near (-29.3182, 27.87916822916856)
+2025-11-26 16:07:37,430 - praelocate - DEBUG - Area list from directions: ['Unnamed Road', 'Lesotho']
+2025-11-26 16:07:37,435 - praelocate - INFO - Found 0 schools, 19 hospitals
+2025-11-26 16:07:37,436 - praelocate - INFO - Median price: *Feature only available in South Africa*
+2025-11-26 16:07:37,454 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 16:07:37,470 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 16:07:37,478 - praelocate - WARNING - Validation error: Request body is required
+2025-11-26 16:07:37,489 - praelocate - WARNING - Validation error: Location 2: Coordinates out of valid range
+2025-11-26 16:07:37,496 - praelocate - WARNING - Validation error: Location 2: Coordinates out of valid range
+2025-11-26 16:07:37,505 - praelocate - WARNING - Validation error: Location 2: 'coordinates' field is required
+2025-11-26 16:07:37,511 - praelocate - WARNING - Validation error: Location 2: 'rank' field is required
+2025-11-26 16:07:39,519 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:07:39,520 - praelocate - DEBUG - Parsed 2 valid locations: [(0.0, 10.0, 1.0, '30'), (0.0, 20.0, 2.0, '30')]
+2025-11-26 16:07:39,520 - praelocate - INFO - Calculated weighted midpoint: {'lat': 0.0, 'lng': 16.666666666666668}
+2025-11-26 16:07:39,520 - praelocate - DEBUG - Processing candidate point 0: (0.0, 16.666666666666668)
+2025-11-26 16:07:39,520 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:39,734 - praelocate - WARNING - No route found - possible rate limiting
+2025-11-26 16:07:39,735 - praelocate - ERROR - External service error (Google Maps API): Too many requests - please wait and try again
+2025-11-26 16:07:41,759 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:07:41,760 - praelocate - DEBUG - Parsed 2 valid locations: [(40.7128, -74.006, 1.0, '30'), (-33.8688, 151.2093, 2.0, '30')]
+2025-11-26 16:07:41,760 - praelocate - INFO - Calculated weighted midpoint: {'lat': -9.008266666666666, 'lng': 76.13753333333334}
+2025-11-26 16:07:41,760 - praelocate - DEBUG - Processing candidate point 0: (-9.008266666666666, 76.13753333333334)
+2025-11-26 16:07:41,760 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:41,970 - praelocate - WARNING - No route found - possible rate limiting
+2025-11-26 16:07:41,971 - praelocate - ERROR - External service error (Google Maps API): Too many requests - please wait and try again
+2025-11-26 16:07:41,984 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:07:41,984 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30')]
+2025-11-26 16:07:41,984 - praelocate - INFO - Calculated weighted midpoint: {'lat': -28.7777, 'lng': 24.839566666666666}
+2025-11-26 16:07:41,985 - praelocate - DEBUG - Processing candidate point 0: (-28.7777, 24.839566666666666)
+2025-11-26 16:07:41,985 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:42,457 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:42,806 - praelocate - DEBUG - Processing candidate point 1: (-28.7777, 24.890812565717873)
+2025-11-26 16:07:42,806 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:43,211 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:43,572 - praelocate - DEBUG - Processing candidate point 2: (-28.7777, 24.78832076761546)
+2025-11-26 16:07:43,572 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:43,959 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:44,379 - praelocate - DEBUG - Processing candidate point 3: (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:07:44,379 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:44,816 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:45,209 - praelocate - DEBUG - Processing candidate point 4: (-28.822616729000533, 24.839566666666666)
+2025-11-26 16:07:45,209 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:45,646 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:07:46,071 - praelocate - INFO - Optimized location 3 selected (based on time)
+2025-11-26 16:07:46,071 - praelocate - DEBUG - Optimized result: {'average_distance': 722.9, 'average_time': 495.6, 'all_distances': [960.6, 485.2], 'all_times': [669.48, 321.72], 'weighted_time': 510.09, 'origin': (-28.732783270999466, 24.839566666666666)}
+2025-11-26 16:07:47,838 - praelocate - DEBUG - Found 0 schools near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:07:49,063 - praelocate - DEBUG - Found 19 hospitals near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:07:49,954 - praelocate - DEBUG - Area list from directions: ['R64', 'South Africa']
+2025-11-26 16:07:49,969 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 16:07:49,972 - praelocate - INFO - Found 0 schools, 19 hospitals
+2025-11-26 16:07:49,972 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 16:08:16,581 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:08:16,582 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30')]
+2025-11-26 16:08:16,582 - praelocate - INFO - Calculated weighted midpoint: {'lat': -28.7777, 'lng': 24.839566666666666}
+2025-11-26 16:08:16,582 - praelocate - DEBUG - Processing candidate point 0: (-28.7777, 24.839566666666666)
+2025-11-26 16:08:16,582 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:16,980 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:17,330 - praelocate - DEBUG - Processing candidate point 1: (-28.7777, 24.890812565717873)
+2025-11-26 16:08:17,330 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:17,737 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:18,082 - praelocate - DEBUG - Processing candidate point 2: (-28.7777, 24.78832076761546)
+2025-11-26 16:08:18,082 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:18,521 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:18,883 - praelocate - DEBUG - Processing candidate point 3: (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:08:18,883 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:19,420 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:19,795 - praelocate - DEBUG - Processing candidate point 4: (-28.822616729000533, 24.839566666666666)
+2025-11-26 16:08:19,795 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:20,200 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:20,632 - praelocate - INFO - Optimized location 3 selected (based on time)
+2025-11-26 16:08:20,633 - praelocate - DEBUG - Optimized result: {'average_distance': 722.9, 'average_time': 495.45, 'all_distances': [960.6, 485.2], 'all_times': [669.17, 321.73], 'weighted_time': 509.93, 'origin': (-28.732783270999466, 24.839566666666666)}
+2025-11-26 16:08:21,553 - praelocate - DEBUG - Found 0 schools near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:08:23,303 - praelocate - DEBUG - Found 19 hospitals near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:08:24,249 - praelocate - DEBUG - Area list from directions: ['R64', 'South Africa']
+2025-11-26 16:08:24,268 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 16:08:24,271 - praelocate - INFO - Found 0 schools, 19 hospitals
+2025-11-26 16:08:24,271 - praelocate - INFO - Median price: Price Not Found
+2025-11-26 16:08:24,286 - praelocate - INFO - Processing 3 locations with radius=5.0km, optimize=time
+2025-11-26 16:08:24,286 - praelocate - DEBUG - Parsed 3 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30'), (-29.8587, 31.0218, 3.0, '30')]
+2025-11-26 16:08:24,287 - praelocate - INFO - Calculated weighted midpoint: {'lat': -29.3182, 'lng': 27.93068333333333}
+2025-11-26 16:08:24,287 - praelocate - DEBUG - Processing candidate point 0: (-29.3182, 27.93068333333333)
+2025-11-26 16:08:24,287 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:24,770 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:25,194 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:25,720 - praelocate - DEBUG - Processing candidate point 1: (-29.3182, 27.982198437498102)
+2025-11-26 16:08:25,721 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:26,173 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:26,574 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:26,971 - praelocate - DEBUG - Processing candidate point 2: (-29.3182, 27.87916822916856)
+2025-11-26 16:08:26,972 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:27,551 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:27,911 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:28,361 - praelocate - DEBUG - Processing candidate point 3: (-29.273283270999467, 27.93068333333333)
+2025-11-26 16:08:28,362 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:28,869 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:29,250 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:29,617 - praelocate - DEBUG - Processing candidate point 4: (-29.363116729000534, 27.93068333333333)
+2025-11-26 16:08:29,617 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:30,096 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:30,462 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:30,910 - praelocate - INFO - Optimized location 2 selected (based on time)
+2025-11-26 16:08:30,911 - praelocate - DEBUG - Optimized result: {'average_distance': 720.45, 'average_time': 554.44, 'all_distances': [1154.11, 449.95, 557.3], 'all_times': [861.5, 358.3, 443.52], 'weighted_time': 579.77, 'origin': (-29.3182, 27.87916822916856)}
+2025-11-26 16:08:31,816 - praelocate - DEBUG - Found 0 schools near (-29.3182, 27.87916822916856)
+2025-11-26 16:08:33,312 - praelocate - DEBUG - Found 20 hospitals near (-29.3182, 27.87916822916856)
+2025-11-26 16:08:34,249 - praelocate - DEBUG - Area list from directions: ['Unnamed Road', 'Lesotho']
+2025-11-26 16:08:34,251 - praelocate - INFO - Found 0 schools, 20 hospitals
+2025-11-26 16:08:34,252 - praelocate - INFO - Median price: *Feature only available in South Africa*
+2025-11-26 16:08:34,273 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 16:08:34,299 - praelocate - WARNING - Validation error: At least 2 locations are required to calculate a midpoint
+2025-11-26 16:08:34,309 - praelocate - WARNING - Validation error: Request body is required
+2025-11-26 16:08:34,319 - praelocate - WARNING - Validation error: Location 2: Coordinates out of valid range
+2025-11-26 16:08:34,327 - praelocate - WARNING - Validation error: Location 2: Coordinates out of valid range
+2025-11-26 16:08:34,337 - praelocate - WARNING - Validation error: Location 2: 'coordinates' field is required
+2025-11-26 16:08:34,343 - praelocate - WARNING - Validation error: Location 2: 'rank' field is required
+2025-11-26 16:08:37,364 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:08:37,366 - praelocate - DEBUG - Parsed 2 valid locations: [(0.0, 10.0, 1.0, '30'), (0.0, 20.0, 2.0, '30')]
+2025-11-26 16:08:37,367 - praelocate - INFO - Calculated weighted midpoint: {'lat': 0.0, 'lng': 16.666666666666668}
+2025-11-26 16:08:37,367 - praelocate - DEBUG - Processing candidate point 0: (0.0, 16.666666666666668)
+2025-11-26 16:08:37,368 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:37,582 - praelocate - WARNING - No route found - possible rate limiting
+2025-11-26 16:08:37,583 - praelocate - ERROR - External service error (Google Maps API): Too many requests - please wait and try again
+2025-11-26 16:08:40,602 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:08:40,603 - praelocate - DEBUG - Parsed 2 valid locations: [(40.7128, -74.006, 1.0, '30'), (-33.8688, 151.2093, 2.0, '30')]
+2025-11-26 16:08:40,603 - praelocate - INFO - Calculated weighted midpoint: {'lat': -9.008266666666666, 'lng': 76.13753333333334}
+2025-11-26 16:08:40,603 - praelocate - DEBUG - Processing candidate point 0: (-9.008266666666666, 76.13753333333334)
+2025-11-26 16:08:40,603 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:40,812 - praelocate - WARNING - No route found - possible rate limiting
+2025-11-26 16:08:40,815 - praelocate - ERROR - External service error (Google Maps API): Too many requests - please wait and try again
+2025-11-26 16:08:40,828 - praelocate - INFO - Processing 2 locations with radius=5.0km, optimize=time
+2025-11-26 16:08:40,829 - praelocate - DEBUG - Parsed 2 valid locations: [(-33.9249, 18.4241, 1.0, '30'), (-26.2041, 28.0473, 2.0, '30')]
+2025-11-26 16:08:40,829 - praelocate - INFO - Calculated weighted midpoint: {'lat': -28.7777, 'lng': 24.839566666666666}
+2025-11-26 16:08:40,834 - praelocate - DEBUG - Processing candidate point 0: (-28.7777, 24.839566666666666)
+2025-11-26 16:08:40,834 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:41,253 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:41,637 - praelocate - DEBUG - Processing candidate point 1: (-28.7777, 24.890812565717873)
+2025-11-26 16:08:41,637 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:42,034 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:42,423 - praelocate - DEBUG - Processing candidate point 2: (-28.7777, 24.78832076761546)
+2025-11-26 16:08:42,423 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:42,849 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:43,203 - praelocate - DEBUG - Processing candidate point 3: (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:08:43,204 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:43,642 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:43,999 - praelocate - DEBUG - Processing candidate point 4: (-28.822616729000533, 24.839566666666666)
+2025-11-26 16:08:43,999 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:44,418 - praelocate - WARNING - Invalid time format: 30, using default
+2025-11-26 16:08:44,814 - praelocate - INFO - Optimized location 3 selected (based on time)
+2025-11-26 16:08:44,822 - praelocate - DEBUG - Optimized result: {'average_distance': 722.9, 'average_time': 495.34, 'all_distances': [960.6, 485.2], 'all_times': [668.95, 321.73], 'weighted_time': 509.81, 'origin': (-28.732783270999466, 24.839566666666666)}
+2025-11-26 16:08:46,585 - praelocate - DEBUG - Found 0 schools near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:08:47,506 - praelocate - DEBUG - Found 19 hospitals near (-28.732783270999466, 24.839566666666666)
+2025-11-26 16:08:48,440 - praelocate - DEBUG - Area list from directions: ['R64', 'South Africa']
+2025-11-26 16:08:48,458 - praelocate - INFO - Chrome not found - skipping price lookup
+2025-11-26 16:08:48,461 - praelocate - INFO - Found 0 schools, 19 hospitals
+2025-11-26 16:08:48,462 - praelocate - INFO - Median price: Price Not Found
+2025-11-27 08:15:15,508 - praelocate - INFO - API key loaded from file
+2025-11-27 08:15:15,509 - praelocate - INFO - Google Maps client initialized successfully
+2025-11-27 08:15:15,513 - praelocate - INFO - Starting Praelocate API server...

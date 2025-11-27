@@ -10,6 +10,7 @@ function ApiKeySetup({ onApiKeySet, onCancel, existingKey }) {
   const [showInstructions, setShowInstructions] = useState(false);
   const [error, setError] = useState("");
   const [isValidating, setIsValidating] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   const validateApiKey = (key) => {
@@ -60,7 +61,11 @@ function ApiKeySetup({ onApiKeySet, onCancel, existingKey }) {
   };
 
   const handleReset = () => {
-    if (window.confirm("Are you sure you want to clear your API key? You'll need to enter a new one.")) {
+    if (
+      window.confirm(
+        "Are you sure you want to clear your API key? You'll need to enter a new one."
+      )
+    ) {
       localStorage.removeItem("googleMapsApiKey");
       setApiKey("");
       if (onCancel) {
@@ -113,7 +118,11 @@ function ApiKeySetup({ onApiKeySet, onCancel, existingKey }) {
                 className="submit-button"
                 disabled={isValidating || !apiKey.trim()}
               >
-                {isValidating ? "Validating..." : existingKey ? "Update" : "Continue"}
+                {isValidating
+                  ? "Validating..."
+                  : existingKey
+                  ? "Update"
+                  : "Continue"}
               </button>
               {onCancel && (
                 <button
@@ -162,7 +171,8 @@ function ApiKeySetup({ onApiKeySet, onCancel, existingKey }) {
                     </a>
                   </li>
                   <li>Create a new project or select an existing one</li>
-                  <li>Enable the following APIs:
+                  <li>
+                    Enable the following APIs:
                     <ul>
                       <li>Maps JavaScript API</li>
                       <li>Geocoding API</li>

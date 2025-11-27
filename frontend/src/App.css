@@ -1,13 +1,88 @@
-/* TODO: Implement dark mode color scheme */
-/* TODO: Add custom fonts for better typography */
-/* TODO: Use more descriptive variable names */
+/* Modern Theme System with Dark Mode Support */
 
 :root {
-  --background-light: #F0F8F9;
+  /* Primary Colors */
+  --primary-50: #f0f9fa;
+  --primary-100: #d4eef0;
+  --primary-200: #a9dde1;
+  --primary-300: #7dccd2;
+  --primary-400: #52bbc3;
+  --primary-500: #236F74;
+  --primary-600: #1d5a5e;
+  --primary-700: #174548;
+  --primary-800: #113032;
+  --primary-900: #0b1b1c;
+
+  /* Neutral Colors */
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  /* Semantic Colors */
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --error: #ef4444;
+  --error-light: #fee2e2;
+  --info: #3b82f6;
+  --info-light: #dbeafe;
+
+  /* Background & Surface */
+  --background: #f0f8f9;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  
+  /* Text Colors */
+  --text-primary: #1a1a2e;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  --text-inverse: #ffffff;
+
+  /* Component Colors */
   --button: #6B8F92;
   --button-hover: #4a797e;
-  --input-fill: #E1E1E1;
+  --button-active: #3d6568;
+  --input-fill: #f3f4f6;
+  --input-border: #e5e7eb;
+  --input-focus: #236F74;
   --active: #236F74;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
 
   /* Responsive breakpoints */
   --mobile: 768px;
@@ -15,15 +90,152 @@
   --desktop: 1440px;
 }
 
-/* TODO: Make responsive for smaller screens */
-/* TODO: Add loading animation class */
-/* TODO: Improve overall layout structure */
+/* Dark Mode Theme - Truly Dark */
+[data-theme="dark"] {
+  --background: #0a0a0f;
+  --surface: #121218;
+  --surface-elevated: #1a1a24;
+  
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  
+  --primary-500: #3d9ca1;
+  --primary-600: #2d8a8f;
+  --button: #3d8d91;
+  --button-hover: #4aa0a5;
+  --button-active: #2d7a7e;
+  
+  --input-fill: #1a1a24;
+  --input-border: #2a2a36;
+  --input-focus: #3d9ca1;
+  
+  --gray-50: #18181b;
+  --gray-100: #27272a;
+  --gray-200: #3f3f46;
+  --gray-300: #52525b;
+  --gray-400: #71717a;
+  --gray-500: #a1a1aa;
+  --gray-600: #d4d4d8;
+  --gray-700: #e4e4e7;
+  --gray-800: #f4f4f5;
+  --gray-900: #fafafa;
+  
+  --success-light: #052e16;
+  --warning-light: #422006;
+  --error-light: #450a0a;
+  --info-light: #172554;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.7);
+}
+
+/* Dark mode specific overrides */
+[data-theme="dark"] .settings-button {
+  background: var(--surface-elevated);
+  border-color: var(--gray-200);
+}
+
+[data-theme="dark"] .settings-button:hover {
+  background: var(--primary-600);
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+  background: var(--input-fill);
+  border-color: var(--input-border);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .input-box,
+[data-theme="dark"] .input-container {
+  background: var(--surface);
+  border-color: var(--gray-200);
+}
+
+[data-theme="dark"] table {
+  background: var(--surface);
+}
+
+[data-theme="dark"] th {
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] td {
+  border-color: var(--gray-200);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] tr:hover td {
+  background: var(--surface-elevated);
+}
+
+/* App Layout */
 .App {
   text-align: center;
   height: 100%;
-  min-height: 100%;
+  min-height: 100vh;
   font-size: 16pt;
   position: relative;
+  background: var(--background);
+  color: var(--text-primary);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Loading State */
+.app-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.app-loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--gray-200);
+  border-top-color: var(--primary-500);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  border: 2px solid var(--gray-200);
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  z-index: 1000;
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
 }
 
 .settings-button {

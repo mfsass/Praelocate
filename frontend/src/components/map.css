@@ -2,6 +2,59 @@
 /* TODO: Add smooth transitions and animations */
 /* TODO: Create reusable utility classes */
 
+/* Locations Header */
+.locations-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 8px;
+  margin-bottom: 0;
+}
+
+.locations-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a2e);
+}
+
+.settings-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: var(--surface-elevated, #f0f0f5);
+  cursor: pointer;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.settings-btn:hover {
+  background: var(--surface-hover, #e0e0e8);
+  transform: scale(1.05);
+}
+
+.settings-btn:active {
+  transform: scale(0.95);
+}
+
+/* Dark mode support */
+[data-theme="dark"] .locations-title {
+  color: var(--text-primary, #f5f5f7);
+}
+
+[data-theme="dark"] .settings-btn {
+  background: var(--surface-elevated, #2c2c2e);
+  color: #fff;
+}
+
+[data-theme="dark"] .settings-btn:hover {
+  background: var(--surface-hover, #3c3c3e);
+}
+
 /* Alert messages */
 .alert {
   padding: 12px 16px;
@@ -125,20 +178,65 @@
 
 .locations.button:hover {
   background: var(--button-hover);
+  transform: translateY(-1px);
 }
 
 .locations.button {
-  padding: 10px;
+  padding: 14px 24px;
   background: var(--button);
   border: none;
-  border-radius: 7px;
+  border-radius: 12px;
   cursor: pointer;
   color: white;
-  width: 300px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  min-width: 200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   text-align: center;
+  display: flex;
   align-items: center;
-  font-size: 22px;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 200ms ease;
+}
+
+.locations.button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.locations.button.submit-btn {
+  background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600, #1a5a5e) 100%);
+  min-width: 240px;
+}
+
+.locations.button.secondary-btn {
+  background: var(--surface-elevated, #f8fafc);
+  color: var(--text-primary, #1a1a2e);
+  border: 2px solid var(--border, #e2e8f0);
+}
+
+.locations.button.secondary-btn:hover {
+  background: var(--gray-100, #f1f5f9);
+  border-color: var(--primary-500);
+}
+
+.btn-icon {
+  font-size: 20px;
+}
+
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: btn-spin 0.8s linear infinite;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
 }
 
 .locations.slider {
@@ -227,6 +325,48 @@
 .customSlider-thumb:hover,
 .customSlider-thumb:active {
   box-shadow: 0 0 0 5px var(--active);
+}
+
+/* Results section */
+.results-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  margin-top: 20px;
+  border-top: 2px solid var(--border, #e5e7eb);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.results-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary, #1f2937);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.median-price-info {
+  background: var(--success-light, #d1fae5);
+  color: var(--success, #10b981);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  margin: 10px 0;
 }
 
 /* TODO: Improve table styling with better borders and spacing */
@@ -378,4 +518,207 @@
     width: 60px;
     font-size: 18px;
   }
+}
+
+/* ===================================
+   DARK MODE OVERRIDES
+   =================================== */
+
+[data-theme="dark"] .alert-error {
+  background-color: #450a0a;
+  border-color: #7f1d1d;
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .alert-success {
+  background-color: #052e16;
+  border-color: #166534;
+  color: #86efac;
+}
+
+[data-theme="dark"] .table.output {
+  background-color: var(--surface);
+  box-shadow: var(--shadow-md);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .table.output tr:nth-child(2n) {
+  background-color: var(--surface-elevated);
+}
+
+[data-theme="dark"] .table.output tr:hover {
+  background-color: var(--gray-200);
+}
+
+[data-theme="dark"] .table.output th {
+  background-color: var(--primary-600);
+  color: white;
+}
+
+[data-theme="dark"] .table.output td {
+  border-color: var(--gray-200);
+}
+
+[data-theme="dark"] .customSlider-track {
+  background: var(--gray-200);
+}
+
+[data-theme="dark"] .preference.options input[type="radio"] {
+  background: var(--surface-elevated);
+  border-color: var(--gray-300);
+}
+
+[data-theme="dark"] .preference.options input[type="radio"]:hover,
+[data-theme="dark"] .preference.options input[type="radio"]:checked {
+  background-color: var(--primary-500);
+  border-color: var(--primary-500);
+}
+
+[data-theme="dark"] .locations.form {
+  scrollbar-color: var(--gray-300) var(--surface);
+  background: var(--background, #0a0a0f);
+}
+
+/* Dark mode for left panel */
+[data-theme="dark"] .locations {
+  background: var(--background, #0a0a0f);
+}
+
+[data-theme="dark"] .locations.add button {
+  background: var(--surface-elevated, #1a1a24);
+  border-color: var(--border, #2d2d3a);
+  color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .locations.add button:hover {
+  background: var(--primary-500, #236F74);
+  border-color: var(--primary-500, #236F74);
+}
+
+[data-theme="dark"] .locations.button {
+  background: var(--primary-500, #236F74);
+  border-color: var(--primary-500, #236F74);
+  color: white;
+}
+
+[data-theme="dark"] .locations.button:hover {
+  background: var(--primary-400, #2d8a8f);
+  border-color: var(--primary-400, #2d8a8f);
+}
+
+[data-theme="dark"] .locations.button.secondary-btn {
+  background: var(--surface-elevated, #1a1a24);
+  color: var(--text-primary, #f1f5f9);
+  border: 2px solid var(--border, #2d2d3a);
+}
+
+[data-theme="dark"] .locations.button.secondary-btn:hover {
+  background: var(--surface, #121218);
+  border-color: var(--primary-500);
+}
+
+[data-theme="dark"] .locations.showPoint,
+[data-theme="dark"] .locations.getPoint {
+  background: var(--surface-elevated, #1a1a24);
+  border-color: var(--border, #2d2d3a);
+  color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .locations.preference fieldset {
+  background: var(--surface, #121218);
+  border-color: var(--border, #2d2d3a);
+}
+
+[data-theme="dark"] .locations.preference legend {
+  color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .preference.options label {
+  color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .locations.slider label {
+  color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .locations.slider div[aria-live] {
+  color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .locations.add label {
+  color: var(--text-primary, #f1f5f9);
+}
+
+/* User location indicator pulse */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(66, 133, 244, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(66, 133, 244, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(66, 133, 244, 0);
+  }
+}
+
+/* Info window styling */
+.info-window-content {
+  padding: 8px;
+  max-width: 200px;
+}
+
+.info-window-content h4 {
+  color: #1a1a1a !important;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.info-window-content p {
+  margin: 0 0 4px 0;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Location status indicator */
+.location-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.location-status.valid {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.location-status.invalid {
+  background: var(--error-light);
+  color: var(--error);
+}
+
+.location-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Dark mode for results section */
+[data-theme="dark"] .results-section {
+  border-color: var(--border, #2d2d3a);
+}
+
+[data-theme="dark"] .results-title {
+  color: var(--text-primary, #f1f5f9);
+}
+
+[data-theme="dark"] .median-price-info {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success, #10b981);
 }
